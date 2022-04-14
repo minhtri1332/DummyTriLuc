@@ -1,7 +1,7 @@
-import {styled} from '@/global';
-import {Colors} from '@/themes/Colors';
+import { styled } from "@/global";
+import { Colors } from "@/themes/Colors";
 
 export const ScreenWrapper = styled.View`
   flex: 1;
-  background-color: ${Colors.white};
+  background-color: ${Colors.grey6};
 `;

@@ -1,24 +1,25 @@
-import React, {memo, ReactElement, useCallback, useEffect} from 'react';
-import {styled, useNavigation} from '@/global';
+import React, { memo, ReactElement, useCallback, useEffect } from "react";
+import { styled, useNavigation } from "@/global";
 import {
   Platform,
   StatusBar,
   TouchableOpacityProps,
   View,
   ViewProps,
-} from 'react-native';
-import {getStatusBarHeight, isIphoneX} from 'react-native-iphone-x-helper';
-import {useTheme} from 'styled-components/native';
-import {Colors} from '@/themes/Colors';
-import {IC_BACK, IC_CLOSE, IC_MENU} from '@/assets';
-import {LineSeparator} from '@/common/LineSeperator';
+} from "react-native";
+import { getStatusBarHeight, isIphoneX } from "react-native-iphone-x-helper";
+import { useTheme } from "styled-components/native";
+import { Colors } from "@/themes/Colors";
+import { IC_BACK, IC_CLOSE, IC_MENU, IC_QR_CODE } from "@/assets";
+import { LineSeparator } from "@/common/LineSeperator";
+import { navigateToQRCodeScanScreen } from "@/ultils/navigation";
 
 const Wrapper = styled.View`
-  background-color: ${p => p.theme.primaryColor};
+  background-color: ${Colors.white};
 `;
 
 const WrapperHeaderModal = styled.View`
-  background-color: ${p => p.theme.backgroundHeader};
+  background-color: ${Colors.white};
 `;
 
 const LeftActions = styled.View`
@@ -53,6 +54,12 @@ const IconBack = styled.Image`
   tint-color: ${Colors.black};
 `;
 
+const SIconRight = styled.Image`
+  tint-color: ${Colors.black};
+  height: 26px;
+  width: 26px;
+`;
+
 export const HeaderIconWrapper = styled.TouchableOpacity`
   min-width: 40px;
   height: 40px;
@@ -77,7 +84,7 @@ const IconClose = styled.Image`
 export const HeaderActionText = memo(function HeaderActionText({
   text,
   ...props
-}: {text: string} & TouchableOpacityProps) {
+}: { text: string } & TouchableOpacityProps) {
   return (
     <RightHeaderIconWrapper {...props}>
       <_HeaderActionText>{text}</_HeaderActionText>
@@ -101,12 +108,12 @@ export const EmptyHeader = memo(function EmptyHeader({
   hideGoBack,
   onGoBack,
   ...props
-}: Omit<DynamicHeaderProps, 'title'>) {
-  const {canGoBack, goBack} = useNavigation();
+}: Omit<DynamicHeaderProps, "title">) {
+  const { canGoBack, goBack } = useNavigation();
 
   useEffect(() => {
     const entry = StatusBar.pushStackEntry({
-      barStyle: 'light-content',
+      barStyle: "light-content",
     });
 
     return () => {
@@ -151,11 +158,15 @@ export const HeaderHome = memo(function HeaderHome({
 }: DynamicHeaderProps) {
   useEffect(() => {
     const entry = StatusBar.pushStackEntry({
-      barStyle: 'light-content',
+      barStyle: "light-content",
     });
     return () => {
       StatusBar.popStackEntry(entry);
     };
+  }, []);
+
+  const gotoScan = useCallback(() => {
+    navigateToQRCodeScanScreen();
   }, []);
 
   return (
@@ -169,7 +180,9 @@ export const HeaderHome = memo(function HeaderHome({
         </LeftActions>
         <Title numberOfLines={1}>{title}</Title>
         <RightActions>
-          <HeaderIconWrapper />
+          <HeaderIconWrapper onPress={gotoScan}>
+            <SIconRight source={IC_QR_CODE} />
+          </HeaderIconWrapper>
         </RightActions>
       </Container>
       <LineSeparator />
@@ -183,7 +196,7 @@ export const DynamicHeader = memo(function DynamicHeader({
   onGoBack,
   ...props
 }: DynamicHeaderProps) {
-  const {canGoBack} = useNavigation();
+  const { canGoBack } = useNavigation();
   return (
     <EmptyHeader onGoBack={onGoBack} {...props}>
       <Title numberOfLines={1}>{title}</Title>
@@ -195,30 +208,30 @@ export const DynamicHeader = memo(function DynamicHeader({
   );
 });
 
-const StatusBarViewIosTransparent = styled.View<{isSafe?: boolean}>`
+const StatusBarViewIosTransparent = styled.View<{ isSafe?: boolean }>`
   height: ${isIphoneX() ? getStatusBarHeight(true) : 20}px;
-  background-color: ${props => props.theme.backgroundHeader};
+  background-color: ${(props) => props.theme.backgroundHeader};
 `;
 
 const StatusBarViewAndroidTransparent = memo(() => {
   const theme = useTheme();
   return (
     <StatusBar
-      barStyle={theme.name === 'light' ? 'dark-content' : 'light-content'}
+      barStyle={theme.name === "light" ? "dark-content" : "light-content"}
       backgroundColor={theme.backgroundColor}
     />
   );
 });
 
-export const StatusBarViewIos = styled.View<{isSafe?: boolean}>`
+export const StatusBarViewIos = styled.View<{ isSafe?: boolean }>`
   height: ${isIphoneX() ? getStatusBarHeight(true) : 20}px;
-  background-color: ${props => props.theme.primaryColor};
+  background-color: ${(props) => props.theme.primaryColor};
 `;
 
 const StatusBarViewAndroid = memo(() => {
   const theme = useTheme();
   return (
-    <StatusBar barStyle={'dark-content'} backgroundColor={theme.primaryColor} />
+    <StatusBar barStyle={"dark-content"} backgroundColor={theme.primaryColor} />
   );
 });
 
@@ -237,14 +250,14 @@ export const LeftModalHeader = memo(function LeftModalHeader({
   hideSeparator,
   ...props
 }: DynamicHeaderProps) {
-  const {canGoBack, goBack} = useNavigation();
+  const { canGoBack, goBack } = useNavigation();
   const theme = useTheme();
 
   return (
     <WrapperHeaderModal {...props}>
       <StatusBarViewTransparent />
       <StatusBar
-        barStyle={theme.name === 'light' ? 'dark-content' : 'light-content'}
+        barStyle={theme.name === "light" ? "dark-content" : "light-content"}
         backgroundColor={theme.backgroundHeader}
       />
 

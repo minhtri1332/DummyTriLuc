@@ -1,8 +1,8 @@
-import {styled} from '@/global';
-import React, {memo, ReactElement, useCallback, useState} from 'react';
-import {Colors} from '@/themes/Colors';
-import {ImageSourcePropType, ViewProps} from 'react-native';
-import {ViewLineSpace} from '@/common/LineSeperator';
+import { styled } from "@/global";
+import React, { memo, ReactElement, useCallback, useState } from "react";
+import { Colors } from "@/themes/Colors";
+import { ImageSourcePropType, ViewProps } from "react-native";
+import { ViewLineSpace } from "@/common/LineSeperator";
 
 export interface SectionContainerProps extends ViewProps {
   title: string;
@@ -28,18 +28,20 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
 
   return (
     <SectionContainer>
-      <HeaderWrapper onPress={onPress}>
-        <SViewTitle>
-          <Title>{title}</Title>
-          {iconElement}
-        </SViewTitle>
+      {title !== "" && (
+        <HeaderWrapper onPress={onPress}>
+          <SViewTitle>
+            <Title>{title}</Title>
+            {iconElement}
+          </SViewTitle>
 
-        {iconRight && (
-          <STouchRight>
-            <SImageRight source={iconRight} />
-          </STouchRight>
-        )}
-      </HeaderWrapper>
+          {iconRight && (
+            <STouchRight>
+              <SImageRight source={iconRight} />
+            </STouchRight>
+          )}
+        </HeaderWrapper>
+      )}
       {isExpand && children}
       {!hideLine && <ViewLineSpace />}
     </SectionContainer>
@@ -48,7 +50,11 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
 
 export default SectionContainerStyle;
 
-const SectionContainer = styled.View<{withDivider: boolean}>``;
+const SectionContainer = styled.View<{ withDivider: boolean }>`
+  margin: 16px;
+  border-radius: 4px;
+  background-color: ${Colors.white};
+`;
 
 const SViewTitle = styled.View`
   flex: 1;

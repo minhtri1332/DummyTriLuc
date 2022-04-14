@@ -1,5 +1,5 @@
 import LocaleServiceUrl, {urlProduct} from '@/store/types';
-import {Fetch} from '@/ultils/fetch';
+import {Fetch, updateFetchToken} from '@/ultils/fetch';
 
 export const requestLogin = async (userName: string, pass: string) => {
   const params = JSON.stringify({
@@ -15,7 +15,7 @@ export const requestLogin = async (userName: string, pass: string) => {
     return null;
   }
 
-  //  updateFetchToken(data.token);
+   updateFetchToken(data.token);
   return data;
 };
 

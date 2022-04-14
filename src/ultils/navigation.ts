@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import {
   NavigationContainerRef,
   ParamListBase,
   StackActions,
-} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+} from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export const navigationRef = React.createRef<NavigationContainerRef<any>>();
 
@@ -16,8 +16,9 @@ export const createNavigation = <T extends ParamListBase>() => {
 
 export const createReplace =
   <T extends object>(screenName: string) =>
-  (params?: T) =>
-    StackActions.replace(screenName, params);
+  (params?: T) => {
+    return navigation().dispatch(StackActions.replace(screenName, params));
+  };
 
 export const createNavigate =
   <T extends object>(screenName: string) =>
@@ -33,6 +34,6 @@ export const mainNavigation = createNavigation();
 
 export const goBack = () => navigation().goBack();
 
-export const navigateToHome = createNavigate('Main');
+export const navigateToHome = createReplace("Main");
 
-// export const navigateToWebview = createNavigate<WebviewProps>("Webview");
+export const navigateToQRCodeScanScreen = createNavigate("QRCodeScanScreen");

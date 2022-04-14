@@ -24,7 +24,6 @@
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "strict": true
   },
 
   "exclude": [

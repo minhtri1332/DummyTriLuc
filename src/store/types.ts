@@ -1,8 +1,8 @@
-export const urlProduct = 'https://api';
-export const urlProductMain = 'https://api';
+export const urlProduct = "https://api";
+export const urlProductMain = "https://api";
 
 class ServiceClass {
-  private urlProduct: string = 'https://api.cxview.ai';
+  private urlProduct: string = "https://api.gw.trilucmaster.com/";
 
   getUrl = () => {
     return this.urlProduct;

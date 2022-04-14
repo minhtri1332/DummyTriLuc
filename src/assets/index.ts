@@ -10,7 +10,7 @@ export const IC_HOME_ACTIVE = require('./icons/ic_home_active.png');
 export const IC_PRACTICE = require('./icons/ic_practice.png');
 export const IC_PRACTICE_ACTIVE = require('./icons/ic_practice_active.png');
 export const IC_CHART = require('./icons/ic_chart.png');
-
+export const IC_QR_CODE = require('./icons/ic_qr_code.png');
 export const IC_MENU = require('./icons/ic_menu.png');
 
 export const IC_FILE_AI = require('./files/ai.png');
