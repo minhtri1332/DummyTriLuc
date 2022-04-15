@@ -2,7 +2,7 @@ export const urlProduct = "https://api";
 export const urlProductMain = "https://api";
 
 class ServiceClass {
-  private urlProduct: string = "https://api.gw.trilucmaster.com/";
+  private urlProduct: string = "https://api.gw.trilucmaster.com/api/v1";
 
   getUrl = () => {
     return this.urlProduct;

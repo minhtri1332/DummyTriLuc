@@ -7,10 +7,12 @@ export const requestLogin = async (userName: string, pass: string) => {
     email: userName,
     password: pass,
   });
+
   const { data } = await Fetch.post<{ token: string }>(
     `${LocaleServiceUrl.getUrl()}/authentication/login`,
     params
   );
+
   if (!data) {
     return null;
   }

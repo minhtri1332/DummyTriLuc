@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import QRCodeScanner from "react-native-qrcode-scanner";
@@ -7,11 +7,17 @@ import * as Animatable from "react-native-animatable";
 import { styled } from "@/global";
 import { IC_BG_QR_SCAN } from "@/assets";
 import { Colors } from "@/themes/Colors";
+import { InputBorder } from "@/componens/ViewBorder/InputBorder";
+import { BaseOpacityButton } from "@/componens/Button/ButtonCustom";
+import SubmitButtonColor from "@/componens/Button/ButtonSubmit";
+import { requestConnectMachine } from "@/store/mechine/function";
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
+  const [code, setCode] = useState("");
+
   const onSuccess = (e) => {
     console.log("s", e);
   };
@@ -27,10 +33,26 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
     };
   };
 
+  const sendData = useCallback(() => {
+    requestConnectMachine(code).then();
+  }, [code]);
+
   return (
     <ScreenWrapper>
       <DynamicHeader title={"QR"} />
-
+      <View style={{ flexDirection: "row", marginBottom: 8 }}>
+        <SInputBorder
+          value={code}
+          keyName={"full_name"}
+          onTextChange={setCode}
+          placeHolder={"machine id"}
+        />
+        <SubmitButtonColor
+          style={{ paddingLeft: 16, paddingRight: 16 }}
+          title={"Send"}
+          onPress={sendData}
+        />
+      </View>
       <QRCodeScanner
         onRead={onSuccess}
         fadeIn={true}
@@ -113,6 +135,15 @@ const rectBorderColor = "red";
 const scanBarWidth = SCREEN_WIDTH * 0.46; // this is equivalent to 180 from a 393 device width
 const scanBarHeight = SCREEN_WIDTH * 0.0025; //this is equivalent to 1 from a 393 device width
 const scanBarColor = "#22ff00";
+
+const SInputBorder = styled(InputBorder).attrs({
+  containerStyle: {
+    flex: 1,
+    marginTop: 12,
+    marginRight: 16,
+    marginLeft: 16,
+  },
+})``;
 
 const styles = StyleSheet.create({
   centerText: {

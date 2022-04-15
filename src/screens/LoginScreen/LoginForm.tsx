@@ -56,8 +56,8 @@ const Container = styled.View`
 `;
 
 export const LoginForm = memo(() => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("abc@gmaii.com");
+  const [password, setPassword] = useState("Password#1");
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = useCallback(async () => {
@@ -65,16 +65,16 @@ export const LoginForm = memo(() => {
     await startLogin();
 
     if (Platform.OS === "ios") {
-      navigateToHome();
+      //  navigateToHome();
       // navigation().reset({
       //   index: 0,
       //   routes: [{name: 'Main'}],
       // });
     } else {
-      navigation().reset({
-        index: 0,
-        routes: [{ name: "Main" }],
-      });
+      // navigation().reset({
+      //   index: 0,
+      //   routes: [{ name: "Main" }],
+      // });
     }
   }, [email, password]);
 
@@ -85,17 +85,17 @@ export const LoginForm = memo(() => {
   }, []);
 
   const [{ loading }, startLogin] = useAsyncFn(async () => {
-    InteractionManager.runAfterInteractions(() => {
-      Keyboard.dismiss();
-    });
+    // InteractionManager.runAfterInteractions(() => {
+    //   Keyboard.dismiss();
+    // });
 
     const response = await requestLogin(email, password);
-    console.log("response", response);
+
     if (response) {
       await updateToken();
       await LocalStorageHelper.set("username", email);
       await LocalStorageHelper.set("password", password);
-      navigateToHome();
+      // navigateToHome();
     }
   }, [email, password]);
 

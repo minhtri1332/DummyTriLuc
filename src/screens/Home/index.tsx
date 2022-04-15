@@ -33,6 +33,8 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
         />
         <SViewContent></SViewContent>
       </SectionContainerStyle>
+
+
     </ScreenWrapper>
   );
 });
