@@ -95,7 +95,7 @@ export const LoginForm = memo(() => {
       await updateToken();
       await LocalStorageHelper.set("username", email);
       await LocalStorageHelper.set("password", password);
-      // navigateToHome();
+      navigateToHome();
     }
   }, [email, password]);
 

@@ -26,6 +26,7 @@ export const requestTokenDevice = async (token: string) => {
     `${LocaleServiceUrl.getUrl()}/user/update-firebase-token`,
     { firebase_token: token }
   );
+
   return response;
 };
 

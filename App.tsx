@@ -39,7 +39,7 @@ const App = () => {
     const showToast = useMemo(
         () =>
             _.debounce((title, body) => {
-                ToastService.show(`${title} ${body}`);
+             //   ToastService.show(`${title} ${body}`);
             }, 1000),
         [],
     );

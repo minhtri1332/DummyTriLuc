@@ -15,7 +15,7 @@ Fetch.interceptors.response.use(
   },
   error => {
     if (error.response.status === 500) {
-      ToastService.showError(error.response.data.message, true, true, '');
+     // ToastService.showError(error.response.data.message, true, true, '');
       return error.response.data;
     }
 
@@ -23,7 +23,7 @@ Fetch.interceptors.response.use(
       if (error.response.data.message === 'Mã lỗi #10000') {
         return error.response.data;
       }
-      ToastService.showError(error.response.data.message, true, true, '');
+      //ToastService.showError(error.response.data.message, true, true, '');
       return error.response.data;
     }
     if (error.response.status === 401) {

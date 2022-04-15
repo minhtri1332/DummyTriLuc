@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React, {memo, useCallback} from "react";
 import {HeaderHome} from "@/componens/Header/DynamicHeader";
 import {ScreenWrapper} from "@/common/CommonStyles";
 import SectionContainerStyle from "@/componens/View/SectionView";
@@ -7,15 +7,34 @@ import BaseProgressView from "@/componens/View/BaseProgressView";
 import {Colors} from "@/themes/Colors";
 import {styled} from "@/global";
 import RadarChartHome from "@/screens/Home/components/RadarChartHome";
+import {Text, View} from "react-native";
+import {BaseOpacityButton} from "@/componens/Button/ButtonCustom";
+import {requestConnectMachineHitMode} from "@/store/mechine/function";
+import MachineIdService from "@/services/MachineIdService";
 
 export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
+
+    const onPractice = useCallback(
+        async () => {
+            const machineId = await MachineIdService.getMachineId()
+           await requestConnectMachineHitMode(machineId, '5')
+        },
+        [],
+    );
 
   return (
     <ScreenWrapper>
       <HeaderHome title={"Home"} toggleDrawer={navigation.toggleDrawer} />
 
       <SectionContainerStyle title={""}>
-        <RadarChartHome />
+       <View style={{flexDirection:'row'}}>
+          <View style={{flex:1}}>
+              <RadarChartHome />
+          </View>
+           <SBaseOpacityButton onPress={onPractice}>
+               <Text>Tập luyện</Text>
+           </SBaseOpacityButton>
+       </View>
       </SectionContainerStyle>
 
       <SectionContainerStyle title={"Thông tin"} iconRight={IC_CHART}>
@@ -40,6 +59,16 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
 });
 
 export default HomeScreen;
+
+const SBaseOpacityButton = styled.TouchableOpacity`
+  height: 32px;
+  padding: 0 16px;
+  margin-right: 32px;
+  background-color: coral;
+  align-self: center;
+  justify-content: center;
+  border-radius: 4px;
+`;
 
 const Progress = styled(BaseProgressView)`
   height: 10px;

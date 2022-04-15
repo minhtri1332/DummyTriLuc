@@ -1,13 +1,37 @@
 import { Fetch } from "@/ultils/fetch";
 import LocaleServiceUrl from "@/store/types";
+import ToastService from "@/services/ToastService";
+import MachineIdService from "@/services/MachineIdService";
 
-export const requestConnectMachine = async (code: string) => {
+export const requestConnectMachine = async (machine_id: string) => {
   const params = JSON.stringify({
-    machine_id: code,
+    machine_id: machine_id,
   });
-  const { data } = await Fetch.put(
+  const {data}  = await Fetch.post(
     `${LocaleServiceUrl.getUrl()}/machine/connect`,
-    params
+      params
   );
-  return data.data;
+
+  if (data){
+   await MachineIdService.change(machine_id)
+    ToastService.show(data.message)
+  }
+
+  return data;
+};
+export const requestConnectMachineHitMode = async (machine_id: string, mode: string) => {
+  const params = JSON.stringify({
+    machine_id: machine_id,
+    mode:mode
+  });
+  const {data}  = await Fetch.post(
+    `${LocaleServiceUrl.getUrl()}/machine/hit-mode`,
+      params
+  );
+
+  if (data){
+    ToastService.show(data.message)
+  }
+
+  return data;
 };

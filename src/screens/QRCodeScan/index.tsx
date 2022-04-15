@@ -4,25 +4,27 @@ import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { styled } from "@/global";
+import {styled, useAsyncFn} from "@/global";
 import { IC_BG_QR_SCAN } from "@/assets";
 import { Colors } from "@/themes/Colors";
 import { InputBorder } from "@/componens/ViewBorder/InputBorder";
 import { BaseOpacityButton } from "@/componens/Button/ButtonCustom";
 import SubmitButtonColor from "@/componens/Button/ButtonSubmit";
 import { requestConnectMachine } from "@/store/mechine/function";
+import messaging from "@react-native-firebase/messaging";
+import {requestTokenDevice} from "@/store/auth/function";
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState("nodeesp32");
 
-  const onSuccess = (e) => {
-    console.log("s", e);
-  };
+  const [{}, onSuccess] = useAsyncFn(async (e: any) => {
+    await requestConnectMachine(e.data).then();
+  }, []);
 
-  const makeSlideOutTranslation = (translationType, fromValue) => {
+  const makeSlideOutTranslation = useCallback((translationType, fromValue) => {
     return {
       from: {
         [translationType]: SCREEN_WIDTH * -0.18,
@@ -31,7 +33,7 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
         [translationType]: fromValue,
       },
     };
-  };
+  },[]);
 
   const sendData = useCallback(() => {
     requestConnectMachine(code).then();
@@ -134,7 +136,7 @@ const rectBorderColor = "red";
 
 const scanBarWidth = SCREEN_WIDTH * 0.46; // this is equivalent to 180 from a 393 device width
 const scanBarHeight = SCREEN_WIDTH * 0.0025; //this is equivalent to 1 from a 393 device width
-const scanBarColor = "#22ff00";
+const scanBarColor = Colors.red1;
 
 const SInputBorder = styled(InputBorder).attrs({
   containerStyle: {
