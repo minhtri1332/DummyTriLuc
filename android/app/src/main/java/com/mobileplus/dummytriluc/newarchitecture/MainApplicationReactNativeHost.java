@@ -1,4 +1,4 @@
-package com.newproject.newarchitecture;
+package com.mobileplus.dummytriluc.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.newproject.BuildConfig;
-import com.newproject.newarchitecture.components.MainComponentsRegistry;
-import com.newproject.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.mobileplus.dummytriluc.BuildConfig;
+import com.mobileplus.dummytriluc.newarchitecture.components.MainComponentsRegistry;
+import com.mobileplus.dummytriluc.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

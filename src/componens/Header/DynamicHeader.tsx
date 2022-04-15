@@ -225,13 +225,13 @@ const StatusBarViewAndroidTransparent = memo(() => {
 
 export const StatusBarViewIos = styled.View<{ isSafe?: boolean }>`
   height: ${isIphoneX() ? getStatusBarHeight(true) : 20}px;
-  background-color: ${(props) => props.theme.primaryColor};
+  background-color: ${Colors.backgroundColor};
 `;
 
 const StatusBarViewAndroid = memo(() => {
-  const theme = useTheme();
+
   return (
-    <StatusBar barStyle={"dark-content"} backgroundColor={theme.primaryColor} />
+    <StatusBar barStyle={"dark-content"} backgroundColor={Colors.backgroundColor} />
   );
 });
 
