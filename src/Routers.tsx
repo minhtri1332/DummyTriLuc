@@ -1,17 +1,23 @@
-import {NavigationContainer} from "@react-navigation/native";
-import {StatusBar} from "react-native";
-import React, {memo} from "react";
-import {navigationRef} from "@/ultils/navigation";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "react-native";
+import React, { memo } from "react";
+import { navigationRef } from "@/ultils/navigation";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "@/screens/Home";
 import PreloadScreen from "@/screens/LoginScreen/PreloadScreen";
-import {CustomTabBar, TabBarIcon} from "@/componens/CustomTabBar";
-import {IC_HOME, IC_HOME_ACTIVE, IC_PRACTICE, IC_PRACTICE_ACTIVE,} from "@/assets";
+import { CustomTabBar, TabBarIcon } from "@/componens/CustomTabBar";
+import {
+  IC_HOME,
+  IC_HOME_ACTIVE,
+  IC_PRACTICE,
+  IC_PRACTICE_ACTIVE,
+} from "@/assets";
 import PracticeScreen from "@/screens/Practice/PracticeScreen";
-import {createDrawerNavigator} from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import QRCodeScanScreen from "@/screens/QRCodeScan";
-import {CustomDrawerContent} from "@/componens/CustomTabBar/DrawerScreen";
+import { CustomDrawerContent } from "@/componens/CustomTabBar/DrawerScreen";
+import RegisterAccountScreen from "@/screens/LoginScreen/RegisterAccountScreen";
 
 const RootStack = createNativeStackNavigator();
 const TabBarStack = createBottomTabNavigator();
@@ -89,7 +95,12 @@ export const Routes = memo(function Routes() {
 
           <RootStack.Group
             screenOptions={{ headerShown: false, presentation: "modal" }}
-          ></RootStack.Group>
+          >
+            <RootStack.Screen
+              name={"RegisterAccountScreen"}
+              component={RegisterAccountScreen}
+            />
+          </RootStack.Group>
         </RootStack.Navigator>
       </>
     </NavigationContainer>

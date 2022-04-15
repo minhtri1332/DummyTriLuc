@@ -22,9 +22,15 @@ import { Colors } from "@/themes/Colors";
 import { LeftIconInput } from "@/screens/LoginScreen/components/LeftIconInput";
 import { isTablet } from "react-native-device-info";
 import { BaseOpacityButton } from "@/componens/Button/ButtonCustom";
-import { navigateToHome, navigation } from "@/ultils/navigation";
-import { requestLogin } from "@/store/auth/function";
+import {
+  navigateToHome,
+  navigateToRegisterAccountScreen,
+  navigation,
+} from "@/ultils/navigation";
+import { requestLogin, requestTokenDevice } from "@/store/auth/function";
 import LocalStorageHelper from "@/services/LocalServiceHelper";
+import { useAsyncEffect } from "@/hooks/useAsyncEffect";
+import messaging from "@react-native-firebase/messaging";
 
 const RoundedButton = styled(BaseOpacityButton)`
   width: ${fTabletScale(FORM_WIDTH)}px;
@@ -56,10 +62,8 @@ export const LoginForm = memo(() => {
 
   const onSubmit = useCallback(async () => {
     Keyboard.dismiss();
-    // navigation().reset({
-    //   index: 0,
-    //   routes: [{name: 'Preload'}],
-    // });
+    await startLogin();
+
     if (Platform.OS === "ios") {
       navigateToHome();
       // navigation().reset({
@@ -74,14 +78,21 @@ export const LoginForm = memo(() => {
     }
   }, [email, password]);
 
+  const [{}, updateToken] = useAsyncFn(async () => {
+    await messaging().registerDeviceForRemoteMessages();
+    const tokenDevice = await messaging().getToken();
+    await requestTokenDevice(tokenDevice);
+  }, []);
+
   const [{ loading }, startLogin] = useAsyncFn(async () => {
     InteractionManager.runAfterInteractions(() => {
       Keyboard.dismiss();
     });
 
     const response = await requestLogin(email, password);
-
+    console.log("response", response);
     if (response) {
+      await updateToken();
       await LocalStorageHelper.set("username", email);
       await LocalStorageHelper.set("password", password);
       navigateToHome();
@@ -150,9 +161,17 @@ export const LoginForm = memo(() => {
           <LoginText>{"Login"}</LoginText>
         )}
       </LoginButton>
+      <STouchableOpacity onPress={navigateToRegisterAccountScreen}>
+        <Text style={styles.textLabel}>Tạo tài khoản</Text>
+      </STouchableOpacity>
     </Container>
   );
 });
+
+const STouchableOpacity = styled.TouchableOpacity`
+  align-self: flex-end;
+  padding: 16px;
+`;
 
 const styles = StyleSheet.create({
   inputContainer: {
@@ -186,7 +205,7 @@ const styles = StyleSheet.create({
   },
   textLabel: {
     fontSize: fTabletScale(13),
-    color: Colors.white,
+    color: Colors.grey1,
     marginBottom: 6,
   },
 });

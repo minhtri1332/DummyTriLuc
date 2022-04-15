@@ -1,44 +1,62 @@
-import LocaleServiceUrl, {urlProduct} from '@/store/types';
-import {Fetch, updateFetchToken} from '@/ultils/fetch';
+import LocaleServiceUrl from "@/store/types";
+import { Fetch, updateFetchToken } from "@/ultils/fetch";
+import { ParamCreateAccount } from "@/screens/LoginScreen/RegisterAccountScreen";
 
 export const requestLogin = async (userName: string, pass: string) => {
   const params = JSON.stringify({
     email: userName,
     password: pass,
   });
-  const {data} = await Fetch.post<{token: string}>(
-    `${urlProduct}/api/v1/user-management/login`,
-    params,
+  const { data } = await Fetch.post<{ token: string }>(
+    `${LocaleServiceUrl.getUrl()}/authentication/login`,
+    params
   );
-
   if (!data) {
     return null;
   }
 
-   updateFetchToken(data.token);
+  updateFetchToken(data.token);
   return data;
 };
 
 export const requestTokenDevice = async (token: string) => {
-  const response = await Fetch.put<{token: string}>(
-    `${urlProduct}/user-management/update-mobile-token`,
-    {mobileToken: token},
+  const response = await Fetch.put<{ token: string }>(
+    `${LocaleServiceUrl.getUrl()}/user/update-firebase-token`,
+    { firebase_token: token }
   );
   return response;
 };
 
-export const requestProfile = async () => {
-  const {data} = await Fetch.get(
-    `${urlProduct}/api/v1/user-management/get-profile`,
-    {},
+export const requestGetProfile = async () => {
+  const { data } = await Fetch.put(
+    `${LocaleServiceUrl.getUrl()}/user/user-profile`,
+    {}
   );
   return data.data;
 };
 
+export const requestEditProfile = async () => {
+  const { data } = await Fetch.get(
+    `${LocaleServiceUrl.getUrl()}/user/user-profile`,
+    {}
+  );
+  return data.data;
+};
+
+export const requestRegister = async (params: ParamCreateAccount) => {
+  const paramsString = JSON.stringify(params);
+  const { data } = await Fetch.post(
+    `${LocaleServiceUrl.getUrl()}/authentication/register`,
+    paramsString
+  );
+  console.log("data", data, paramsString);
+  return data.data;
+};
+
 export const requestLogout = async () => {
-  const {data} = await Fetch.post(
-    `${urlProduct}/api/v1/user-management/logout`,
-    {},
+  const { data } = await Fetch.post(
+    `${LocaleServiceUrl.getUrl()}/api/v1/user-management/logout`,
+    {}
   );
   return data.data;
 };

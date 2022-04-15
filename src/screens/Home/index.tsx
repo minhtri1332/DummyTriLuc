@@ -1,14 +1,15 @@
-import React, { memo } from "react";
-import { HeaderHome } from "@/componens/Header/DynamicHeader";
-import { ScreenWrapper } from "@/common/CommonStyles";
+import React, {memo} from "react";
+import {HeaderHome} from "@/componens/Header/DynamicHeader";
+import {ScreenWrapper} from "@/common/CommonStyles";
 import SectionContainerStyle from "@/componens/View/SectionView";
-import { IC_CHART } from "@/assets";
+import {IC_CHART} from "@/assets";
 import BaseProgressView from "@/componens/View/BaseProgressView";
-import { Colors } from "@/themes/Colors";
-import { styled } from "@/global";
+import {Colors} from "@/themes/Colors";
+import {styled} from "@/global";
 import RadarChartHome from "@/screens/Home/components/RadarChartHome";
 
 export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
+
   return (
     <ScreenWrapper>
       <HeaderHome title={"Home"} toggleDrawer={navigation.toggleDrawer} />

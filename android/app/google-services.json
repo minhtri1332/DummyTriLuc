@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "148195066847",
+    "project_id": "tl-master",
+    "storage_bucket": "tl-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148195066847:android:ff1390ff48a0e37123fa6a",
+        "android_client_info": {
+          "package_name": "com.mobileplus.dummytriluc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148195066847-bk345t9qgdu57f4tg7odq0hnvfn4q1sg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLXBkab4NYLeejaYqe-tgvvByQ1Kvahvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148195066847-bk345t9qgdu57f4tg7odq0hnvfn4q1sg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
