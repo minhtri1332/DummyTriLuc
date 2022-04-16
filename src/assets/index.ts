@@ -18,7 +18,12 @@ export const IC_CALENDAR = require("./icons/calendar.png");
 export const IC_UN_CHECK = require("./icons/ic_un_check.png");
 export const IC_CHECK = require("./icons/ic_checked.png");
 export const IC_DROPDOWN = require("./icons/ic_drop_down.png");
+export const IC_USER_Fill = require("./icons/ic_user.png");
 
+//image theme
+export const IMG_LOGIN_THEME = require("./images/login_theme.png");
+
+//files
 export const IC_FILE_AI = require("./files/ai.png");
 export const IC_FILE_APK = require("./files/apk.png");
 export const IC_FILE_CSV = require("./files/csv.png");

@@ -1,16 +1,17 @@
-import React, {memo, useEffect} from 'react';
-import {Platform, ScrollView, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import NavigationService from '@/services/NavigationService';
-import {ScreenWrapper} from '@/common/CommonStyles';
-import {LoginForm} from '@/screens/LoginScreen/LoginForm';
-import {fScale, fTabletScale, screenShortDimension} from '@/ultils/scale';
-import {styled} from '@/global';
-import {getStatusBarHeight} from 'react-native-iphone-x-helper';
-import {isTablet} from 'react-native-device-info';
-import {useDeviceOrientation} from '@react-native-community/hooks';
-import {Logo} from '@/screens/LoginScreen/components/Logo';
-import {useSetupLanguage} from '@/languages';
+import React, { memo, useEffect } from "react";
+import { Platform, ScrollView, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import NavigationService from "@/services/NavigationService";
+import { ScreenWrapper } from "@/common/CommonStyles";
+import { LoginForm } from "@/screens/LoginScreen/LoginForm";
+import { fScale, fTabletScale, screenShortDimension } from "@/ultils/scale";
+import { styled } from "@/global";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { isTablet } from "react-native-device-info";
+import { useDeviceOrientation } from "@react-native-community/hooks";
+import { Logo } from "@/screens/LoginScreen/components/Logo";
+import { useSetupLanguage } from "@/languages";
+import { IMG_LOGIN_THEME } from "@/assets";
 
 const HEIGHT_IN_PORTRAIT = isTablet()
   ? fScale(80)
@@ -28,10 +29,12 @@ export const PreloadScreen = memo(function PreloadScreen() {
 
   return (
     <ScreenWrapper>
+      <SImageBackground source={IMG_LOGIN_THEME} />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContent}
-        keyboardShouldPersistTaps="handled">
+        keyboardShouldPersistTaps="handled"
+      >
         <UpperContainer>
           <Spacer landscape={orientation.landscape} />
           <Logo />
@@ -45,30 +48,36 @@ export const PreloadScreen = memo(function PreloadScreen() {
 
 export default PreloadScreen;
 
+const SImageBackground = styled.Image`
+  flex: 1;
+  width: 100%;
+  position: absolute;
+`;
+
 const UpperContainer = styled.View`
   width: 100%;
   align-items: center;
   flex: 1;
 `;
 
-const Spacer = styled.View<{landscape: boolean}>`
+const Spacer = styled.View<{ landscape: boolean }>`
   height: ${() =>
     HEIGHT_IN_PORTRAIT +
-    (Platform.OS === 'ios' ? getStatusBarHeight(true) : 0)}px;
+    (Platform.OS === "ios" ? getStatusBarHeight(true) : 0)}px;
   width: 100%;
 `;
 
 const styles = StyleSheet.create({
   scrollView: {
     flex: 12,
-    width: '100%',
+    width: "100%",
   },
   scrollViewContent: {
-    minHeight: '100%',
-    alignItems: 'center',
+    minHeight: "100%",
+    alignItems: "center",
   },
   indicatorContainer: {
-    width: '100%',
+    width: "100%",
     marginTop: fTabletScale(42),
   },
 });

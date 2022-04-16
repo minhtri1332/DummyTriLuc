@@ -1,6 +1,7 @@
 import LocaleServiceUrl from "@/store/types";
 import { Fetch, updateFetchToken } from "@/ultils/fetch";
 import { ParamCreateAccount } from "@/screens/LoginScreen/RegisterAccountScreen";
+import ToastService from "@/services/ToastService";
 
 export const requestLogin = async (userName: string, pass: string) => {
   const params = JSON.stringify({
@@ -52,8 +53,8 @@ export const requestRegister = async (params: ParamCreateAccount) => {
     `${LocaleServiceUrl.getUrl()}/authentication/register`,
     paramsString
   );
-  console.log("data", data, paramsString);
-  return data.data;
+  ToastService.show(data.message);
+  return data.message_code;
 };
 
 export const requestLogout = async () => {

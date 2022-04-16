@@ -5,6 +5,9 @@ import { InputBorder } from "@/componens/ViewBorder/InputBorder";
 import { styled, useAsyncFn } from "@/global";
 import SubmitButtonColor from "@/componens/Button/ButtonSubmit";
 import { requestRegister } from "@/store/auth/function";
+import { goBack } from "@/ultils/navigation";
+import { useNavigationParams } from "@/hooks/useNavigationParams";
+import { Colors } from "@/themes/Colors";
 
 export interface ParamCreateAccount {
   full_name: string;
@@ -13,7 +16,12 @@ export interface ParamCreateAccount {
   re_password: string;
 }
 
+export interface RegisterAccountProps {
+  eventRegister: (paramCustomer: ParamCreateAccount) => void;
+}
+
 export const RegisterAccountScreen = memo(function RegisterAccountScreen() {
+  const { eventRegister } = useNavigationParams<RegisterAccountProps>();
   const [paramCustomer, setParamCustomer] = useState<ParamCreateAccount>({
     full_name: "Nguyen Van Bee",
     email: "",
@@ -32,12 +40,17 @@ export const RegisterAccountScreen = memo(function RegisterAccountScreen() {
   );
 
   const [{ loading }, requestRegisterAccount] = useAsyncFn(async () => {
-    await requestRegister(paramCustomer);
-  }, [paramCustomer]);
+    const response = await requestRegister(paramCustomer);
+    if (response == "TL10002") {
+      eventRegister(paramCustomer);
+    }
+    goBack();
+  }, [paramCustomer, eventRegister]);
 
   return (
     <ScreenWrapper>
       <DynamicHeader title={"Tạo tài khoản"} />
+
       <SInputBorder
         value={paramCustomer.full_name}
         keyName={"full_name"}
@@ -82,6 +95,7 @@ const SInputBorder = styled(InputBorder).attrs({
     marginTop: 12,
     marginRight: 16,
     marginLeft: 16,
+
   },
 })``;
 export default RegisterAccountScreen;

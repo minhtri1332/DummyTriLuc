@@ -1,19 +1,18 @@
-import {
-  DrawerContentScrollView,
-  DrawerItem,
-  DrawerItemList,
-} from "@react-navigation/drawer";
-import { Linking } from "react-native";
+import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+import { Linking, Text } from "react-native";
 import React, { memo } from "react";
 import { styled } from "@/global";
-import { CssImage } from "@/componens/Icons";
-import { IC_EMAIL } from "@/assets";
+import { CssImage } from "@/componens/View";
+import { IC_EMAIL, IC_USER_Fill } from "@/assets";
+import { Colors } from "@/themes/Colors";
+import Avatar from "@/componens/View/Avatar";
 
 export const CustomDrawerContent = memo(function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <SViewHeader>
-        <CssImage source={IC_EMAIL} size={24} />
+        <Avatar />
+        <SText>xcxc</SText>
       </SViewHeader>
       {/*<DrawerItemList {...props} />*/}
       <DrawerItem
@@ -24,7 +23,14 @@ export const CustomDrawerContent = memo(function CustomDrawerContent(props) {
   );
 });
 
+const SText = styled.Text`
+  align-self: center;
+  font-size: 20px;
+  padding-top: 4px;
+  font-family: Roboto-Medium;
+`;
+
 const SViewHeader = styled.View`
-  background-color: coral;
-  height: 50px;
+  border-bottom-width: 1px;
+  padding: 16px 0;
 `;

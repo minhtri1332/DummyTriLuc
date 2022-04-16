@@ -2,7 +2,6 @@ import React, { memo, useCallback, useState } from "react";
 import {
   ActivityIndicator,
   Image,
-  InteractionManager,
   Keyboard,
   Platform,
   StyleSheet,
@@ -25,12 +24,11 @@ import { BaseOpacityButton } from "@/componens/Button/ButtonCustom";
 import {
   navigateToHome,
   navigateToRegisterAccountScreen,
-  navigation,
 } from "@/ultils/navigation";
 import { requestLogin, requestTokenDevice } from "@/store/auth/function";
 import LocalStorageHelper from "@/services/LocalServiceHelper";
-import { useAsyncEffect } from "@/hooks/useAsyncEffect";
 import messaging from "@react-native-firebase/messaging";
+import { ParamCreateAccount } from "@/screens/LoginScreen/RegisterAccountScreen";
 
 const RoundedButton = styled(BaseOpacityButton)`
   width: ${fTabletScale(FORM_WIDTH)}px;
@@ -42,7 +40,7 @@ const RoundedButton = styled(BaseOpacityButton)`
 
 const LoginButton = styled(RoundedButton)`
   margin-top: ${fScale(16)}px;
-  background-color: ${Colors.orange1};
+  background-color: ${Colors.red1};
 `;
 const LoginText = styled.Text`
   font-size: ${fontTabletScale(15)}px;
@@ -63,20 +61,19 @@ export const LoginForm = memo(() => {
   const onSubmit = useCallback(async () => {
     Keyboard.dismiss();
     await startLogin();
-
-    if (Platform.OS === "ios") {
-      //  navigateToHome();
-      // navigation().reset({
-      //   index: 0,
-      //   routes: [{name: 'Main'}],
-      // });
-    } else {
-      // navigation().reset({
-      //   index: 0,
-      //   routes: [{ name: "Main" }],
-      // });
-    }
   }, [email, password]);
+
+  const eventRegister = useCallback(
+    async (data: ParamCreateAccount) => {
+      setEmail(data.email);
+      setPassword(data.password);
+    },
+    [setEmail, setPassword]
+  );
+
+  const goToRegister = useCallback(async () => {
+    navigateToRegisterAccountScreen({ eventRegister });
+  }, [eventRegister]);
 
   const [{}, updateToken] = useAsyncFn(async () => {
     await messaging().registerDeviceForRemoteMessages();
@@ -161,7 +158,7 @@ export const LoginForm = memo(() => {
           <LoginText>{"Login"}</LoginText>
         )}
       </LoginButton>
-      <STouchableOpacity onPress={navigateToRegisterAccountScreen}>
+      <STouchableOpacity onPress={goToRegister}>
         <Text style={styles.textLabel}>Tạo tài khoản</Text>
       </STouchableOpacity>
     </Container>
@@ -181,7 +178,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderWidth: 1,
     paddingLeft: 16,
-    backgroundColor: Colors.grey5,
+    backgroundColor: Colors.hint,
     alignItems: "center",
   },
   emailInputContainer: {
@@ -189,7 +186,7 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     fontSize: fontTabletScale(14),
-    color: "#616161",
+    color: Colors.white,
   },
   leftIconContainerStyle: {
     marginLeft: 0,
@@ -205,7 +202,7 @@ const styles = StyleSheet.create({
   },
   textLabel: {
     fontSize: fTabletScale(13),
-    color: Colors.grey1,
+    color: Colors.white,
     marginBottom: 6,
   },
 });

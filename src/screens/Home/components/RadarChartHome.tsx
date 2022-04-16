@@ -16,7 +16,7 @@ export const RadarChartHome = memo(function RadarChartHome() {
         ],
         label: "DS 1",
         config: {
-          color: Colors.red1,
+          color: processColor(Colors.red1),
           drawFilled: true,
           fillColor: processColor(Colors.red1),
           fillAlpha: 1000,
@@ -33,7 +33,7 @@ export const RadarChartHome = memo(function RadarChartHome() {
   const legend = {
     enabled: false,
     textSize: 14,
-    form: "DEFAULT",
+    form: "CIRCLE",
     drawInside: false,
     wordWrapEnabled: false,
   };
