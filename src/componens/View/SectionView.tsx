@@ -6,7 +6,7 @@ import { ViewLineSpace } from "@/common/LineSeperator";
 
 export interface SectionContainerProps extends ViewProps {
   title: string;
-  iconElement?: ReactElement;
+  iconLeft?: ImageSourcePropType;
   iconRight?: ImageSourcePropType;
   children?: ReactElement | ReactElement[];
   rightTitleAction?: string;
@@ -16,10 +16,10 @@ export interface SectionContainerProps extends ViewProps {
 
 export const SectionContainerStyle = memo(function SectionContainerStyle({
   title,
-  iconElement,
   children,
   hideLine,
   iconRight,
+  iconLeft,
 }: SectionContainerProps) {
   const [isExpand, setExpand] = useState(true);
   const onPress = useCallback(() => {
@@ -31,8 +31,8 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
       {title !== "" && (
         <HeaderWrapper onPress={onPress}>
           <SViewTitle>
+            {iconLeft && <SImageLeft source={iconLeft} />}
             <Title>{title}</Title>
-            {iconElement}
           </SViewTitle>
 
           {iconRight && (
@@ -50,32 +50,43 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
 
 export default SectionContainerStyle;
 
-const SectionContainer = styled.View<{ withDivider: boolean }>`
-  margin: 16px;
+const SectionContainer = styled.View`
+  margin: 16px 16px 0px 16px;
   border-radius: 4px;
-  background-color: ${Colors.white};
+  background-color: ${Colors.colorTab};
 `;
 
 const SViewTitle = styled.View`
   flex: 1;
+  flex-direction: row;
 `;
 
 const Title = styled.Text`
   font-family: Roboto-Medium;
-  color: ${Colors.grey1};
+  color: ${Colors.colorText};
   font-size: 18px;
+`;
+
+const SImageLeft = styled.Image`
+  height: 18px;
+  width: 20px;
+  margin-right: 8px;
+  margin-bottom: 4px;
+  tint-color: ${Colors.colorText};
 `;
 
 const SImageRight = styled.Image`
   height: 20px;
   width: 20px;
   margin-bottom: 4px;
+  tint-color: ${Colors.colorText};
 `;
 
 const HeaderWrapper = styled.TouchableOpacity`
   flex-direction: row;
   align-items: flex-end;
-  padding: 16px;
+  padding: 8px 16px;
+  background-color: ${Colors.colorBgTitle};
 `;
 
 const STouchRight = styled.TouchableOpacity``;

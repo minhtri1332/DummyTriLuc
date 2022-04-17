@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   icon: {
     width: fTabletScale(18),
     height: fTabletScale(18),
-    tintColor: "#616161",
+    tintColor: Colors.white,
   },
   buttonShowPass: {
     padding: 14,

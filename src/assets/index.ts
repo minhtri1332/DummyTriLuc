@@ -2,7 +2,8 @@ export const IC_CLOSE_EYE = require("./icons/ic_eye_close.png");
 export const IC_OPEN_EYE = require("./icons/ic_eye_open.png");
 export const IC_EMAIL = require("./icons/ic-email.png");
 export const IC_PASSWORD = require("./icons/ic-key.png");
-export const IC_LOGO = require("./icons/Logo.png");
+export const IC_LOGO = require("./icons/logo.png");
+export const IC_LOGO_LOGIN = require("./icons/ic_logo_login.png");
 export const IC_CLOSE = require("./icons/close.png");
 export const IC_BACK = require("./icons/back_icon.png");
 export const IC_HOME = require("./icons/ic_home.png");
@@ -19,9 +20,12 @@ export const IC_UN_CHECK = require("./icons/ic_un_check.png");
 export const IC_CHECK = require("./icons/ic_checked.png");
 export const IC_DROPDOWN = require("./icons/ic_drop_down.png");
 export const IC_USER_Fill = require("./icons/ic_user.png");
+export const IC_PUNCH = require("./icons/ic_punch.png");
+export const IC_POWER = require("./icons/ic_power.png");
 
 //image theme
 export const IMG_LOGIN_THEME = require("./images/login_theme.png");
+export const IMG_TARGET_HOME_THEME = require("./images/background_target_home.png");
 
 //files
 export const IC_FILE_AI = require("./files/ai.png");

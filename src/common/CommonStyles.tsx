@@ -3,5 +3,5 @@ import { Colors } from "@/themes/Colors";
 
 export const ScreenWrapper = styled.View`
   flex: 1;
-  background-color: ${Colors.grey6};
+  background-color: ${Colors.backgroundColor};
 `;

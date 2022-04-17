@@ -15,11 +15,11 @@ import { LineSeparator } from "@/common/LineSeperator";
 import { navigateToQRCodeScanScreen } from "@/ultils/navigation";
 
 const Wrapper = styled.View`
-  background-color: ${Colors.white};
+  background-color: ${Colors.backgroundHeader};
 `;
 
 const WrapperHeaderModal = styled.View`
-  background-color: ${Colors.white};
+  background-color: ${Colors.backgroundHeader};
 `;
 
 const LeftActions = styled.View`
@@ -38,7 +38,7 @@ const Container = styled.View`
 
 export const Title = styled.Text`
   font-size: 20px;
-  color: ${Colors.black};
+  color: ${Colors.colorText};
   line-height: 22px;
   flex: 1;
   padding: 0 16px;
@@ -47,15 +47,15 @@ export const Title = styled.Text`
 
 const LeftTitle = styled(Title)`
   text-align: left;
-  color: ${Colors.black};
+  color: ${Colors.white};
 `;
 
 const IconBack = styled.Image`
-  tint-color: ${Colors.black};
+  tint-color: ${Colors.white};
 `;
 
 const SIconRight = styled.Image`
-  tint-color: ${Colors.black};
+  tint-color: ${Colors.white};
   height: 26px;
   width: 26px;
 `;
@@ -78,7 +78,7 @@ const _HeaderActionText = styled.Text`
 `;
 
 const IconClose = styled.Image`
-  tint-color: ${Colors.black};
+  tint-color: ${Colors.white};
 `;
 
 export const HeaderActionText = memo(function HeaderActionText({
@@ -210,15 +210,14 @@ export const DynamicHeader = memo(function DynamicHeader({
 
 const StatusBarViewIosTransparent = styled.View<{ isSafe?: boolean }>`
   height: ${isIphoneX() ? getStatusBarHeight(true) : 20}px;
-  background-color: ${(props) => props.theme.backgroundHeader};
+  background-color: ${Colors.backgroundHeader};
 `;
 
 const StatusBarViewAndroidTransparent = memo(() => {
-  const theme = useTheme();
   return (
     <StatusBar
-      barStyle={theme.name === "light" ? "dark-content" : "light-content"}
-      backgroundColor={theme.backgroundColor}
+      barStyle={"light-content"}
+      backgroundColor={Colors.backgroundHeader}
     />
   );
 });
@@ -229,9 +228,11 @@ export const StatusBarViewIos = styled.View<{ isSafe?: boolean }>`
 `;
 
 const StatusBarViewAndroid = memo(() => {
-
   return (
-    <StatusBar barStyle={"dark-content"} backgroundColor={Colors.backgroundColor} />
+    <StatusBar
+      barStyle={"dark-content"}
+      backgroundColor={Colors.backgroundColor}
+    />
   );
 });
 
@@ -255,12 +256,6 @@ export const LeftModalHeader = memo(function LeftModalHeader({
 
   return (
     <WrapperHeaderModal {...props}>
-      <StatusBarViewTransparent />
-      <StatusBar
-        barStyle={theme.name === "light" ? "dark-content" : "light-content"}
-        backgroundColor={theme.backgroundHeader}
-      />
-
       <Container>
         <LeftTitle numberOfLines={1}>{title}</LeftTitle>
         <RightActions>

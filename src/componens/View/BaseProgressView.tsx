@@ -1,7 +1,7 @@
-import React from 'react';
-import {memo, useMemo} from 'react';
-import styled from 'styled-components/native';
-import {Colors} from '@/themes/Colors';
+import React from "react";
+import { memo, useMemo } from "react";
+import styled from "styled-components/native";
+import { Colors } from "@/themes/Colors";
 
 interface Props {
   height?: number;
@@ -46,10 +46,10 @@ const BaseProgressView = memo((props: Props) => {
 
 export default BaseProgressView;
 
-const RootView = styled.View<{color: string; height: number}>`
-  background-color: ${props => props.color};
-  height: ${props => props.height}px;
-  border-radius: ${props => props.height / 2}px;
+const RootView = styled.View<{ color: string; height: number }>`
+  background-color: ${(props) => props.color};
+  height: ${(props) => props.height}px;
+  border-radius: ${(props) => props.height / 2}px;
 `;
 
 const ProgressBar = styled.View<{
@@ -58,11 +58,10 @@ const ProgressBar = styled.View<{
   height: number;
 }>`
   flex: 1;
-  height: ${props => props.height}px;
-  background-color: ${props => props.color};
-  width: ${props => {
+  height: ${(props) => props.height}px;
+  background-color: ${(props) => props.color};
+  width: ${(props) => {
     let value = props.progress * 100;
-    return value > 100 ? '100%' : value + '%';
+    return value > 100 ? "100%" : value + "%";
   }};
-  border-radius: ${props => props.height / 2}px;
 `;

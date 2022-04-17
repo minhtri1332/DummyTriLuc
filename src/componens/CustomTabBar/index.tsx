@@ -1,49 +1,52 @@
-import React, {memo, useCallback, useMemo} from 'react';
-import {BottomTabBarProps} from '@react-navigation/bottom-tabs/lib/typescript/src/types';
+import React, { memo, useCallback, useMemo } from "react";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs/lib/typescript/src/types";
 import {
   ImageSourcePropType,
   InteractionManager,
   StyleSheet,
   TouchableOpacity,
   View,
-} from 'react-native';
-import {getBottomSpace} from 'react-native-iphone-x-helper';
-import _ from 'lodash';
-import styled from 'styled-components/native';
-import {screenShortDimension} from '@/ultils/scale';
-import {translate} from '@/languages';
+} from "react-native";
+import { getBottomSpace } from "react-native-iphone-x-helper";
+import _ from "lodash";
+import styled from "styled-components/native";
+import { screenShortDimension } from "@/ultils/scale";
+import { translate } from "@/languages";
+import { Colors } from "@/themes/Colors";
 
 export interface TabBarIconProps {
   icon: ImageSourcePropType;
   isFocused: boolean;
 }
 
-const Icon = styled.Image<{isFocused: boolean}>`
+const Icon = styled.Image<{ isFocused: boolean }>`
   width: 24px;
   height: 24px;
+  tint-color: ${Colors.colorText};
 `;
 
-const Label = styled.Text<{focused: boolean}>`
+const Label = styled.Text<{ focused: boolean }>`
   font-style: normal;
   font-weight: normal;
   font-size: 11px;
   line-height: 13px;
   text-align: center;
   padding-top: 4px;
-  opacity: ${(p: {focused: any}) => (p.focused ? 1 : 0.54)};
+  color: ${Colors.colorText};
+  opacity: ${(p: { focused: any }) => (p.focused ? 1 : 0.54)};
 `;
 
 const ContentContainer = styled.View`
-  background-color: ${p => p.theme.backgroundColor};
+  background-color: ${Colors.backgroundColor};
   border-top-width: 1px;
-  border-top-color: ${p => p.theme.black10};
+  border-top-color: ${Colors.grey3};
 `;
 
 const PlusVertical = styled.View`
   position: absolute;
   height: 16px;
   width: 1.5px;
-  background-color: ${p => p.theme.white};
+  background-color: ${Colors.grey3};
   border-radius: 3px;
 `;
 
@@ -51,7 +54,7 @@ const PlusHorizontal = styled.View`
   position: absolute;
   height: 1.5px;
   width: 16px;
-  background-color: ${p => p.theme.white};
+  background-color: ${Colors.white};
   border-radius: 3px;
 `;
 
@@ -87,13 +90,14 @@ export const CustomTabBar = memo(function CustomTabBar({
       <ContentContainer style={styles.containerAbsolute}>
         <View style={styles.contentContainer}>
           {state.routes.map((route, index) => {
-            const {options} = descriptors[route.key];
+            const { options } = descriptors[route.key];
 
             if (index === 2) {
               return (
                 <View
                   style={styles.viewIconAdd}
-                  key={'tab-' + index.toString()}>
+                  key={"tab-" + index.toString()}
+                >
                   <ButtonAdd activeOpacity={0.9} onPress={onShowHide}>
                     <PlusVertical />
                     <PlusHorizontal />
@@ -114,13 +118,13 @@ export const CustomTabBar = memo(function CustomTabBar({
             const onPress = useCallback(() => {
               InteractionManager.runAfterInteractions(() => {
                 const event = navigation.emit({
-                  type: 'tabPress',
+                  type: "tabPress",
                   target: route.key,
                   canPreventDefault: true,
                 });
 
                 if (!isFocused && !event.defaultPrevented) {
-                  navigation.navigate(route.name, {id: route.name});
+                  navigation.navigate(route.name, { id: route.name });
                 }
               });
             }, [route, isFocused, index]);
@@ -128,21 +132,22 @@ export const CustomTabBar = memo(function CustomTabBar({
             return (
               <TouchableOpacity
                 activeOpacity={0.6}
-                key={'tab-' + index.toString()}
+                key={"tab-" + index.toString()}
                 accessibilityRole="button"
                 accessibilityLabel={options.tabBarAccessibilityLabel}
                 testID={options.tabBarTestID}
                 onPress={onPress}
-                style={styles.bottomBarIcon}>
+                style={styles.bottomBarIcon}
+              >
                 {options &&
                   options.tabBarIcon &&
                   options.tabBarIcon({
                     focused: isFocused,
-                    color: '',
+                    color: "",
                     size: 0,
                   })}
                 <Label numberOfLines={1} focused={isFocused}>
-                  {label ? translate(`${label}`, `${label}`) : ''}
+                  {label ? translate(`${label}`, `${label}`) : ""}
                 </Label>
               </TouchableOpacity>
             );
@@ -156,16 +161,16 @@ export const CustomTabBar = memo(function CustomTabBar({
 
 const styles = StyleSheet.create({
   containerAbsolute: {
-    position: 'absolute',
+    backgroundColor: Colors.backgroundColor,
     bottom: 0,
     left: 0,
     right: 0,
     height: 56 + getBottomSpace(),
   },
   modalStyle: {
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    alignSelf: 'center',
+    justifyContent: "flex-end",
+    alignItems: "center",
+    alignSelf: "center",
     margin: 0,
     marginLeft: 16,
     marginRight: 16,
@@ -175,32 +180,32 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   viewIconAdd: {
     flex: 1,
     height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   bottomBarIcon: {
     marginTop: 6,
-    height: '100%',
+    height: "100%",
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "transparent",
   },
   plusHorizontal: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 1,
     width: 3,
     height: 20,
     borderRadius: 2,
   },
   plusVertical: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 1,
     width: 20,
     height: 3,

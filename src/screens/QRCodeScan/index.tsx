@@ -4,15 +4,12 @@ import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import QRCodeScanner from "react-native-qrcode-scanner";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import * as Animatable from "react-native-animatable";
-import {styled, useAsyncFn} from "@/global";
+import { styled, useAsyncFn } from "@/global";
 import { IC_BG_QR_SCAN } from "@/assets";
 import { Colors } from "@/themes/Colors";
 import { InputBorder } from "@/componens/ViewBorder/InputBorder";
-import { BaseOpacityButton } from "@/componens/Button/ButtonCustom";
 import SubmitButtonColor from "@/componens/Button/ButtonSubmit";
 import { requestConnectMachine } from "@/store/mechine/function";
-import messaging from "@react-native-firebase/messaging";
-import {requestTokenDevice} from "@/store/auth/function";
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -33,7 +30,7 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
         [translationType]: fromValue,
       },
     };
-  },[]);
+  }, []);
 
   const sendData = useCallback(() => {
     requestConnectMachine(code).then();
@@ -41,20 +38,20 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
 
   return (
     <ScreenWrapper>
-      <DynamicHeader title={"QR"} />
-      <View style={{ flexDirection: "row", marginBottom: 8 }}>
-        <SInputBorder
-          value={code}
-          keyName={"full_name"}
-          onTextChange={setCode}
-          placeHolder={"machine id"}
-        />
-        <SubmitButtonColor
-          style={{ paddingLeft: 16, paddingRight: 16 }}
-          title={"Send"}
-          onPress={sendData}
-        />
-      </View>
+      <DynamicHeader title={"QR Scan"} />
+      {/*<View style={{ flexDirection: "row", marginBottom: 8 }}>*/}
+      {/*  <SInputBorder*/}
+      {/*    value={code}*/}
+      {/*    keyName={"full_name"}*/}
+      {/*    onTextChange={setCode}*/}
+      {/*    placeHolder={"machine id"}*/}
+      {/*  />*/}
+      {/*  <SubmitButtonColor*/}
+      {/*    style={{ paddingLeft: 16, paddingRight: 16 }}*/}
+      {/*    title={"Send"}*/}
+      {/*    onPress={sendData}*/}
+      {/*  />*/}
+      {/*</View>*/}
       <QRCodeScanner
         onRead={onSuccess}
         fadeIn={true}

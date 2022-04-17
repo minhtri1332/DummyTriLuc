@@ -24,19 +24,19 @@ import { Colors } from "@/themes/Colors";
 const Container = styled.View<{ disabled?: boolean }>`
   min-height: 56px;
   border-width: 1px;
-  border-color: ${Colors.grey5};
+  border-color: ${Colors.hint};
   border-radius: 8px;
-  background-color: ${(p: any) => (p.disabled ? Colors.grey6 : Colors.white)};
+  background-color: ${(p: any) => (p.disabled ? Colors.grey6 : Colors.hint)};
   flex-direction: row;
   overflow: hidden;
 `;
 
 const STextInput = styled.TextInput`
-  color: ${Colors.grey1};
+  color: ${Colors.colorText};
   margin-left: ${Platform.OS === "android" ? -3 : 0}px;
 `;
 const Gray1Text = styled.Text`
-  color: ${Colors.grey1};
+  color: ${Colors.colorText};
 `;
 
 interface Props extends TextInputProps {
@@ -142,7 +142,7 @@ export const InputBorder = memo(function InputBorder(props: Props) {
                     inputRange: [0, 1],
                     outputRange: [15, 11],
                   }),
-                  color: Colors.grey3,
+                  color: Colors.colorText,
                 },
               ]}
             >

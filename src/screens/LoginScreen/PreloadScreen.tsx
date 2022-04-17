@@ -1,5 +1,10 @@
 import React, { memo, useEffect } from "react";
-import { Platform, ScrollView, StyleSheet } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import NavigationService from "@/services/NavigationService";
 import { ScreenWrapper } from "@/common/CommonStyles";
@@ -35,12 +40,17 @@ export const PreloadScreen = memo(function PreloadScreen() {
         contentContainerStyle={styles.scrollViewContent}
         keyboardShouldPersistTaps="handled"
       >
-        <UpperContainer>
-          <Spacer landscape={orientation.landscape} />
-          <Logo />
-          <Spacer landscape={orientation.landscape} />
-          <LoginForm />
-        </UpperContainer>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={-100}
+          behavior={"position"}
+        >
+          <UpperContainer>
+            <Spacer landscape={orientation.landscape} />
+            <Logo />
+            <Spacer landscape={orientation.landscape} />
+            <LoginForm />
+          </UpperContainer>
+        </KeyboardAvoidingView>
       </ScrollView>
     </ScreenWrapper>
   );
@@ -73,8 +83,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   scrollViewContent: {
-    minHeight: "100%",
     alignItems: "center",
+    flex: 1,
   },
   indicatorContainer: {
     width: "100%",
