@@ -28,3 +28,11 @@ export const requestStrengthGoal = async () => {
   );
   return data;
 };
+
+export const requestHitsStatistic = async () => {
+  const { data } = await Fetch.get(
+    `${LocaleServiceUrl.getUrl()}/hits/hits-statistic`,
+    {}
+  );
+  return data;
+};

@@ -13,6 +13,7 @@ import {
   RawDataGoal,
   RawDataStrengthGoal,
   requestHitGoal,
+  requestHitsStatistic,
   requestStrengthGoal,
 } from "@/store/home/function";
 import { Colors } from "@/themes/Colors";
@@ -36,6 +37,8 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
   const [{ loading }, onLoadData] = useAsyncFn(async () => {
     const dataHit = await requestHitGoal();
     const dataStrength = await requestStrengthGoal();
+    const hitStatic = await requestHitsStatistic();
+    console.log("hitStatic", hitStatic);
     setDataHit(dataHit);
     setDataStrength(dataStrength);
   }, []);
