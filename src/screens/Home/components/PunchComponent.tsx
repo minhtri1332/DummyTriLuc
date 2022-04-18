@@ -27,7 +27,7 @@ export const PunchComponent = memo(function PunchComponent(props: PunchProps) {
       />
       <SViewContent>
         <SViewItem>
-          <STextNumberPunch>{dataHit?.total_hit || 0}</STextNumberPunch>
+          <STextNumberPunch>{dataHit?.total_hits || 0}</STextNumberPunch>
           <STextTitlePunch>Đòn đánh</STextTitlePunch>
         </SViewItem>
         <SViewItem>

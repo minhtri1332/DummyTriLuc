@@ -2,7 +2,7 @@ import { Fetch } from "@/ultils/fetch";
 import LocaleServiceUrl from "@/store/types";
 
 export interface RawDataGoal {
-  total_hit: number;
+  total_hits: number;
   goal: number;
 }
 
