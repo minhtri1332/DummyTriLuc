@@ -20,11 +20,17 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
   hideLine,
   iconRight,
   iconLeft,
+  rightAction,
 }: SectionContainerProps) {
   const [isExpand, setExpand] = useState(true);
+
   const onPress = useCallback(() => {
     setExpand(!isExpand);
   }, [isExpand]);
+
+  const onPressIconRight = useCallback(() => {
+    rightAction && rightAction();
+  }, [rightAction]);
 
   return (
     <SectionContainer>
@@ -36,7 +42,7 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
           </SViewTitle>
 
           {iconRight && (
-            <STouchRight>
+            <STouchRight onPress={onPressIconRight}>
               <SImageRight source={iconRight} />
             </STouchRight>
           )}

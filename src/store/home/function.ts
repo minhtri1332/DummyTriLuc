@@ -1,5 +1,6 @@
 import { Fetch } from "@/ultils/fetch";
 import LocaleServiceUrl from "@/store/types";
+import { paramFilterHit } from "@/screens/Home/HitScreen/HitStatisticScreen";
 
 export interface RawDataGoal {
   total_hits: number;
@@ -29,10 +30,10 @@ export const requestStrengthGoal = async () => {
   return data;
 };
 
-export const requestHitsStatistic = async () => {
+export const requestHitsStatistic = async (params: paramFilterHit) => {
   const { data } = await Fetch.get(
     `${LocaleServiceUrl.getUrl()}/hits/hits-statistic`,
-    {}
+    params
   );
   return data;
 };

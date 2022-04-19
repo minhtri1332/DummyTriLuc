@@ -7,7 +7,7 @@ import RadarChartHome from "@/screens/Home/components/RadarChartHome";
 import { RefreshControl, ScrollView, View } from "react-native";
 import { requestConnectMachineHitMode } from "@/store/mechine/function";
 import MachineIdService from "@/services/MachineIdService";
-import PunchComponent from "@/screens/Home/components/PunchComponent";
+import PunchComponent from "@/screens/Home/HitScreen/PunchComponent";
 import PowerComponent from "@/screens/Home/components/PowerComponent";
 import {
   RawDataGoal,
@@ -22,7 +22,7 @@ import GradientButton from "@/componens/Gradient/ButtonGradient";
 export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
   const [dataHit, setDataHit] = useState<RawDataGoal>({
     goal: 0,
-    total_hit: 0,
+    total_hits: 0,
   });
   const [dataStrength, setDataStrength] = useState<RawDataStrengthGoal>({
     strength: 0,
@@ -37,8 +37,7 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
   const [{ loading }, onLoadData] = useAsyncFn(async () => {
     const dataHit = await requestHitGoal();
     const dataStrength = await requestStrengthGoal();
-    const hitStatic = await requestHitsStatistic();
-    console.log("hitStatic", hitStatic);
+
     setDataHit(dataHit);
     setDataStrength(dataStrength);
   }, []);

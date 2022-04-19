@@ -6,6 +6,7 @@ import { styled } from "@/global";
 import BaseProgressView from "@/componens/View/BaseProgressView";
 import GradientText from "@/componens/Gradient/TextGradient";
 import { RawDataGoal } from "@/store/home/function";
+import { navigateToHitStatisticScreen } from "@/ultils/navigation";
 
 interface PunchProps {
   dataHit: RawDataGoal;
@@ -19,6 +20,7 @@ export const PunchComponent = memo(function PunchComponent(props: PunchProps) {
       title={"Đòn đánh"}
       iconLeft={IC_PUNCH}
       iconRight={IC_CHART}
+      rightAction={() => navigateToHitStatisticScreen()}
     >
       <Progress
         progress={0.1}

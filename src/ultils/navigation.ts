@@ -40,5 +40,6 @@ export const goBack = () => navigation().goBack();
 export const navigateToHome = createReplace("Main");
 
 export const navigateToQRCodeScanScreen = createNavigate("QRCodeScanScreen");
+export const navigateToHitStatisticScreen = createNavigate("HitStatisticScreen");
 export const navigateToRegisterAccountScreen =
   createNavigate<RegisterAccountProps>("RegisterAccountScreen");
