@@ -15,6 +15,7 @@ export const Colors = {
   grey7: "rgba(0,0,0,0.05)", //10%
   blue1: "#007AFF",
   blue2: "#4379DF",
+  blue3: "#00D1FF",
   green1: "#27AE60",
   green2: "#14CC3F",
   orange1: "#EB8357",
@@ -25,6 +26,7 @@ export const Colors = {
   red3: "#F43434",
   secondaryColor: "#007AFF",
   purple1: "#AB71BD",
+  purple2: "#5668CB",
   yellow1: "#ECD92D",
   hint: "#A8A8A8",
   transparent: "transparent",

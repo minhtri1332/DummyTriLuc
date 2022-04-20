@@ -7,6 +7,8 @@ import moment from "moment";
 import GradientButton from "@/componens/Gradient/ButtonGradient";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { requestHitsStatistic } from "@/store/home/function";
+import BarChartComponent from "@/screens/Home/HitScreen/BarChartComponent";
+import GradientText from "@/componens/Gradient/TextGradient";
 
 export interface paramFilterHit {
   dateStart: number;
@@ -87,9 +89,33 @@ export const HitStatisticScreen = memo(function HitStatisticScreen() {
           {moment(paramFilter.dateStart, "X").format("yyyy")}
         </STextDate>
       </SViewPickTime>
+
+      <BarChartComponent />
+      <SViewTextHit>
+        <STextGradient>1000 </STextGradient>
+        <SText>đòn đánh</SText>
+      </SViewTextHit>
     </ScreenWrapper>
   );
 });
+
+const SViewTextHit = styled.View`
+  align-self: center;
+  margin-top: 50px;
+  flex-direction: row;
+`;
+
+const SText = styled.Text`
+  color: ${Colors.colorText};
+  font-size: 30px;
+  font-family: Roboto-Medium;
+`;
+
+const STextGradient = styled(GradientText)`
+  color: ${Colors.colorText};
+  font-size: 30px;
+  font-family: Roboto-Medium;
+`;
 
 const SButtonTab = styled(GradientButton)`
   flex: 1;
