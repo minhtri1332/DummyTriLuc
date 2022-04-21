@@ -31,10 +31,18 @@ export const requestStrengthGoal = async () => {
 };
 
 export const requestHitsStatistic = async (params: paramFilterHit) => {
-  console.log("params", params);
-  const { data } = await Fetch.get(
+  const { data } = await Fetch.get<{ list_hits: number[] }>(
     `${LocaleServiceUrl.getUrl()}/hits/hit-statistic`,
     {}
   );
+  return data.list_hits;
+};
+
+export const requestStrengthStatistic = async (params: paramFilterHit) => {
+  const { data } = await Fetch.get<{ list_strength: number[]; stat: number[] }>(
+    `${LocaleServiceUrl.getUrl()}/hits/strength-statistic`,
+    {}
+  );
+
   return data;
 };

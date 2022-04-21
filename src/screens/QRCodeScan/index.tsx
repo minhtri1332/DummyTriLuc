@@ -39,31 +39,21 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
   return (
     <ScreenWrapper>
       <DynamicHeader title={"QR Scan"} />
-      {/*<View style={{ flexDirection: "row", marginBottom: 8 }}>*/}
-      {/*  <SInputBorder*/}
-      {/*    value={code}*/}
-      {/*    keyName={"full_name"}*/}
-      {/*    onTextChange={setCode}*/}
-      {/*    placeHolder={"machine id"}*/}
-      {/*  />*/}
-      {/*  <SubmitButtonColor*/}
-      {/*    style={{ paddingLeft: 16, paddingRight: 16 }}*/}
-      {/*    title={"Send"}*/}
-      {/*    onPress={sendData}*/}
-      {/*  />*/}
-      {/*</View>*/}
+
       <QRCodeScanner
+        containerStyle={{ flex: 1 }}
+        cameraType={"back"}
         onRead={onSuccess}
         fadeIn={true}
         showMarker={true}
+        reactivateTimeout={6000}
+        reactivate={true}
         cameraStyle={{ height: SCREEN_HEIGHT }}
         markerStyle={{ borderColor: Colors.white, borderWidth: 1 }}
         customMarker={
           <View style={styles.rectangleContainer}>
             <View style={styles.topOverlay}>
-              <Text style={{ fontSize: 30, color: "white" }}>
-                {/*QR CODE SCANNER*/}
-              </Text>
+              <Text style={{ fontSize: 30, color: "white" }}></Text>
             </View>
 
             <View style={{ flexDirection: "row" }}>

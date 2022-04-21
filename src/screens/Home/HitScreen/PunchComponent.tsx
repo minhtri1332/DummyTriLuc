@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, {memo, useCallback} from "react";
 import SectionContainerStyle from "@/componens/View/SectionView";
 import { IC_CHART, IC_PUNCH } from "@/assets";
 import { Colors } from "@/themes/Colors";
@@ -6,7 +6,7 @@ import { styled } from "@/global";
 import BaseProgressView from "@/componens/View/BaseProgressView";
 import GradientText from "@/componens/Gradient/TextGradient";
 import { RawDataGoal } from "@/store/home/function";
-import { navigateToHitStatisticScreen } from "@/ultils/navigation";
+import {navigateToHitStatisticScreen, navigateToStrengthStatisticScreen} from "@/ultils/navigation";
 
 interface PunchProps {
   dataHit: RawDataGoal;
@@ -15,12 +15,15 @@ interface PunchProps {
 export const PunchComponent = memo(function PunchComponent(props: PunchProps) {
   const { dataHit } = props;
 
+  const goToStatistic = useCallback(() => {
+    navigateToHitStatisticScreen()
+  }, []);
   return (
     <SectionContainerStyle
       title={"Đòn đánh"}
       iconLeft={IC_PUNCH}
       iconRight={IC_CHART}
-      rightAction={() => navigateToHitStatisticScreen()}
+      rightAction={goToStatistic}
     >
       <Progress
         progress={0.1}

@@ -19,6 +19,7 @@ import QRCodeScanScreen from "@/screens/QRCodeScan";
 import { CustomDrawerContent } from "@/componens/CustomTabBar/DrawerScreen";
 import RegisterAccountScreen from "@/screens/LoginScreen/RegisterAccountScreen";
 import HitStatisticScreen from "@/screens/Home/HitScreen/HitStatisticScreen";
+import StrengthStatisticScreen from "@/screens/Home/StrengthScreen/StrengthStatisticScreen";
 
 const RootStack = createNativeStackNavigator();
 const TabBarStack = createBottomTabNavigator();
@@ -92,9 +93,13 @@ export const Routes = memo(function Routes() {
               name={"QRCodeScanScreen"}
               component={QRCodeScanScreen}
             />
-              <RootStack.Screen
+            <RootStack.Screen
               name={"HitStatisticScreen"}
               component={HitStatisticScreen}
+            />
+            <RootStack.Screen
+              name={"StrengthStatisticScreen"}
+              component={StrengthStatisticScreen}
             />
           </RootStack.Group>
 

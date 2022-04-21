@@ -8,6 +8,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import RegisterAccountScreen, {
   RegisterAccountProps,
 } from "@/screens/LoginScreen/RegisterAccountScreen";
+import StrengthStatisticScreen from "@/screens/Home/StrengthScreen/StrengthStatisticScreen";
 
 export const navigationRef = React.createRef<NavigationContainerRef<any>>();
 
@@ -40,6 +41,12 @@ export const goBack = () => navigation().goBack();
 export const navigateToHome = createReplace("Main");
 
 export const navigateToQRCodeScanScreen = createNavigate("QRCodeScanScreen");
-export const navigateToHitStatisticScreen = createNavigate("HitStatisticScreen");
+
+export const navigateToHitStatisticScreen =
+  createNavigate("HitStatisticScreen");
+
+export const navigateToStrengthStatisticScreen = createNavigate(
+  "StrengthStatisticScreen"
+);
 export const navigateToRegisterAccountScreen =
   createNavigate<RegisterAccountProps>("RegisterAccountScreen");

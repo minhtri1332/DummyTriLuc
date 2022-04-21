@@ -1,29 +1,31 @@
 import React, { memo, useMemo } from "react";
 import { BarChart } from "react-native-charts-wrapper";
 import { processColor, StyleSheet, View } from "react-native";
-import { RawDataStrengthGoal } from "@/store/home/function";
 import { Colors } from "@/themes/Colors";
 
 interface dataProps {
-  dataStrength: RawDataStrengthGoal;
+  listData: number[];
 }
 
-export const BarChartComponent = memo(function BarChartComponent() {
+export const BarChartComponent = memo(function BarChartComponent(
+  props: dataProps
+) {
+  const { listData } = props;
+
+  const valueChart = useMemo(() => {
+    console.log("l", listData);
+    if (listData && listData?.length == 0) return [{ y: 0 }];
+
+    return listData?.map((item) => {
+      return { y: item || 0 };
+    });
+  }, [listData]);
+
   const data = useMemo(() => {
     return {
       dataSets: [
         {
-          values: [
-            { y: 100 },
-            { y: 105 },
-            { y: 102 },
-            { y: 110 },
-            { y: 114 },
-            { y: 109 },
-            { y: 105 },
-            { y: 99 },
-            { y: 5 },
-          ],
+          values: valueChart,
           label: "Bar dataSet",
           config: {
             barShadowColor: processColor(Colors.white),
@@ -41,7 +43,7 @@ export const BarChartComponent = memo(function BarChartComponent() {
         barWidth: 0.6,
       },
     };
-  }, []);
+  }, [listData, valueChart]);
 
   const legend = useMemo(() => {
     return {

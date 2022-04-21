@@ -1,24 +1,28 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
-import { styled } from "@/global";
+import { styled, useBoolean } from "@/global";
 import { Colors } from "@/themes/Colors";
+import moment from "moment";
 import GradientButton from "@/componens/Gradient/ButtonGradient";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { requestStrengthStatistic } from "@/store/home/function";
 import BarChartComponent from "@/screens/Home/HitScreen/BarChartComponent";
 import GradientText from "@/componens/Gradient/TextGradient";
 import TabHeaderSelectTime, {
   paramFilter,
 } from "@/screens/Home/components/TabHeaderSelectTime";
-import moment from "moment";
-import { requestHitsStatistic } from "@/store/home/function";
 
-export const HitStatisticScreen = memo(function HitStatisticScreen() {
+export const StrengthStatisticScreen = memo(function StrengthStatisticScreen() {
   const [paramFilter, setParamFilter] = useState<paramFilter>({
     statisticType: "byWeek",
     dateStart: moment(new Date()).startOf("isoWeek").unix(),
     dateEnd: moment(new Date()).endOf("isoWeek").unix(),
   });
-  const [dataHitStatic, setDataHitStatic] = useState<number[]>([]);
+  const [dataHitStatic, setDataHitStatic] = useState({
+    list_strength: [],
+    stat: [],
+  });
 
   const setParamCustom = useCallback(
     (keyName: string, value: string) => {
@@ -28,24 +32,26 @@ export const HitStatisticScreen = memo(function HitStatisticScreen() {
   );
 
   const onConfirm = useCallback(async () => {
-    const strengthStatic = await requestHitsStatistic(paramFilter);
+    const strengthStatic = await requestStrengthStatistic(paramFilter);
     setDataHitStatic(strengthStatic);
+    //setState(date);
+    // requestAnimationFrame(() => {
+    //     onChange?.(moment(date).unix());
+    // });
   }, [paramFilter]);
-
   useEffect(() => {
-    onConfirm().then();
-  }, [paramFilter]);
-
+    onConfirm();
+  }, []);
   return (
     <ScreenWrapper>
-      <DynamicHeader title={"Thống kê"} />
+      <DynamicHeader title={"Sức mạnh"} />
+
       <TabHeaderSelectTime
         params={paramFilter}
         setParamCustom={setParamCustom}
-        setParamFilter={setParamFilter}
       />
 
-      <BarChartComponent listData={dataHitStatic} />
+      <BarChartComponent listData={dataHitStatic.list_strength} />
       <SViewTextHit>
         <STextGradient>1000 </STextGradient>
         <SText>đòn đánh</SText>
@@ -94,4 +100,4 @@ const SViewButtonGroup = styled.View`
   flex-direction: row;
 `;
 
-export default HitStatisticScreen;
+export default StrengthStatisticScreen;

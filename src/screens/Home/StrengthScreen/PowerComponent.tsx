@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import SectionContainerStyle from "@/componens/View/SectionView";
 import { IC_CHART, IC_POWER } from "@/assets";
 import { Colors } from "@/themes/Colors";
@@ -6,6 +6,10 @@ import { styled } from "@/global";
 import BaseProgressView from "@/componens/View/BaseProgressView";
 import PieChartHome from "@/screens/Home/components/PieChartHome";
 import { RawDataStrengthGoal } from "@/store/home/function";
+import {
+  navigateToHitStatisticScreen,
+  navigateToStrengthStatisticScreen,
+} from "@/ultils/navigation";
 
 interface PowerProps {
   dataStrength: RawDataStrengthGoal;
@@ -14,11 +18,16 @@ interface PowerProps {
 export const PowerComponent = memo(function PowerComponent(props: PowerProps) {
   const { dataStrength } = props;
 
+  const goToStatistic = useCallback(() => {
+    navigateToStrengthStatisticScreen()
+  }, []);
+
   return (
     <SectionContainerStyle
       title={"Sức mạnh"}
       iconLeft={IC_POWER}
       iconRight={IC_CHART}
+      rightAction={goToStatistic}
     >
       <Progress
         progress={0.1}

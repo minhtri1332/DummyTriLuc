@@ -8,7 +8,7 @@ import { RefreshControl, ScrollView, View } from "react-native";
 import { requestConnectMachineHitMode } from "@/store/mechine/function";
 import MachineIdService from "@/services/MachineIdService";
 import PunchComponent from "@/screens/Home/HitScreen/PunchComponent";
-import PowerComponent from "@/screens/Home/components/PowerComponent";
+import PowerComponent from "@/screens/Home/StrengthScreen/PowerComponent";
 import {
   RawDataGoal,
   RawDataStrengthGoal,
