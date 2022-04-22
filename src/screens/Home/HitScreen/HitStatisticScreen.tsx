@@ -72,26 +72,4 @@ const STextGradient = styled(GradientText)`
   font-family: Roboto-Medium;
 `;
 
-const SButtonTab = styled(GradientButton)`
-  flex: 1;
-  border-right-width: 1px;
-  border-color: ${Colors.grey3};
-  border-radius: 0px;
-`;
-
-const STextDate = styled.Text`
-  align-self: center;
-  color: ${Colors.colorText};
-`;
-
-const SViewPickTime = styled.TouchableOpacity``;
-
-const SViewButtonGroup = styled.View`
-  height: 34px;
-  margin: 16px;
-  border-width: 1px;
-  border-color: ${Colors.grey3};
-  flex-direction: row;
-`;
-
 export default HitStatisticScreen;

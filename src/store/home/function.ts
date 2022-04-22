@@ -1,6 +1,6 @@
 import { Fetch } from "@/ultils/fetch";
 import LocaleServiceUrl from "@/store/types";
-import { paramFilterHit } from "@/screens/Home/HitScreen/HitStatisticScreen";
+import { paramFilter } from "@/screens/Home/components/TabHeaderSelectTime";
 
 export interface RawDataGoal {
   total_hits: number;
@@ -30,18 +30,29 @@ export const requestStrengthGoal = async () => {
   return data;
 };
 
-export const requestHitsStatistic = async (params: paramFilterHit) => {
-  const { data } = await Fetch.get<{ list_hits: number[] }>(
+export const requestHitsStatistic = async (params: paramFilter) => {
+  const dataHeader = {
+    dateStart: params.dateStart,
+    dateEnd: params.dateEnd,
+    statisticType: params.statisticType,
+  };
+  const { data } = await Fetch.get<{ list_hits: [] }>(
     `${LocaleServiceUrl.getUrl()}/hits/hit-statistic`,
-    {}
+    { headers: dataHeader }
   );
+
   return data.list_hits;
 };
 
-export const requestStrengthStatistic = async (params: paramFilterHit) => {
-  const { data } = await Fetch.get<{ list_strength: number[]; stat: number[] }>(
+export const requestStrengthStatistic = async (params: paramFilter) => {
+  const dataHeader = {
+    dateStart: params.dateStart,
+    dateEnd: params.dateEnd,
+    statisticType: params.statisticType,
+  };
+  const { data } = await Fetch.get<{ list_strength: []; stat: [] }>(
     `${LocaleServiceUrl.getUrl()}/hits/strength-statistic`,
-    {}
+    { headers: dataHeader }
   );
 
   return data;

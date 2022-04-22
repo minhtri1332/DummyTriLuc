@@ -1,11 +1,10 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
-import { styled, useBoolean } from "@/global";
+import { styled } from "@/global";
 import { Colors } from "@/themes/Colors";
 import moment from "moment";
 import GradientButton from "@/componens/Gradient/ButtonGradient";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { requestStrengthStatistic } from "@/store/home/function";
 import BarChartComponent from "@/screens/Home/HitScreen/BarChartComponent";
 import GradientText from "@/componens/Gradient/TextGradient";
@@ -76,28 +75,6 @@ const STextGradient = styled(GradientText)`
   color: ${Colors.colorText};
   font-size: 30px;
   font-family: Roboto-Medium;
-`;
-
-const SButtonTab = styled(GradientButton)`
-  flex: 1;
-  border-right-width: 1px;
-  border-color: ${Colors.grey3};
-  border-radius: 0px;
-`;
-
-const STextDate = styled.Text`
-  align-self: center;
-  color: ${Colors.colorText};
-`;
-
-const SViewPickTime = styled.TouchableOpacity``;
-
-const SViewButtonGroup = styled.View`
-  height: 34px;
-  margin: 16px;
-  border-width: 1px;
-  border-color: ${Colors.grey3};
-  flex-direction: row;
 `;
 
 export default StrengthStatisticScreen;
