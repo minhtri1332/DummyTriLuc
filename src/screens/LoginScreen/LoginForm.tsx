@@ -54,7 +54,7 @@ const Container = styled.View`
 `;
 
 export const LoginForm = memo(() => {
-  const [email, setEmail] = useState("abc@gmaii.com");
+  const [email, setEmail] = useState("test3@gmail.com");
   const [password, setPassword] = useState("Password#1");
   const [showPassword, setShowPassword] = useState(false);
 

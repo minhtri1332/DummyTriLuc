@@ -58,14 +58,13 @@ export const PieChartHome = memo(function PieChartHome(props: dataProps) {
       <PieChart
         style={styles.chart}
         logEnabled={false}
-        chartBackgroundColor={processColor(Colors.colorTab)}
         data={data}
         chartDescription={{ text: "" }}
         legend={legend}
         drawEntryLabels={false}
         rotationEnabled={true}
         styledCenterText={{
-          text: String(dataStrength?.strength || 0),
+          text: String(dataStrength?.strength.toFixed(0) || 0),
           color: processColor(Colors.colorText),
           size: 30,
         }}
@@ -82,7 +81,9 @@ export const PieChartHome = memo(function PieChartHome(props: dataProps) {
               <SViewNote isColor={color[index]} />
               <STextNote isColor={Colors.grey4}>
                 Point {index + 1}:{" "}
-                <STextNote isColor={Colors.colorText}>{item}</STextNote>
+                <STextNote isColor={Colors.colorText}>
+                  {item.toFixed(0)}
+                </STextNote>
               </STextNote>
             </SViewItemNote>
           );

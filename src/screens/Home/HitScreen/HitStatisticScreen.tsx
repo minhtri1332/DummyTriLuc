@@ -1,9 +1,8 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
-import { styled } from "@/global";
+import { styled, useAsyncFn } from "@/global";
 import { Colors } from "@/themes/Colors";
-import GradientButton from "@/componens/Gradient/ButtonGradient";
 import BarChartComponent from "@/screens/Home/HitScreen/BarChartComponent";
 import GradientText from "@/componens/Gradient/TextGradient";
 import TabHeaderSelectTime, {
@@ -11,6 +10,8 @@ import TabHeaderSelectTime, {
 } from "@/screens/Home/components/TabHeaderSelectTime";
 import moment from "moment";
 import { requestHitsStatistic } from "@/store/home/function";
+import messaging from "@react-native-firebase/messaging";
+import { requestTokenDevice } from "@/store/auth/function";
 
 export const HitStatisticScreen = memo(function HitStatisticScreen() {
   const [paramFilter, setParamFilter] = useState<paramFilter>({
@@ -22,13 +23,17 @@ export const HitStatisticScreen = memo(function HitStatisticScreen() {
 
   const setParamCustom = useCallback(
     (keyName: string, value: string) => {
-      setParamFilter({ ...paramFilter, [keyName]: value });
+      setParamFilter({
+        ...paramFilter,
+        [keyName]: value,
+      });
     },
     [paramFilter]
   );
 
-  const onConfirm = useCallback(async () => {
+  const [{ loading }, onConfirm] = useAsyncFn(async () => {
     const strengthStatic = await requestHitsStatistic(paramFilter);
+
     setDataHitStatic(strengthStatic);
   }, [paramFilter]);
 
@@ -45,7 +50,9 @@ export const HitStatisticScreen = memo(function HitStatisticScreen() {
         setParamFilter={setParamFilter}
       />
 
-      <BarChartComponent listData={dataHitStatic} />
+      {!loading && (
+        <BarChartComponent listData={dataHitStatic} params={paramFilter} />
+      )}
       <SViewTextHit>
         <STextGradient>1000 </STextGradient>
         <SText>đòn đánh</SText>

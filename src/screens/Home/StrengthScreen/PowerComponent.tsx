@@ -19,7 +19,7 @@ export const PowerComponent = memo(function PowerComponent(props: PowerProps) {
   const { dataStrength } = props;
 
   const goToStatistic = useCallback(() => {
-    navigateToStrengthStatisticScreen()
+    navigateToStrengthStatisticScreen();
   }, []);
 
   return (
@@ -47,6 +47,7 @@ const Progress = styled(BaseProgressView)`
 
 const SViewContent = styled.View`
   flex: 1;
+
 `;
 
 export default PowerComponent;

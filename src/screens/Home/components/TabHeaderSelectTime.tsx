@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from "react";
+import React, { memo, useCallback, useEffect, useMemo } from "react";
 import SectionContainerStyle from "@/componens/View/SectionView";
 import { IC_CHART, IC_POWER } from "@/assets";
 import { Colors } from "@/themes/Colors";
@@ -26,18 +26,21 @@ export interface paramFilter {
 interface TabHeaderSelectTimeProps {
   params: paramFilter;
   setParamCustom: (keyName: string, value: any) => void;
+  setParamFilter: (value: any) => void;
 }
 
 export const TabHeaderSelectTime = memo(function TabHeaderSelectTime({
   params,
   setParamCustom,
+  setParamFilter,
 }: TabHeaderSelectTimeProps) {
   const [isModalVisible, showModal, hideModal] = useBoolean();
 
   const onConfirm = useCallback(
     async (date: Date) => {
       hideModal();
-      let mode: any = "isoWeek";
+      let mode: any;
+
       if (params.statisticType === "byWeek") {
         mode = "isoWeek";
       } else if (params.statisticType === "byMonth") {
@@ -45,20 +48,21 @@ export const TabHeaderSelectTime = memo(function TabHeaderSelectTime({
       } else {
         mode = "year";
       }
+
       const start = moment(date.getTime()).startOf(mode).unix();
       const end = moment(date.getTime()).endOf(mode).unix();
-      setParamCustom("dateStart", start);
-      setParamCustom("dateEnd", end);
+
+      setParamFilter({
+        statisticType: params.statisticType,
+        dateStart: start,
+        dateEnd: end,
+      });
     },
-    [params?.statisticType, setParamCustom]
+    [params?.statisticType, setParamFilter]
   );
 
   const showTextDate = useMemo(() => {
-    if (params.statisticType === "byWeek") {
-      const start = moment(params.dateStart, "X").format("DD/MM");
-      const end = moment(params.dateEnd, "X").format("DD/MM");
-      return `${start} - ${end}`;
-    } else if (params.statisticType === "byMonth") {
+    if (params.statisticType !== "byYear") {
       const start = moment(params.dateStart, "X").format("DD");
       const end = moment(params.dateEnd, "X").format("DD/MM");
       return `${start} - ${end}`;
@@ -69,12 +73,10 @@ export const TabHeaderSelectTime = memo(function TabHeaderSelectTime({
     }
   }, [params]);
 
-  const setStatistic = useCallback(
-    (keyName: string, value: any) => {
-      setParamCustom(keyName, value);
-    },
-    [setParamCustom]
-  );
+  useEffect(() => {
+    onConfirm(new Date()).then();
+  }, [params.statisticType]);
+
   return (
     <SViewContainer>
       <SViewButtonGroup>
@@ -83,7 +85,7 @@ export const TabHeaderSelectTime = memo(function TabHeaderSelectTime({
           keyName={"statisticType"}
           value={"byWeek"}
           styleGradient={{ borderRadius: 0 }}
-          onPress={setStatistic}
+          onPress={setParamCustom}
           offGradient={params.statisticType !== "byWeek"}
         />
         <SButtonTab

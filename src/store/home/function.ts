@@ -31,28 +31,18 @@ export const requestStrengthGoal = async () => {
 };
 
 export const requestHitsStatistic = async (params: paramFilter) => {
-  const dataHeader = {
-    dateStart: params.dateStart,
-    dateEnd: params.dateEnd,
-    statisticType: params.statisticType,
-  };
   const { data } = await Fetch.get<{ list_hits: [] }>(
     `${LocaleServiceUrl.getUrl()}/hits/hit-statistic`,
-    { headers: dataHeader }
+    { params: params }
   );
 
   return data.list_hits;
 };
 
 export const requestStrengthStatistic = async (params: paramFilter) => {
-  const dataHeader = {
-    dateStart: params.dateStart,
-    dateEnd: params.dateEnd,
-    statisticType: params.statisticType,
-  };
   const { data } = await Fetch.get<{ list_strength: []; stat: [] }>(
     `${LocaleServiceUrl.getUrl()}/hits/strength-statistic`,
-    { headers: dataHeader }
+    { params: params }
   );
 
   return data;

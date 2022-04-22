@@ -1,7 +1,7 @@
 import { styled } from "@/global";
 import React, { memo, ReactElement, useCallback, useState } from "react";
 import { Colors } from "@/themes/Colors";
-import { ImageSourcePropType, ViewProps } from "react-native";
+import { ImageSourcePropType, View, ViewProps } from "react-native";
 import { ViewLineSpace } from "@/common/LineSeperator";
 
 export interface SectionContainerProps extends ViewProps {
@@ -48,7 +48,10 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
           )}
         </HeaderWrapper>
       )}
-      {isExpand && children}
+      <View style={{ backgroundColor: Colors.colorTab }}>
+        {isExpand && children}
+      </View>
+
       {!hideLine && <ViewLineSpace />}
     </SectionContainer>
   );

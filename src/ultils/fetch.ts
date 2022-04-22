@@ -14,7 +14,7 @@ Fetch.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log("error", error);
+
     if (error.response.status === 500) {
       // ToastService.showError(error.response.data.message, true, true, '');
       return error.response.data;
