@@ -8,8 +8,9 @@ import { styled, useAsyncFn } from "@/global";
 import { IC_BG_QR_SCAN } from "@/assets";
 import { Colors } from "@/themes/Colors";
 import { InputBorder } from "@/componens/ViewBorder/InputBorder";
-import SubmitButtonColor from "@/componens/Button/ButtonSubmit";
 import { requestConnectMachine } from "@/store/mechine/function";
+import MachineIdService from "@/services/MachineIdService";
+import { goBack } from "@/ultils/navigation";
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -19,6 +20,11 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
 
   const [{}, onSuccess] = useAsyncFn(async (e: any) => {
     await requestConnectMachine(e.data).then();
+    await MachineIdService.change(e.data);
+    setTimeout(() => {
+      goBack();
+    }, 1000);
+    goBack();
   }, []);
 
   const makeSlideOutTranslation = useCallback((translationType, fromValue) => {
@@ -32,9 +38,9 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
     };
   }, []);
 
-  const sendData = useCallback(() => {
-    requestConnectMachine(code).then();
-  }, [code]);
+  // const sendData = useCallback(() => {
+  //   requestConnectMachine(code).then();
+  // }, [code]);
 
   return (
     <ScreenWrapper>
