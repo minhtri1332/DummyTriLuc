@@ -1,18 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo } from "react";
-import SectionContainerStyle from "@/componens/View/SectionView";
-import { IC_CHART, IC_POWER } from "@/assets";
 import { Colors } from "@/themes/Colors";
 import { styled, useBoolean } from "@/global";
-import BaseProgressView from "@/componens/View/BaseProgressView";
-import PieChartHome from "@/screens/Home/components/PieChartHome";
-import {
-  RawDataStrengthGoal,
-  requestHitsStatistic,
-} from "@/store/home/function";
-import {
-  navigateToHitStatisticScreen,
-  navigateToStrengthStatisticScreen,
-} from "@/ultils/navigation";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
 import GradientButton from "@/componens/Gradient/ButtonGradient";

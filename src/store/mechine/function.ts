@@ -7,30 +7,33 @@ export const requestConnectMachine = async (machine_id: string) => {
   const params = JSON.stringify({
     machine_id: machine_id,
   });
-  const {data}  = await Fetch.post(
+  const { data } = await Fetch.post(
     `${LocaleServiceUrl.getUrl()}/machine/connect`,
-      params
+    params
   );
 
-  if (data){
-   await MachineIdService.change(machine_id)
-    ToastService.show(data.message)
+  if (data) {
+    await MachineIdService.change(machine_id);
+    ToastService.show(data.message);
   }
 
   return data;
 };
-export const requestConnectMachineHitMode = async (machine_id: string, mode: string) => {
+export const requestConnectMachineHitMode = async (
+  machine_id: string,
+  mode: string
+) => {
   const params = JSON.stringify({
     machine_id: machine_id,
-    mode:mode
+    mode: mode,
   });
-  const {data}  = await Fetch.post(
+  const { data } = await Fetch.post(
     `${LocaleServiceUrl.getUrl()}/machine/hit-mode`,
-      params
+    params
   );
-
-  if (data){
-    ToastService.show(data.message)
+  console.log("data", data, machine_id, mode);
+  if (data) {
+    ToastService.show(data.message);
   }
 
   return data;

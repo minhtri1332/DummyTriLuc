@@ -1,14 +1,13 @@
-
 class MachineIdClass {
-    private machineId: string = "";
+  private machineId: string = "nodeesp32";
 
-    getMachineId = () => {
-        return this.machineId;
-    };
+  getMachineId = () => {
+    return this.machineId;
+  };
 
-    change = async (newMachineId: string) => {
-        this.machineId = newMachineId;
-    };
+  change = async (newMachineId: string) => {
+    this.machineId = newMachineId;
+  };
 }
 
 const MachineIdService = new MachineIdClass();

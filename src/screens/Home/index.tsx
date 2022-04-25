@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import { HeaderHome } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { IMG_TARGET_HOME_THEME } from "@/assets";
-import { styled, useAsyncFn } from "@/global";
+import { styled, useAsyncFn, useBoolean } from "@/global";
 import RadarChartHome from "@/screens/Home/components/RadarChartHome";
 import { RefreshControl, ScrollView, View } from "react-native";
 import { requestConnectMachineHitMode } from "@/store/mechine/function";
@@ -18,8 +18,11 @@ import {
 } from "@/store/home/function";
 import { Colors } from "@/themes/Colors";
 import GradientButton from "@/componens/Gradient/ButtonGradient";
+import PracticingBottomModal from "@/screens/Home/PracticingBottomModal/PracticingScreen";
 
 export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
+  const [isModalPracticeVisible, showModalPractice, hideModalPractice] =
+    useBoolean();
   const [dataHit, setDataHit] = useState<RawDataGoal>({
     goal: 0,
     total_hits: 0,
@@ -68,13 +71,17 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
             <RadarChartHome />
           </View>
           <SBaseOpacityButton>
-            <GradientButton label={"Tập luyện"} onPress={onPractice} />
+            <GradientButton label={"Tập luyện"} onPress={showModalPractice} />
           </SBaseOpacityButton>
         </View>
 
         <PunchComponent dataHit={dataHit} />
         <PowerComponent dataStrength={dataStrength} />
       </ScrollView>
+      <PracticingBottomModal
+        isVisible={isModalPracticeVisible}
+        hideMenu={hideModalPractice}
+      />
     </ScreenWrapper>
   );
 });

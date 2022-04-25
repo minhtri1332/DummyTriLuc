@@ -22,10 +22,14 @@ export const IC_DROPDOWN = require("./icons/ic_drop_down.png");
 export const IC_USER_Fill = require("./icons/ic_user.png");
 export const IC_PUNCH = require("./icons/ic_punch.png");
 export const IC_POWER = require("./icons/ic_power.png");
+export const IC_ARROW_DOWN = require("./icons/arrow-down.png");
+export const IC_CHECK_ROUND = require("./icons/check-round.png");
 
 //image theme
 export const IMG_LOGIN_THEME = require("./images/login_theme.png");
 export const IMG_TARGET_HOME_THEME = require("./images/background_target_home.png");
+export const IMG_BACKGROUND_FREE_FIGHT = require("./images/bkg_free_fight.png");
+export const IMG_BACKGROUND_ACCORDING_LED = require("./images/bkg_according_led.png");
 
 //files
 export const IC_FILE_AI = require("./files/ai.png");
