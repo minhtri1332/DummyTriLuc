@@ -1,19 +1,21 @@
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
-import { styled } from "@/global";
+import { styled, useAsyncFn } from "@/global";
 import {
   BottomMenuContainer,
   BottomMenuHeader,
   BottomMenuModal,
 } from "@/componens/BottomMenu";
 import { ScrollView, StyleSheet } from "react-native";
-import { screenLongDimension, screenShortDimension } from "@/ultils/scale";
-import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { screenShortDimension } from "@/ultils/scale";
 import {
   IMG_BACKGROUND_ACCORDING_LED,
   IMG_BACKGROUND_FREE_FIGHT,
 } from "@/assets";
 import { Colors } from "@/themes/Colors";
+import ToastService from "@/services/ToastService";
+import MachineIdService from "@/services/MachineIdService";
+import { requestConnectMachineHitMode } from "@/store/mechine/function";
 
 interface PracticingBottomProps {
   isVisible: boolean;
@@ -24,6 +26,15 @@ export const PracticingBottomModal = memo(function PracticingBottomModal({
   isVisible,
   hideMenu,
 }: PracticingBottomProps) {
+  const [{ loading }, onPressFreeFight] = useAsyncFn(async () => {
+    const machineId = MachineIdService.getMachineId();
+    await requestConnectMachineHitMode(machineId, "5");
+  }, []);
+
+  const onPressAccordingLed = useCallback(() => {
+    ToastService.show("Coming soon");
+  }, []);
+
   return (
     <ScreenWrapper>
       <BottomMenuModal
@@ -39,14 +50,14 @@ export const PracticingBottomModal = memo(function PracticingBottomModal({
             onPressRight={hideMenu}
           />
           <ScrollView style={styles.maxHeightScroll}>
-            <SViewItemStyleFight>
+            <SViewItemStyleFight onPress={onPressFreeFight}>
               <SViewBackgroundItem source={IMG_BACKGROUND_FREE_FIGHT} />
               <SViewContainerText>
                 <SViewTextItem>Đánh tự do</SViewTextItem>
                 <SViewSubTextItem>Free fight</SViewSubTextItem>
               </SViewContainerText>
             </SViewItemStyleFight>
-            <SViewItemStyleFight>
+            <SViewItemStyleFight onPress={onPressAccordingLed}>
               <SViewBackgroundItem source={IMG_BACKGROUND_ACCORDING_LED} />
               <SViewContainerText>
                 <SViewTextItem>Đánh theo Led</SViewTextItem>
@@ -62,7 +73,7 @@ export const PracticingBottomModal = memo(function PracticingBottomModal({
 
 export default PracticingBottomModal;
 
-const SViewItemStyleFight = styled.View`
+const SViewItemStyleFight = styled.TouchableOpacity`
   margin: 16px 16px;
   height: 150px;
   border-width: 1px;
