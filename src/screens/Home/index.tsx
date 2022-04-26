@@ -19,6 +19,7 @@ import {
 import { Colors } from "@/themes/Colors";
 import GradientButton from "@/componens/Gradient/ButtonGradient";
 import PracticingBottomModal from "@/screens/Home/PracticingBottomModal/PracticingScreen";
+import PracticeComponent from "@/screens/Home/PracticeScreen/PracticeComponent";
 
 export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
   const [isModalPracticeVisible, showModalPractice, hideModalPractice] =
@@ -77,6 +78,7 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
 
         <PunchComponent dataHit={dataHit} />
         <PowerComponent dataStrength={dataStrength} />
+        <PracticeComponent />
       </ScrollView>
       <PracticingBottomModal
         isVisible={isModalPracticeVisible}

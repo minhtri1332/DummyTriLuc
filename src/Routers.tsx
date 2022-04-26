@@ -20,6 +20,7 @@ import { CustomDrawerContent } from "@/componens/CustomTabBar/DrawerScreen";
 import RegisterAccountScreen from "@/screens/LoginScreen/RegisterAccountScreen";
 import HitStatisticScreen from "@/screens/Home/HitScreen/HitStatisticScreen";
 import StrengthStatisticScreen from "@/screens/Home/StrengthScreen/StrengthStatisticScreen";
+import PracticeDetailScreen from "@/screens/Home/PracticeScreen/PracticeDetailScreen";
 
 const RootStack = createNativeStackNavigator();
 const TabBarStack = createBottomTabNavigator();
@@ -100,6 +101,10 @@ export const Routes = memo(function Routes() {
             <RootStack.Screen
               name={"StrengthStatisticScreen"}
               component={StrengthStatisticScreen}
+            />
+            <RootStack.Screen
+              name={"PracticeDetailScreen"}
+              component={PracticeDetailScreen}
             />
           </RootStack.Group>
 

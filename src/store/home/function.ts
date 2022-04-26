@@ -1,6 +1,8 @@
 import { Fetch } from "@/ultils/fetch";
 import LocaleServiceUrl from "@/store/types";
 import { paramFilter } from "@/screens/Home/components/TabHeaderSelectTime";
+import { setPracticeQueries, syncPractice } from "@/store/home/index";
+import { RawPractice } from "@/store/home/types";
 
 export interface RawDataGoal {
   total_hits: number;
@@ -45,5 +47,34 @@ export const requestStrengthStatistic = async (params: paramFilter) => {
     { params: params }
   );
 
+  return data;
+};
+
+export const requestListPractice = async (params?: any) => {
+  const { data } = await Fetch.get<{ list_practice: RawPractice[] }>(
+    `${LocaleServiceUrl.getUrl()}/practice`,
+    { params: { limit: 1, page: 1 } }
+  );
+
+  setPracticeQueries({
+    all: (data?.list_practice || []).map(
+      (item: RawPractice) => item.practice_id
+    ),
+  });
+  return data;
+};
+
+export const requestPracticeDetail = async (practice_id: string) => {
+  const { data } = await Fetch.get(
+    `${LocaleServiceUrl.getUrl()}/practice/${practice_id}`,
+    {}
+  );
+
+  const da = Object.assign(
+    { id: practice_id, practice_id: practice_id },
+    data || {}
+  );
+
+  syncPractice([da]);
   return data;
 };

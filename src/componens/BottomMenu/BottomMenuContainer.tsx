@@ -18,11 +18,10 @@ type Props = OwnProps;
 const Container = styled.View`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  border-color: ${Colors.blue1};
+  border-color: #211919;
   border-top-width: 1px;
   width: 100%;
   overflow: hidden;
-  background-color: ${Colors.white};
   padding-bottom: ${15 + getBottomSpace() / 2}px;
 `;
 
