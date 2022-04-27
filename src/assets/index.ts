@@ -30,6 +30,7 @@ export const IMG_LOGIN_THEME = require("./images/login_theme.png");
 export const IMG_TARGET_HOME_THEME = require("./images/background_target_home.png");
 export const IMG_BACKGROUND_FREE_FIGHT = require("./images/bkg_free_fight.png");
 export const IMG_BACKGROUND_ACCORDING_LED = require("./images/bkg_according_led.png");
+export const IMG_BACKGROUND_MACHINE = require("./images/bkg_mechine.jpeg");
 
 //files
 export const IC_FILE_AI = require("./files/ai.png");
