@@ -3,6 +3,10 @@ import notifee from "@notifee/react-native";
 import _ from "lodash";
 import ToastService from "@/services/ToastService";
 import messaging from "@react-native-firebase/messaging";
+import {
+  navigateToPracticeDetailScreen,
+  navigateToPracticingScreen,
+} from "@/ultils/navigation";
 
 export const Notification = memo(() => {
   useEffect(() => {
@@ -40,7 +44,7 @@ export const Notification = memo(() => {
   const notification = useCallback(async () => {
     await requestUserPermission();
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      console.log("remoteMessage", remoteMessage);
+      const data = JSON.stringify(remoteMessage?.data?.practiceData);
       if (!remoteMessage?.data) {
         await createNotification(
           remoteMessage.notification?.title || "",
@@ -50,6 +54,14 @@ export const Notification = memo(() => {
           remoteMessage.notification?.title || "",
           remoteMessage.notification?.body || ""
         );
+      } else {
+        console.log("remoteMessag", remoteMessage);
+        if (data?.data) {
+          console.log("remoteMessage1", data);
+          // navigateToPracticeDetailScreen({
+          //   practiceId: data?.user_id,
+          // });
+        }
       }
 
       //await requestMessageCheckin(remoteMessage.data?.boxID || '');

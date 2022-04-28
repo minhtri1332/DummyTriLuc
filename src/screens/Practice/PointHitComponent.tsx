@@ -12,7 +12,7 @@ const PointHitComponent = memo(function PointHitComponent({
   practice,
   dataMapTime,
 }: practiceProps) {
-  const [dt, setDt] = useState(practice.start_time2);
+  const [dt, setDt] = useState(practice?.start_time2);
 
   const pointObject = useMemo(() => {
     const actionCurrent = dataMapTime[moment(dt).format("HH:mm:ss")];
@@ -20,7 +20,7 @@ const PointHitComponent = memo(function PointHitComponent({
   }, [dt]);
 
   useEffect(() => {
-    if (practice.end_time / 10000 > dt) {
+    if (practice?.end_time / 10000 > dt) {
       let secTimer = setInterval(async () => {
         setDt(dt + 1000);
       }, 1000);
@@ -63,7 +63,7 @@ const SViewHitPoint = styled.View<{ isHighLight: boolean }>`
   justify-content: center;
   align-items: center;
   background-color: ${(props) =>
-    props.isHighLight ? Colors.orange1 : Colors.white};
+    props.isHighLight ? Colors.orange1 : Colors.red1 + "20"};
   border-color: darkred;
   border-width: 2px;
 `;
@@ -119,13 +119,13 @@ export const ItemHitPoint = memo(function ItemHitPoint({
   if (isPaddingLeft !== "left") {
     return (
       <SViewHitPoint isHighLight={currentPoint != 0}>
-        <STextHitPoint>{currentPoint}</STextHitPoint>
+        <STextHitPoint>{currentPoint || ""}</STextHitPoint>
       </SViewHitPoint>
     );
   }
   return (
     <SViewHitPointLeft isHighLight={currentPoint != 0}>
-      <STextHitPoint>{currentPoint}</STextHitPoint>
+      <STextHitPoint>{currentPoint || ""}</STextHitPoint>
     </SViewHitPointLeft>
   );
 });

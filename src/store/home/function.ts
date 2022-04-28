@@ -69,7 +69,7 @@ export const requestPracticeDetail = async (practice_id: string) => {
     `${LocaleServiceUrl.getUrl()}/practice/${practice_id}`,
     {}
   );
-
+  console.log("da", data, practice_id);
   const da = Object.assign(
     { id: practice_id, practice_id: practice_id },
     data || {}

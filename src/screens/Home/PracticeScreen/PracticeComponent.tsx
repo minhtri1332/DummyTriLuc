@@ -17,13 +17,9 @@ import {
 import { usePracticeByQuery } from "@/store/home";
 import { Text } from "react-native";
 
-interface PowerProps {
-  dataStrength: RawDataStrengthGoal;
-}
+interface PracticeComponentProps {}
 
-export const PracticeComponent = memo(function PracticeComponent(
-  props: PowerProps
-) {
+export const PracticeComponent = memo(function PracticeComponent() {
   const data = usePracticeByQuery("all");
   const goToStatistic = useCallback(() => {}, []);
 
@@ -49,7 +45,7 @@ export const PracticeComponent = memo(function PracticeComponent(
       />
       <SViewContent>
         {(data || []).map((item) => {
-          return <ItemPractice practiceId={item} />;
+          return <ItemPractice practiceId={item} key={item} />;
         })}
       </SViewContent>
     </SectionContainerStyle>

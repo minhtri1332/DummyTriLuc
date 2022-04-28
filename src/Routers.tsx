@@ -21,6 +21,7 @@ import RegisterAccountScreen from "@/screens/LoginScreen/RegisterAccountScreen";
 import HitStatisticScreen from "@/screens/Home/HitScreen/HitStatisticScreen";
 import StrengthStatisticScreen from "@/screens/Home/StrengthScreen/StrengthStatisticScreen";
 import PracticeDetailScreen from "@/screens/Home/PracticeScreen/PracticeDetailScreen";
+import PracticingScreen from "@/screens/Home/PracticeScreen/PracticingScreen";
 
 const RootStack = createNativeStackNavigator();
 const TabBarStack = createBottomTabNavigator();
@@ -94,10 +95,7 @@ export const Routes = memo(function Routes() {
               name={"QRCodeScanScreen"}
               component={QRCodeScanScreen}
             />
-            <RootStack.Screen
-              name={"HitStatisticScreen"}
-              component={HitStatisticScreen}
-            />
+
             <RootStack.Screen
               name={"StrengthStatisticScreen"}
               component={StrengthStatisticScreen}
@@ -105,6 +103,14 @@ export const Routes = memo(function Routes() {
             <RootStack.Screen
               name={"PracticeDetailScreen"}
               component={PracticeDetailScreen}
+            />
+            <RootStack.Screen
+              name={"PracticingScreen"}
+              component={PracticingScreen}
+            />
+            <RootStack.Screen
+              name={"HitStatisticScreen"}
+              component={HitStatisticScreen}
             />
           </RootStack.Group>
 

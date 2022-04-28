@@ -33,10 +33,6 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
     strength_goal: 0,
     list_point: [],
   });
-  const onPractice = useCallback(async () => {
-    const machineId = MachineIdService.getMachineId();
-    await requestConnectMachineHitMode(machineId, "5");
-  }, []);
 
   const [{ loading }, onLoadData] = useAsyncFn(async () => {
     const dataHit = await requestHitGoal();

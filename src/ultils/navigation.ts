@@ -10,6 +10,7 @@ import RegisterAccountScreen, {
 } from "@/screens/LoginScreen/RegisterAccountScreen";
 import StrengthStatisticScreen from "@/screens/Home/StrengthScreen/StrengthStatisticScreen";
 import PracticeDetailScreen from "@/screens/Home/PracticeScreen/PracticeDetailScreen";
+import { PracticingScreenProps } from "@/screens/Home/PracticeScreen/PracticingScreen";
 
 export const navigationRef = React.createRef<NavigationContainerRef<any>>();
 
@@ -43,14 +44,16 @@ export const navigateToHome = createReplace("Main");
 
 export const navigateToQRCodeScanScreen = createNavigate("QRCodeScanScreen");
 
-export const navigateToHitStatisticScreen =
-  createNavigate("HitStatisticScreen");
+export const navigateToHitStatisticScreen = createPush("HitStatisticScreen");
 
 export const navigateToStrengthStatisticScreen = createNavigate(
   "StrengthStatisticScreen"
 );
 export const navigateToRegisterAccountScreen =
   createNavigate<RegisterAccountProps>("RegisterAccountScreen");
+
+export const navigateToPracticingScreen =
+  createNavigate<PracticingScreenProps>("PracticingScreen");
 
 export const navigateToPracticeDetailScreen = createNavigate<{
   practiceId: string;

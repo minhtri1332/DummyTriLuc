@@ -1,5 +1,5 @@
-import React, { memo, useEffect, useMemo, useState } from "react";
-import { View } from "react-native";
+import React, { memo, useEffect } from "react";
+import { Text, View } from "react-native";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { useAsyncFn } from "@/hooks";
@@ -8,10 +8,11 @@ import { useNavigationParams } from "@/hooks/useNavigationParams";
 import { usePractice } from "@/store/home";
 import { styled } from "@/global";
 import { IMG_BACKGROUND_MACHINE } from "@/assets";
-import { Colors } from "@/themes/Colors";
 import PointHitComponent from "@/screens/Practice/PointHitComponent";
 import _ from "lodash";
 import moment from "moment";
+import TimeStartPractice from "@/screens/Home/PracticeScreen/TimeStartPractice";
+import { Colors } from "@/themes/Colors";
 
 export interface PracticeDetailProps {
   practiceId: string;
@@ -35,7 +36,6 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
     getData().then();
   }, []);
 
-  console.log("practice", practice);
   return (
     <ScreenWrapper>
       <DynamicHeader title={"PracticeDetailScreen"} />
@@ -46,38 +46,25 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
           source={IMG_BACKGROUND_MACHINE}
         />
         <PointHitComponent
-          practice={practice.practice}
+          practice={practice?.practice}
           dataMapTime={dataMapTime}
         />
-        {/*<SViewContainerHitPoint>*/}
-        {/*  <ItemHitPoint point={11} />*/}
-        {/*  <SViewHitPointLeftRight>*/}
-        {/*    <ItemHitPoint point={11} position={"left"} />*/}
-        {/*    <ItemHitPoint point={11} />*/}
-        {/*  </SViewHitPointLeftRight>*/}
-        {/*  <ItemHitPoint point={11} />*/}
-        {/*</SViewContainerHitPoint>*/}
       </View>
+      <SText>
+        <TimeStartPractice stopTime={practice?.practice.end_time} />
+      </SText>
     </ScreenWrapper>
   );
 });
 
 export default PracticeDetailScreen;
 
-const SViewHitPoint = styled.View<{ isHighLight: boolean }>`
-  height: 50px;
-  width: 50px;
-  border-radius: 25px;
+const SText = styled.Text`
   justify-content: center;
-  align-items: center;
-  background-color: ${(props) =>
-    props.isHighLight ? Colors.orange1 : Colors.white};
-  border-color: darkred;
-  border-width: 2px;
-`;
-
-const SViewHitPointLeft = styled(SViewHitPoint)<{ isHighLight: boolean }>`
-  margin-right: 100px;
+  align-self: center;
+  color: ${Colors.colorText};
+  font-size: 30px;
+  margin-top: 20px;
 `;
 
 const SImageBackground = styled.Image`

@@ -6,7 +6,7 @@ import {
   BottomMenuHeader,
   BottomMenuModal,
 } from "@/componens/BottomMenu";
-import { ScrollView, StyleSheet } from "react-native";
+import { InteractionManager, ScrollView, StyleSheet } from "react-native";
 import { screenShortDimension } from "@/ultils/scale";
 import {
   IMG_BACKGROUND_ACCORDING_LED,
@@ -16,6 +16,7 @@ import { Colors } from "@/themes/Colors";
 import ToastService from "@/services/ToastService";
 import MachineIdService from "@/services/MachineIdService";
 import { requestConnectMachineHitMode } from "@/store/mechine/function";
+import { navigateToPracticingScreen } from "@/ultils/navigation";
 
 interface PracticingBottomProps {
   isVisible: boolean;
@@ -29,7 +30,11 @@ export const PracticingBottomModal = memo(function PracticingBottomModal({
   const [{ loading }, onPressFreeFight] = useAsyncFn(async () => {
     const machineId = MachineIdService.getMachineId();
     await requestConnectMachineHitMode(machineId, "5");
-  }, []);
+    hideMenu();
+    InteractionManager.runAfterInteractions(() => {
+      navigateToPracticingScreen();
+    });
+  }, [hideMenu]);
 
   const onPressAccordingLed = useCallback(() => {
     ToastService.show("Coming soon");

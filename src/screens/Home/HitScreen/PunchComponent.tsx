@@ -18,6 +18,7 @@ export const PunchComponent = memo(function PunchComponent(props: PunchProps) {
   const goToStatistic = useCallback(() => {
     navigateToHitStatisticScreen()
   }, []);
+
   return (
     <SectionContainerStyle
       title={"Đòn đánh"}
