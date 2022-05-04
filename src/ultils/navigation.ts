@@ -9,7 +9,9 @@ import RegisterAccountScreen, {
   RegisterAccountProps,
 } from "@/screens/LoginScreen/RegisterAccountScreen";
 import StrengthStatisticScreen from "@/screens/Home/StrengthScreen/StrengthStatisticScreen";
-import PracticeDetailScreen from "@/screens/Home/PracticeScreen/PracticeDetailScreen";
+import PracticeDetailScreen, {
+  PracticeDetailProps,
+} from "@/screens/Home/PracticeScreen/PracticeDetailScreen";
 import { PracticingScreenProps } from "@/screens/Home/PracticeScreen/PracticingScreen";
 
 export const navigationRef = React.createRef<NavigationContainerRef<any>>();
@@ -55,6 +57,5 @@ export const navigateToRegisterAccountScreen =
 export const navigateToPracticingScreen =
   createNavigate<PracticingScreenProps>("PracticingScreen");
 
-export const navigateToPracticeDetailScreen = createNavigate<{
-  practiceId: string;
-}>("PracticeDetailScreen");
+export const navigateToPracticeDetailScreen =
+  createNavigate<PracticeDetailProps>("PracticeDetailScreen");

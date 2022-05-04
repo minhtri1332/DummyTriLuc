@@ -1,21 +1,12 @@
 import React, { memo, useCallback, useEffect } from "react";
 import SectionContainerStyle from "@/componens/View/SectionView";
-import { IC_CHART, IC_POWER } from "@/assets";
+import { IC_CHART, IC_HISTORY } from "@/assets";
 import { Colors } from "@/themes/Colors";
 import { styled, useAsyncFn } from "@/global";
 import BaseProgressView from "@/componens/View/BaseProgressView";
-import PieChartHome from "@/screens/Home/components/PieChartHome";
-import {
-  RawDataStrengthGoal,
-  requestListPractice,
-} from "@/store/home/function";
-import {
-  navigateToHitStatisticScreen,
-  navigateToPracticeDetailScreen,
-  navigateToStrengthStatisticScreen,
-} from "@/ultils/navigation";
+import { requestListPractice } from "@/store/home/function";
+import { navigateToPracticeDetailScreen } from "@/ultils/navigation";
 import { usePracticeByQuery } from "@/store/home";
-import { Text } from "react-native";
 
 interface PracticeComponentProps {}
 
@@ -34,7 +25,7 @@ export const PracticeComponent = memo(function PracticeComponent() {
   return (
     <SectionContainerStyle
       title={"Bài tập gần nhất"}
-      iconLeft={IC_POWER}
+      iconLeft={IC_HISTORY}
       iconRight={IC_CHART}
       rightAction={goToStatistic}
     >
@@ -44,8 +35,8 @@ export const PracticeComponent = memo(function PracticeComponent() {
         barColor={Colors.orange1}
       />
       <SViewContent>
-        {(data || []).map((item) => {
-          return <ItemPractice practiceId={item} key={item} />;
+        {(data || []).map((item, index) => {
+          return <ItemPractice practiceId={item} index={index} key={item} />;
         })}
       </SViewContent>
     </SectionContainerStyle>
@@ -62,8 +53,10 @@ export default PracticeComponent;
 
 export const ItemPractice = memo(function ItemPractice({
   practiceId,
+  index,
 }: {
   practiceId: string;
+  index: number;
 }) {
   const onPressItem = useCallback(() => {
     navigateToPracticeDetailScreen({ practiceId });
@@ -71,7 +64,7 @@ export const ItemPractice = memo(function ItemPractice({
 
   return (
     <SViewItem onPress={onPressItem}>
-      <SText>{practiceId}</SText>
+      <SText>Bài tập: {index + 1}</SText>
     </SViewItem>
   );
 });

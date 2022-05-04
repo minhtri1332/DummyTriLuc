@@ -31,7 +31,6 @@ export const requestConnectMachineHitMode = async (
     `${LocaleServiceUrl.getUrl()}/machine/hit-mode`,
     params
   );
-
   if (data) {
     ToastService.show(data.message);
   }

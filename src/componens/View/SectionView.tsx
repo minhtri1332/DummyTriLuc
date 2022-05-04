@@ -33,7 +33,7 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
   }, [rightAction]);
 
   return (
-    <SectionContainer>
+    <SectionContainer key={title}>
       {title !== "" && (
         <HeaderWrapper onPress={onPress}>
           <SViewTitle>
@@ -48,7 +48,7 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
           )}
         </HeaderWrapper>
       )}
-      <View style={{ backgroundColor: Colors.colorTab }}>
+      <View style={{ backgroundColor: Colors.colorTab, flex: 1 }}>
         {isExpand && children}
       </View>
 
@@ -68,6 +68,7 @@ const SectionContainer = styled.View`
 const SViewTitle = styled.View`
   flex: 1;
   flex-direction: row;
+  padding: 8px 16px;
 `;
 
 const Title = styled.Text`
@@ -77,25 +78,28 @@ const Title = styled.Text`
 `;
 
 const SImageLeft = styled.Image`
-  height: 18px;
-  width: 20px;
+  height: 20px;
+  width: 22px;
   margin-right: 8px;
-  margin-bottom: 4px;
+  align-self: center;
   tint-color: ${Colors.colorText};
 `;
 
 const SImageRight = styled.Image`
   height: 20px;
   width: 20px;
-  margin-bottom: 4px;
   tint-color: ${Colors.colorText};
 `;
 
 const HeaderWrapper = styled.TouchableOpacity`
   flex-direction: row;
   align-items: flex-end;
-  padding: 8px 16px;
   background-color: ${Colors.colorBgTitle};
+  border-radius: 4px;
 `;
 
-const STouchRight = styled.TouchableOpacity``;
+const STouchRight = styled.TouchableOpacity`
+  background-color: #00008b;
+  padding: 8px 16px;
+  border-radius: 4px;
+`;

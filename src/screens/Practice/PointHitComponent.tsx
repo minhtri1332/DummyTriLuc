@@ -6,18 +6,20 @@ import { Colors } from "@/themes/Colors";
 export interface practiceProps {
   practice: any;
   dataMapTime: any[];
+  replay: boolean;
 }
 
 const PointHitComponent = memo(function PointHitComponent({
   practice,
   dataMapTime,
+  replay,
 }: practiceProps) {
-  const [dt, setDt] = useState(practice?.start_time2);
-
+  const [dt, setDt] = useState(0);
   const pointObject = useMemo(() => {
+    // @ts-ignore
     const actionCurrent = dataMapTime[moment(dt).format("HH:mm:ss")];
     return { point: actionCurrent?.f, position: actionCurrent?.p };
-  }, [dt]);
+  }, [dt, dataMapTime]);
 
   useEffect(() => {
     if (practice?.end_time / 10000 > dt) {
@@ -28,6 +30,10 @@ const PointHitComponent = memo(function PointHitComponent({
       return () => clearInterval(secTimer);
     }
   }, [dt, practice?.end_time]);
+
+  useEffect(() => {
+    setDt(0);
+  }, [replay, setDt]);
 
   return (
     <SViewContainerHitPoint>

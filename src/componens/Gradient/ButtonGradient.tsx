@@ -2,7 +2,7 @@ import LinearGradient from "react-native-linear-gradient";
 import React, { memo, useCallback } from "react";
 import { Colors } from "@/themes/Colors";
 import { styled } from "@/global";
-import { ViewStyle } from "react-native";
+import { ActivityIndicator, ViewStyle } from "react-native";
 
 interface GradientButtonProps {
   onPress: (keyName: string, value: string) => void;
@@ -12,9 +12,10 @@ interface GradientButtonProps {
   value?: string;
   label: string;
   offGradient?: boolean;
+  loading?: boolean;
 }
 
-const GradientButton = (props: GradientButtonProps) => {
+const GradientButton = memo((props: GradientButtonProps) => {
   const onPressButton = useCallback(() => {
     props.onPress && props.onPress(props.keyName || "", props.value || "");
   }, [props.onPress, props.keyName, props.keyName]);
@@ -29,7 +30,11 @@ const GradientButton = (props: GradientButtonProps) => {
             colors={[Colors.red1, Colors.red3, Colors.red2]}
             style={props.styleGradient}
           >
-            <SText>{props.label}</SText>
+            {!props.loading ? (
+              <SText>{props.label}</SText>
+            ) : (
+              <ActivityIndicator color={Colors.grey5} />
+            )}
           </SLinearGradient>
         ) : (
           <SViewLabel>
@@ -39,7 +44,7 @@ const GradientButton = (props: GradientButtonProps) => {
       </>
     </SBaseOpacityButton>
   );
-};
+});
 
 const SViewLabel = styled.View`
   flex: 1;
@@ -67,4 +72,4 @@ const SText = styled.Text`
   font-family: Roboto-Medium;
 `;
 
-export default memo(GradientButton);
+export default GradientButton;

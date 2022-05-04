@@ -44,7 +44,6 @@ export const Notification = memo(() => {
   const notification = useCallback(async () => {
     await requestUserPermission();
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      const data = JSON.stringify(remoteMessage?.data?.practiceData);
       if (!remoteMessage?.data) {
         await createNotification(
           remoteMessage.notification?.title || "",
@@ -55,12 +54,12 @@ export const Notification = memo(() => {
           remoteMessage.notification?.body || ""
         );
       } else {
-        console.log("remoteMessag", remoteMessage);
-        if (data?.data) {
-          console.log("remoteMessage1", data);
-          // navigateToPracticeDetailScreen({
-          //   practiceId: data?.user_id,
-          // });
+        console.log("remoteMessage", remoteMessage);
+        if (remoteMessage?.data) {
+          navigateToPracticeDetailScreen({
+            practiceId: "",
+            data: JSON.parse(remoteMessage?.data?.practice_data || ""),
+          });
         }
       }
 
