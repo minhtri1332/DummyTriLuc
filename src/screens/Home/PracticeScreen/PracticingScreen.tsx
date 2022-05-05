@@ -55,7 +55,7 @@ export const PracticingScreen = memo(function PracticingScreen() {
       <DynamicHeader title={"Tập luyện"} />
 
       <SText>
-        <TimeStartPractice stopTime={0} />
+        <TimeStartPractice stopTime={450000000} />
       </SText>
 
       <SButtonPractice>

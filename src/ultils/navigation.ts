@@ -46,7 +46,8 @@ export const navigateToHome = createReplace("Main");
 
 export const navigateToQRCodeScanScreen = createNavigate("QRCodeScanScreen");
 
-export const navigateToHitStatisticScreen = createPush("HitStatisticScreen");
+export const navigateToHitStatisticScreen =
+  createNavigate("HitStatisticScreen");
 
 export const navigateToStrengthStatisticScreen = createNavigate(
   "StrengthStatisticScreen"

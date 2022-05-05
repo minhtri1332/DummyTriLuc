@@ -16,7 +16,7 @@ import ButtonGradient from "@/componens/Gradient/ButtonGradient";
 
 export interface PracticeDetailProps {
   practiceId: string;
-  data: any;
+  data?: any;
 }
 
 const dataMap = (dataHit: any) => {

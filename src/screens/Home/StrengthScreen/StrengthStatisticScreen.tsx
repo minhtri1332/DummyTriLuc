@@ -39,7 +39,7 @@ export const StrengthStatisticScreen = memo(function StrengthStatisticScreen() {
     return {
       strength: 0,
       strength_goal: 0,
-      list_point: dataHitStatic.stat,
+      list_point: dataHitStatic?.stat || [],
     } as RawDataStrengthGoal;
   }, [dataHitStatic]);
 
@@ -62,7 +62,7 @@ export const StrengthStatisticScreen = memo(function StrengthStatisticScreen() {
           setParamCustom={setParamCustom}
           setParamFilter={setParamFilter}
         />
-        {!loading && (
+        {!loading && dataStrength?.list_point?.length > 0 && (
           <SViewContent>
             <PieChartHome dataStrength={dataStrength} />
           </SViewContent>

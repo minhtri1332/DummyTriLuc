@@ -15,6 +15,7 @@
 		45A66C8A569E4C288E62D38B /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BFFA19DCE4645A9875C6389 /* Roboto-Regular.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-Dummy-DummyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Dummy-DummyTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		AB818E9928242F7B0070E0E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB818E9828242F7B0070E0E9 /* GoogleService-Info.plist */; };
 		ABF92B912807D241007637CD /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF92B902807D241007637CD /* File.swift */; };
 		E2832E6B873B4E049EF313F7 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 508EF252DCC44C4AA3466A40 /* Roboto-Bold.ttf */; };
 		FA610A0FCAFA44BFB6A72F62 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4173ADDB61E049FB8064E902 /* Roboto-Medium.ttf */; };
@@ -50,6 +51,7 @@
 		7BFFA19DCE4645A9875C6389 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Dummy/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-Dummy-DummyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dummy-DummyTests.release.xcconfig"; path = "Target Support Files/Pods-Dummy-DummyTests/Pods-Dummy-DummyTests.release.xcconfig"; sourceTree = "<group>"; };
+		AB818E9828242F7B0070E0E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Dummy/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ABF92B8F2807D240007637CD /* Dummy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dummy-Bridging-Header.h"; sourceTree = "<group>"; };
 		ABF92B902807D241007637CD /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -97,6 +99,7 @@
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
+				AB818E9828242F7B0070E0E9 /* GoogleService-Info.plist */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
@@ -270,6 +273,7 @@
 				E2832E6B873B4E049EF313F7 /* Roboto-Bold.ttf in Resources */,
 				FA610A0FCAFA44BFB6A72F62 /* Roboto-Medium.ttf in Resources */,
 				45A66C8A569E4C288E62D38B /* Roboto-Regular.ttf in Resources */,
+				AB818E9928242F7B0070E0E9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,7 +542,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobileplus.dummytriluc;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.mobileplus.trilucmaster1;
 				PRODUCT_NAME = Dummy;
 				SWIFT_OBJC_BRIDGING_HEADER = "Dummy-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -565,7 +569,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobileplus.dummytriluc;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.mobileplus.trilucmaster1;
 				PRODUCT_NAME = Dummy;
 				SWIFT_OBJC_BRIDGING_HEADER = "Dummy-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

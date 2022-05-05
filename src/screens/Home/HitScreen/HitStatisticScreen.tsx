@@ -74,7 +74,6 @@ const SText = styled.Text`
 `;
 
 const STextGradient = styled(GradientText)`
-  color: ${Colors.colorText};
   font-size: 30px;
   font-family: Roboto-Medium;
 `;

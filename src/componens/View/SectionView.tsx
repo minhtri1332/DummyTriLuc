@@ -3,6 +3,7 @@ import React, { memo, ReactElement, useCallback, useState } from "react";
 import { Colors } from "@/themes/Colors";
 import { ImageSourcePropType, View, ViewProps } from "react-native";
 import { ViewLineSpace } from "@/common/LineSeperator";
+import Animated, { FlipInEasyX } from "react-native-reanimated";
 
 export interface SectionContainerProps extends ViewProps {
   title: string;
@@ -13,6 +14,8 @@ export interface SectionContainerProps extends ViewProps {
   rightAction?: () => void;
   hideLine?: boolean;
 }
+
+const AnimatedComponent = Animated.createAnimatedComponent(View);
 
 export const SectionContainerStyle = memo(function SectionContainerStyle({
   title,
@@ -33,7 +36,7 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
   }, [rightAction]);
 
   return (
-    <SectionContainer key={title}>
+    <SectionContainer>
       {title !== "" && (
         <HeaderWrapper onPress={onPress}>
           <SViewTitle>
@@ -48,9 +51,15 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
           )}
         </HeaderWrapper>
       )}
-      <View style={{ backgroundColor: Colors.colorTab, flex: 1 }}>
-        {isExpand && children}
-      </View>
+
+      {isExpand && (
+        <AnimatedComponent
+          entering={FlipInEasyX.duration(200).springify()}
+          style={{ backgroundColor: Colors.colorTab, flex: 1 }}
+        >
+          <View>{children}</View>
+        </AnimatedComponent>
+      )}
 
       {!hideLine && <ViewLineSpace />}
     </SectionContainer>
@@ -60,9 +69,8 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
 export default SectionContainerStyle;
 
 const SectionContainer = styled.View`
-  margin: 16px 16px 0px 16px;
+  margin: 16px 16px 0 16px;
   border-radius: 4px;
-  background-color: ${Colors.colorTab};
 `;
 
 const SViewTitle = styled.View`
@@ -99,7 +107,6 @@ const HeaderWrapper = styled.TouchableOpacity`
 `;
 
 const STouchRight = styled.TouchableOpacity`
-  background-color: #00008b;
   padding: 8px 16px;
   border-radius: 4px;
 `;

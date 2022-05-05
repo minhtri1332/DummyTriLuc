@@ -8,8 +8,6 @@ import { requestListPractice } from "@/store/home/function";
 import { navigateToPracticeDetailScreen } from "@/ultils/navigation";
 import { usePracticeByQuery } from "@/store/home";
 
-interface PracticeComponentProps {}
-
 export const PracticeComponent = memo(function PracticeComponent() {
   const data = usePracticeByQuery("all");
   const goToStatistic = useCallback(() => {}, []);

@@ -4,8 +4,8 @@ import moment from "moment";
 
 interface TimeStartPracticeProps {
   stopTime: number;
-  replay: boolean;
-  onReplay: (replay: boolean) => void;
+  replay?: boolean;
+  onReplay?: (replay: boolean) => void;
 }
 
 export const TimeStartPractice = memo(function TimeStartPractice({
