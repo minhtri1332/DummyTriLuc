@@ -27,7 +27,7 @@ import {
 } from "@/ultils/navigation";
 import { requestLogin, requestTokenDevice } from "@/store/auth/function";
 import LocalStorageHelper from "@/services/LocalServiceHelper";
-import messaging from "@react-native-firebase/messaging";
+import messaging, { firebase } from "@react-native-firebase/messaging";
 import { ParamCreateAccount } from "@/screens/LoginScreen/RegisterAccountScreen";
 import FirebaseTokenService from "@/services/FirebaseTokenService";
 
@@ -77,8 +77,20 @@ export const LoginForm = memo(() => {
   }, [eventRegister]);
 
   const [{}, updateToken] = useAsyncFn(async () => {
+    //  const authStatus = await messaging().requestPermission();
+
     await messaging().registerDeviceForRemoteMessages();
+    messaging()
+      .getToken()
+      .then((e) => {
+        console.log("ee", e);
+      });
+    console.log("ad", "");
+
+    console.log("2", await firebase.messaging().getToken());
+
     const tokenDevice = await messaging().getToken();
+    console.log("tokenDevice", tokenDevice);
     await requestTokenDevice(tokenDevice);
     await FirebaseTokenService.change(tokenDevice);
   }, []);
@@ -160,7 +172,11 @@ export const LoginForm = memo(() => {
           <LoginText>{"Login"}</LoginText>
         )}
       </LoginButton>
-      <STouchableOpacity onPress={goToRegister}>
+      <STouchableOpacity
+        onPress={() => {
+          updateToken();
+        }}
+      >
         <Text style={styles.textLabel}>Tạo tài khoản</Text>
       </STouchableOpacity>
     </Container>

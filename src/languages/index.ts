@@ -1,20 +1,21 @@
-import i18next from 'i18next';
-import {useAsync} from '@/global';
+import i18next from "i18next";
+import { useAsync } from "@/global";
 
-export const setupLanguage = (language: string = 'vi') => {
+export const setupLanguage = (language: string = "vi") => {
   return i18next.init({
     lng: language,
-    fallbackLng: 'vi',
+    compatibilityJSON: "v3",
+    fallbackLng: "vi",
     debug: false,
     resources: {
       vi: {
         translation: {
-          ...require('../languages/vi.json'),
+          ...require("../languages/vi.json"),
         },
       },
       en: {
         translation: {
-          ...require('../languages/en.json'),
+          ...require("../languages/en.json"),
         },
       },
     },
@@ -23,7 +24,7 @@ export const setupLanguage = (language: string = 'vi') => {
 
 export const useSetupLanguage = () => {
   return useAsync(() => {
-    return setupLanguage('vi');
+    return setupLanguage("vi");
   }, []);
 };
 
