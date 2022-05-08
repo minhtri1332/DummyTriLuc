@@ -13,6 +13,7 @@ export const Notification = memo(() => {
     notification().then();
   }, []);
 
+  console.log("messaging", messaging);
   const createNotification = useCallback(
     async (title: string, value: string) => {
       // Create a channel

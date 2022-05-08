@@ -29,6 +29,7 @@ import { requestLogin, requestTokenDevice } from "@/store/auth/function";
 import LocalStorageHelper from "@/services/LocalServiceHelper";
 import messaging from "@react-native-firebase/messaging";
 import { ParamCreateAccount } from "@/screens/LoginScreen/RegisterAccountScreen";
+import FirebaseTokenService from "@/services/FirebaseTokenService";
 
 const RoundedButton = styled(BaseOpacityButton)`
   width: ${fTabletScale(FORM_WIDTH)}px;
@@ -79,6 +80,7 @@ export const LoginForm = memo(() => {
     await messaging().registerDeviceForRemoteMessages();
     const tokenDevice = await messaging().getToken();
     await requestTokenDevice(tokenDevice);
+    await FirebaseTokenService.change(tokenDevice);
   }, []);
 
   const [{ loading }, startLogin] = useAsyncFn(async () => {

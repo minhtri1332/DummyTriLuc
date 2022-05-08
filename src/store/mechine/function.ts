@@ -2,6 +2,7 @@ import { Fetch } from "@/ultils/fetch";
 import LocaleServiceUrl from "@/store/types";
 import ToastService from "@/services/ToastService";
 import MachineIdService from "@/services/MachineIdService";
+import FirebaseTokenService from "@/services/FirebaseTokenService";
 
 export const requestConnectMachine = async (machine_id: string) => {
   const params = JSON.stringify({
@@ -26,13 +27,15 @@ export const requestConnectMachineHitMode = async (
   const params = JSON.stringify({
     machine_id: machine_id,
     mode: mode,
+    firebase_token: FirebaseTokenService.getFirebaseToken(),
   });
+
+  console.log("params", params);
   const { data } = await Fetch.post(
     `${LocaleServiceUrl.getUrl()}/machine/hit-mode`,
     params
   );
 
-  console.log(params, `${LocaleServiceUrl.getUrl()}/machine/hit-mode`, data);
   if (data) {
     ToastService.show(data.message);
   }
