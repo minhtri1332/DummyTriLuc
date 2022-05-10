@@ -27,9 +27,8 @@ import {
 } from "@/ultils/navigation";
 import { requestLogin, requestTokenDevice } from "@/store/auth/function";
 import LocalStorageHelper from "@/services/LocalServiceHelper";
-import messaging, { firebase } from "@react-native-firebase/messaging";
+import messaging from "@react-native-firebase/messaging";
 import { ParamCreateAccount } from "@/screens/LoginScreen/RegisterAccountScreen";
-import FirebaseTokenService from "@/services/FirebaseTokenService";
 
 const RoundedButton = styled(BaseOpacityButton)`
   width: ${fTabletScale(FORM_WIDTH)}px;
@@ -77,22 +76,28 @@ export const LoginForm = memo(() => {
   }, [eventRegister]);
 
   const [{}, updateToken] = useAsyncFn(async () => {
-    //  const authStatus = await messaging().requestPermission();
-
     await messaging().registerDeviceForRemoteMessages();
-    messaging()
-      .getToken()
-      .then((e) => {
-        console.log("ee", e);
-      });
-    console.log("ad", "");
+    const token1 = await messaging().getToken();
+    console.log(token1);
 
-    console.log("2", await firebase.messaging().getToken());
+    await messaging().deleteToken();
 
-    const tokenDevice = await messaging().getToken();
-    console.log("tokenDevice", tokenDevice);
-    await requestTokenDevice(tokenDevice);
-    await FirebaseTokenService.change(tokenDevice);
+    const token2 = await messaging().getToken();
+    console.log(token2);
+    // await messaging().deleteToken();
+    // const authStatus = await messaging().requestPermission();
+    // if (!messaging().isDeviceRegisteredForRemoteMessages) {
+    //   await messaging().registerDeviceForRemoteMessages();
+    // }
+    // //   console.log("2", await messaging().getToken());
+    // // console.log("ad12");
+    //
+    // //console.log("ad", a1);
+    //
+    // const tokenDevice = messaging().getToken();
+    // console.log("tokenDevice", tokenDevice);
+    // await requestTokenDevice(tokenDevice);
+    // await FirebaseTokenService.change(tokenDevice);
   }, []);
 
   const [{ loading }, startLogin] = useAsyncFn(async () => {

@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "148195066847",
-    "project_id": "tl-master",
-    "storage_bucket": "tl-master.appspot.com"
+    "project_number": "911975563936",
+    "firebase_url": "https://cxview-de6c3.firebaseio.com",
+    "project_id": "cxview-de6c3",
+    "storage_bucket": "cxview-de6c3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:148195066847:android:ff1390ff48a0e37123fa6a",
+        "mobilesdk_app_id": "1:911975563936:android:5259a558b9ffcf730c3fc5",
         "android_client_info": {
-          "package_name": "com.mobileplus.dummytriluc"
+          "package_name": "vn.iview.android"
         }
       },
       "oauth_client": [
         {
-          "client_id": "148195066847-bk345t9qgdu57f4tg7odq0hnvfn4q1sg.apps.googleusercontent.com",
+          "client_id": "911975563936-lfeep2nmi0ur5i16ic5nqjq4u9tbudf5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDLXBkab4NYLeejaYqe-tgvvByQ1Kvahvo"
+          "current_key": "AIzaSyA4_RcfuR8JRpVfElf1cZaqbCMyM_bOgKc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "148195066847-bk345t9qgdu57f4tg7odq0hnvfn4q1sg.apps.googleusercontent.com",
+              "client_id": "911975563936-lfeep2nmi0ur5i16ic5nqjq4u9tbudf5.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "911975563936-2ded6hohcnfeq2qg78mm4911289u8b38.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cxview.app"
+              }
             }
           ]
         }
