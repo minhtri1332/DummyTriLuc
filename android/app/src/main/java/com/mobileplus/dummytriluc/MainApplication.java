@@ -1,4 +1,4 @@
-package vn.iview.android;
+package com.mobileplus.dummytriluc;
 
 import android.app.Application;
 import android.content.Context;

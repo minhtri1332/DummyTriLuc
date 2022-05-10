@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "CXView-tvOS.app"
-               BlueprintName = "CXView-tvOS"
-               ReferencedContainer = "container:CXView.xcodeproj">
+               BuildableName = "DummyTriLuc-tvOS.app"
+               BlueprintName = "DummyTriLuc-tvOS"
+               ReferencedContainer = "container:DummyTriLuc.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "CXView-tvOSTests.xctest"
-               BlueprintName = "CXView-tvOSTests"
-               ReferencedContainer = "container:CXView.xcodeproj">
+               BuildableName = "DummyTriLuc-tvOSTests.xctest"
+               BlueprintName = "DummyTriLuc-tvOSTests"
+               ReferencedContainer = "container:DummyTriLuc.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "CXView-tvOS.app"
-            BlueprintName = "CXView-tvOS"
-            ReferencedContainer = "container:CXView.xcodeproj">
+            BuildableName = "DummyTriLuc-tvOS.app"
+            BlueprintName = "DummyTriLuc-tvOS"
+            ReferencedContainer = "container:DummyTriLuc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "CXView-tvOS.app"
-            BlueprintName = "CXView-tvOS"
-            ReferencedContainer = "container:CXView.xcodeproj">
+            BuildableName = "DummyTriLuc-tvOS.app"
+            BlueprintName = "DummyTriLuc-tvOS"
+            ReferencedContainer = "container:DummyTriLuc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

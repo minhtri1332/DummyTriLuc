@@ -16,41 +16,41 @@
 		AB7F1CF5282A41310084E2D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB7F1CF4282A41310084E2D0 /* GoogleService-Info.plist */; };
 		ABDD2EF725FA54730036F0AC /* LauchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABDD2EF625FA54730036F0AC /* LauchScreen.xib */; };
 		ABDD2EFA25FB07470036F0AC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABDD2EF925FB07470036F0AC /* Launch Screen.storyboard */; };
-		AF7FEF2F380754ECC69C9B9E /* libPods-CXView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1A448D6D0D13CBF24DCB41 /* libPods-CXView.a */; };
+		AF7FEF2F380754ECC69C9B9E /* libPods-DummyTriLuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1A448D6D0D13CBF24DCB41 /* libPods-DummyTriLuc.a */; };
 		B7822C8B966C4B2BB66484EB /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7D9B345C80F4428B80AD1AD /* Roboto-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* CXViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXViewTests.m; sourceTree = "<group>"; };
-		0983632435A2954D49ED3F15 /* libPods-CXView-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CXView-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* CXView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CXView.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = CXView/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = CXView/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CXView/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CXView/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CXView/main.m; sourceTree = "<group>"; };
-		2D78E020263C520BB79905FB /* Pods-CXView-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CXView-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-CXView-tvOS/Pods-CXView-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		4748BD8D76B2CAA66643025D /* libPods-CXView-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CXView-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F21AD99517003FC87E /* DummyTriLucTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DummyTriLucTests.m; sourceTree = "<group>"; };
+		0983632435A2954D49ED3F15 /* libPods-DummyTriLuc-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DummyTriLuc-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* DummyTriLuc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DummyTriLuc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = DummyTriLuc/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = DummyTriLuc/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DummyTriLuc/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DummyTriLuc/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DummyTriLuc/main.m; sourceTree = "<group>"; };
+		2D78E020263C520BB79905FB /* Pods-DummyTriLuc-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-tvOS/Pods-DummyTriLuc-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		4748BD8D76B2CAA66643025D /* libPods-DummyTriLuc-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DummyTriLuc-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		544ADF01D2F74C2299E4808C /* Roboto-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Italic.ttf"; path = "../src/assets/fonts/Roboto-Italic.ttf"; sourceTree = "<group>"; };
-		80B19BDC0908C4F67982054D /* Pods-CXView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CXView.release.xcconfig"; path = "Target Support Files/Pods-CXView/Pods-CXView.release.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CXView/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8553AF98CFB3F6AC9115D1F4 /* Pods-CXView-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CXView-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-CXView-tvOSTests/Pods-CXView-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		80B19BDC0908C4F67982054D /* Pods-DummyTriLuc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc.release.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc/Pods-DummyTriLuc.release.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = DummyTriLuc/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8553AF98CFB3F6AC9115D1F4 /* Pods-DummyTriLuc-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-tvOSTests/Pods-DummyTriLuc-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9367DFDDE385472890CC5768 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../src/assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
-		992195EB305ECF5ED58826D7 /* Pods-CXView-CXViewTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CXView-CXViewTests.release.xcconfig"; path = "Target Support Files/Pods-CXView-CXViewTests/Pods-CXView-CXViewTests.release.xcconfig"; sourceTree = "<group>"; };
+		992195EB305ECF5ED58826D7 /* Pods-DummyTriLuc-DummyTriLucTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-DummyTriLucTests.release.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-DummyTriLucTests/Pods-DummyTriLuc-DummyTriLucTests.release.xcconfig"; sourceTree = "<group>"; };
 		9A76ED8EE70C4140B45E5B40 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../src/assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		A2114C2902D34934843FD1A2 /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../src/assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
-		AB7F1CF4282A41310084E2D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "CXView/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AB7F1CF4282A41310084E2D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "DummyTriLuc/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ABDD2EF625FA54730036F0AC /* LauchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LauchScreen.xib; sourceTree = "<group>"; };
 		ABDD2EF925FB07470036F0AC /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		ABEC64BE2796A4FF0005A7CD /* CXView.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = CXView.entitlements; path = CXView/CXView.entitlements; sourceTree = "<group>"; };
-		B0B5137986459185B2748D81 /* Pods-CXView-CXViewTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CXView-CXViewTests.debug.xcconfig"; path = "Target Support Files/Pods-CXView-CXViewTests/Pods-CXView-CXViewTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C51C477E01501F5A94AEE045 /* Pods-CXView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CXView.debug.xcconfig"; path = "Target Support Files/Pods-CXView/Pods-CXView.debug.xcconfig"; sourceTree = "<group>"; };
-		CC1A448D6D0D13CBF24DCB41 /* libPods-CXView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CXView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D726336FAF80D0C457F81A98 /* Pods-CXView-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CXView-tvOS.release.xcconfig"; path = "Target Support Files/Pods-CXView-tvOS/Pods-CXView-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		D9EC8DFC9DF144184B68E02F /* libPods-CXView-CXViewTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CXView-CXViewTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABEC64BE2796A4FF0005A7CD /* DummyTriLuc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DummyTriLuc.entitlements; path = DummyTriLuc/DummyTriLuc.entitlements; sourceTree = "<group>"; };
+		B0B5137986459185B2748D81 /* Pods-DummyTriLuc-DummyTriLucTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-DummyTriLucTests.debug.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-DummyTriLucTests/Pods-DummyTriLuc-DummyTriLucTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C51C477E01501F5A94AEE045 /* Pods-DummyTriLuc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc.debug.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc/Pods-DummyTriLuc.debug.xcconfig"; sourceTree = "<group>"; };
+		CC1A448D6D0D13CBF24DCB41 /* libPods-DummyTriLuc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DummyTriLuc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D726336FAF80D0C457F81A98 /* Pods-DummyTriLuc-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-tvOS.release.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-tvOS/Pods-DummyTriLuc-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		D9EC8DFC9DF144184B68E02F /* libPods-DummyTriLuc-DummyTriLucTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DummyTriLuc-DummyTriLucTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D9B345C80F4428B80AD1AD /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
-		EC4A36C556E6FF517851FEB5 /* Pods-CXView-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CXView-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-CXView-tvOSTests/Pods-CXView-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EC4A36C556E6FF517851FEB5 /* Pods-DummyTriLuc-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-tvOSTests/Pods-DummyTriLuc-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -60,20 +60,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF7FEF2F380754ECC69C9B9E /* libPods-CXView.a in Frameworks */,
+				AF7FEF2F380754ECC69C9B9E /* libPods-DummyTriLuc.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* CXViewTests */ = {
+		00E356EF1AD99517003FC87E /* DummyTriLucTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* CXViewTests.m */,
+				00E356F21AD99517003FC87E /* DummyTriLucTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = CXViewTests;
+			path = DummyTriLucTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -84,11 +84,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* CXView */ = {
+		13B07FAE1A68108700A75B9A /* DummyTriLuc */ = {
 			isa = PBXGroup;
 			children = (
 				AB7F1CF4282A41310084E2D0 /* GoogleService-Info.plist */,
-				ABEC64BE2796A4FF0005A7CD /* CXView.entitlements */,
+				ABEC64BE2796A4FF0005A7CD /* DummyTriLuc.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -98,7 +98,7 @@
 				ABDD2EF925FB07470036F0AC /* Launch Screen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = CXView;
+			name = DummyTriLuc;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -106,10 +106,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				CC1A448D6D0D13CBF24DCB41 /* libPods-CXView.a */,
-				D9EC8DFC9DF144184B68E02F /* libPods-CXView-CXViewTests.a */,
-				4748BD8D76B2CAA66643025D /* libPods-CXView-tvOS.a */,
-				0983632435A2954D49ED3F15 /* libPods-CXView-tvOSTests.a */,
+				CC1A448D6D0D13CBF24DCB41 /* libPods-DummyTriLuc.a */,
+				D9EC8DFC9DF144184B68E02F /* libPods-DummyTriLuc-DummyTriLucTests.a */,
+				4748BD8D76B2CAA66643025D /* libPods-DummyTriLuc-tvOS.a */,
+				0983632435A2954D49ED3F15 /* libPods-DummyTriLuc-tvOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -117,14 +117,14 @@
 		7302249ACF934491891F38A1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C51C477E01501F5A94AEE045 /* Pods-CXView.debug.xcconfig */,
-				80B19BDC0908C4F67982054D /* Pods-CXView.release.xcconfig */,
-				B0B5137986459185B2748D81 /* Pods-CXView-CXViewTests.debug.xcconfig */,
-				992195EB305ECF5ED58826D7 /* Pods-CXView-CXViewTests.release.xcconfig */,
-				2D78E020263C520BB79905FB /* Pods-CXView-tvOS.debug.xcconfig */,
-				D726336FAF80D0C457F81A98 /* Pods-CXView-tvOS.release.xcconfig */,
-				EC4A36C556E6FF517851FEB5 /* Pods-CXView-tvOSTests.debug.xcconfig */,
-				8553AF98CFB3F6AC9115D1F4 /* Pods-CXView-tvOSTests.release.xcconfig */,
+				C51C477E01501F5A94AEE045 /* Pods-DummyTriLuc.debug.xcconfig */,
+				80B19BDC0908C4F67982054D /* Pods-DummyTriLuc.release.xcconfig */,
+				B0B5137986459185B2748D81 /* Pods-DummyTriLuc-DummyTriLucTests.debug.xcconfig */,
+				992195EB305ECF5ED58826D7 /* Pods-DummyTriLuc-DummyTriLucTests.release.xcconfig */,
+				2D78E020263C520BB79905FB /* Pods-DummyTriLuc-tvOS.debug.xcconfig */,
+				D726336FAF80D0C457F81A98 /* Pods-DummyTriLuc-tvOS.release.xcconfig */,
+				EC4A36C556E6FF517851FEB5 /* Pods-DummyTriLuc-tvOSTests.debug.xcconfig */,
+				8553AF98CFB3F6AC9115D1F4 /* Pods-DummyTriLuc-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -139,9 +139,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* CXView */,
+				13B07FAE1A68108700A75B9A /* DummyTriLuc */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* CXViewTests */,
+				00E356EF1AD99517003FC87E /* DummyTriLucTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				7302249ACF934491891F38A1 /* Pods */,
@@ -155,7 +155,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* CXView.app */,
+				13B07F961A680F5B00A75B9A /* DummyTriLuc.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,9 +175,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* CXView */ = {
+		13B07F861A680F5B00A75B9A /* DummyTriLuc */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "CXView" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DummyTriLuc" */;
 			buildPhases = (
 				C3D0A1B05392FF1DAE46F086 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -193,9 +193,9 @@
 			);
 			dependencies = (
 			);
-			name = CXView;
-			productName = CXView;
-			productReference = 13B07F961A680F5B00A75B9A /* CXView.app */;
+			name = DummyTriLuc;
+			productName = DummyTriLuc;
+			productReference = 13B07F961A680F5B00A75B9A /* DummyTriLuc.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -212,7 +212,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "CXView" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "DummyTriLuc" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -225,7 +225,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* CXView */,
+				13B07F861A680F5B00A75B9A /* DummyTriLuc */,
 			);
 		};
 /* End PBXProject section */
@@ -279,7 +279,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CXView/Pods-CXView-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DummyTriLuc/Pods-DummyTriLuc-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/MLKitFaceDetection/GoogleMVFaceDetectorResources.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
@@ -294,7 +294,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CXView/Pods-CXView-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DummyTriLuc/Pods-DummyTriLuc-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BB9B4BFE9DEAD315C20B41B5 /* [CP-User] [RNFB] Core Configuration */ = {
@@ -325,7 +325,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CXView-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DummyTriLuc-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -368,15 +368,15 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C51C477E01501F5A94AEE045 /* Pods-CXView.debug.xcconfig */;
+			baseConfigurationReference = C51C477E01501F5A94AEE045 /* Pods-DummyTriLuc.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = CXView/CXView.entitlements;
+				CODE_SIGN_ENTITLEMENTS = DummyTriLuc/DummyTriLuc.entitlements;
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = LN98PY84XY;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = CXView/Info.plist;
+				INFOPLIST_FILE = DummyTriLuc/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
@@ -385,7 +385,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vn.mobileplus.trilucmaster;
-				PRODUCT_NAME = CXView;
+				PRODUCT_NAME = DummyTriLuc;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -394,15 +394,15 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 80B19BDC0908C4F67982054D /* Pods-CXView.release.xcconfig */;
+			baseConfigurationReference = 80B19BDC0908C4F67982054D /* Pods-DummyTriLuc.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = CXView/CXView.entitlements;
+				CODE_SIGN_ENTITLEMENTS = DummyTriLuc/DummyTriLuc.entitlements;
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = LN98PY84XY;
 				"EXCLUDED_ARCHS[sdk=*]" = armv7;
-				INFOPLIST_FILE = CXView/Info.plist;
+				INFOPLIST_FILE = DummyTriLuc/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
@@ -411,7 +411,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vn.mobileplus.trilucmaster;
-				PRODUCT_NAME = CXView;
+				PRODUCT_NAME = DummyTriLuc;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -534,7 +534,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "CXView" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DummyTriLuc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -543,7 +543,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "CXView" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "DummyTriLuc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
