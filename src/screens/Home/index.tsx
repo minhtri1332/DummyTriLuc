@@ -36,9 +36,8 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
 
   const [{ loading }, onLoadData] = useAsyncFn(async () => {
     const dataHit = await requestHitGoal();
-    const dataStrength = await requestStrengthGoal();
-
     setDataHit(dataHit);
+    const dataStrength = await requestStrengthGoal();
     setDataStrength(dataStrength);
   }, []);
 

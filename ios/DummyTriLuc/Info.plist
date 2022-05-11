@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Trí Lục Master</string>
+	<string>Trí Lực Master</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -40,7 +40,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>DummyTriLuc cần quyền truy cập camera để có thể chụp ảnh nhân viên</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>DummyTriLuc cần quyền truy cập micro để quay video và thu tiếng.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
