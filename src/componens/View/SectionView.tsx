@@ -2,8 +2,6 @@ import { styled } from "@/global";
 import React, { memo, ReactElement, useCallback, useState } from "react";
 import { Colors } from "@/themes/Colors";
 import { ImageSourcePropType, View, ViewProps } from "react-native";
-import { ViewLineSpace } from "@/common/LineSeperator";
-import Animated, { FlipInEasyX } from "react-native-reanimated";
 
 export interface SectionContainerProps extends ViewProps {
   title: string;
@@ -15,7 +13,6 @@ export interface SectionContainerProps extends ViewProps {
   hideLine?: boolean;
 }
 
-const AnimatedComponent = Animated.createAnimatedComponent(View);
 
 export const SectionContainerStyle = memo(function SectionContainerStyle({
   title,
@@ -52,16 +49,15 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
         </HeaderWrapper>
       )}
 
+
+
       {isExpand && (
-        <AnimatedComponent
-          entering={FlipInEasyX.duration(200).springify()}
-          style={{ backgroundColor: Colors.colorTab, flex: 1 }}
-        >
-          <View>{children}</View>
-        </AnimatedComponent>
+
+          <View  style={{ backgroundColor: Colors.colorTab, flex: 1 }}>{children}</View>
+
       )}
 
-      {!hideLine && <ViewLineSpace />}
+      {/*{!hideLine && <ViewLineSpace />}*/}
     </SectionContainer>
   );
 });

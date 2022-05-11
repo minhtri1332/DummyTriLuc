@@ -15,6 +15,8 @@ import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import {isTablet} from 'react-native-device-info';
 import {useDeviceOrientation} from '@react-native-community/hooks';
 import {useSetupLanguage} from '@/languages';
+import {IMG_LOGIN_THEME} from "@/assets";
+import {Logo} from "@/screens/LoginScreen/components/Logo";
 
 const HEIGHT_IN_PORTRAIT = isTablet()
   ? fScale(80)
@@ -32,7 +34,7 @@ export const PreloadScreen = memo(function PreloadScreen() {
 
   return (
     <ScreenWrapper>
-      {/*<SImageBackground source={IMG_LOGIN_THEME} />*/}
+      <SImageBackground source={IMG_LOGIN_THEME} />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContent}
@@ -43,9 +45,9 @@ export const PreloadScreen = memo(function PreloadScreen() {
           behavior={'position'}
         >
           <UpperContainer>
-            {/*<Spacer landscape={orientation.landscape} />*/}
-            {/*<Logo />*/}
-            {/*<Spacer landscape={orientation.landscape} />*/}
+            <Spacer landscape={orientation.landscape} />
+            <Logo />
+            <Spacer landscape={orientation.landscape} />
             <LoginForm />
           </UpperContainer>
         </KeyboardAvoidingView>

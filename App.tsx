@@ -10,12 +10,12 @@ enableFreeze(true);
 
 const App = () => {
   return (
-      <Provider store={require("@/store").default}>
-        <PersistGate persistor={require("@/store").persistor}>
-          <Routes />
-          <Notification />
-        </PersistGate>
-      </Provider>
+    <Provider store={require("@/store").default}>
+      <PersistGate persistor={require("@/store").persistor}>
+        <Notification />
+        <Routes />
+      </PersistGate>
+    </Provider>
   );
 };
 

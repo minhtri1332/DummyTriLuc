@@ -13,7 +13,6 @@ export const Notification = memo(() => {
     notification().then();
   }, []);
 
-  console.log("messaging", messaging);
   const createNotification = useCallback(
     async (title: string, value: string) => {
       // Create a channel
@@ -45,6 +44,7 @@ export const Notification = memo(() => {
   const notification = useCallback(async () => {
     await requestUserPermission();
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      console.log("remoteMessage", remoteMessage);
       if (!remoteMessage?.data) {
         await createNotification(
           remoteMessage.notification?.title || "",
@@ -55,7 +55,6 @@ export const Notification = memo(() => {
           remoteMessage.notification?.body || ""
         );
       } else {
-        console.log("remoteMessage", remoteMessage);
         if (remoteMessage?.data) {
           navigateToPracticeDetailScreen({
             practiceId: "",
@@ -94,7 +93,7 @@ export const Notification = memo(() => {
 
   async function requestUserPermission() {
     const authStatus = await messaging().requestPermission();
-
+    console.log("authStatus", authStatus);
     const enabled =
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       authStatus === messaging.AuthorizationStatus.PROVISIONAL;

@@ -13,9 +13,8 @@
 		3A00E9ED42BE460895E4352D /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A76ED8EE70C4140B45E5B40 /* Roboto-Medium.ttf */; };
 		3FA44F4D0D1345CDA15A0440 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9367DFDDE385472890CC5768 /* Roboto-Bold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		AB5A2113282B90440073E3AB /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5A2112282B90440073E3AB /* File.swift */; };
 		AB7F1CF5282A41310084E2D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB7F1CF4282A41310084E2D0 /* GoogleService-Info.plist */; };
-		ABDD2EF725FA54730036F0AC /* LauchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABDD2EF625FA54730036F0AC /* LauchScreen.xib */; };
-		ABDD2EFA25FB07470036F0AC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABDD2EF925FB07470036F0AC /* Launch Screen.storyboard */; };
 		AF7FEF2F380754ECC69C9B9E /* libPods-DummyTriLuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1A448D6D0D13CBF24DCB41 /* libPods-DummyTriLuc.a */; };
 		B7822C8B966C4B2BB66484EB /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7D9B345C80F4428B80AD1AD /* Roboto-Regular.ttf */; };
 /* End PBXBuildFile section */
@@ -30,27 +29,21 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DummyTriLuc/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DummyTriLuc/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DummyTriLuc/main.m; sourceTree = "<group>"; };
-		2D78E020263C520BB79905FB /* Pods-DummyTriLuc-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-tvOS/Pods-DummyTriLuc-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		4748BD8D76B2CAA66643025D /* libPods-DummyTriLuc-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DummyTriLuc-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		544ADF01D2F74C2299E4808C /* Roboto-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Italic.ttf"; path = "../src/assets/fonts/Roboto-Italic.ttf"; sourceTree = "<group>"; };
 		80B19BDC0908C4F67982054D /* Pods-DummyTriLuc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc.release.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc/Pods-DummyTriLuc.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = DummyTriLuc/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8553AF98CFB3F6AC9115D1F4 /* Pods-DummyTriLuc-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-tvOSTests/Pods-DummyTriLuc-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9367DFDDE385472890CC5768 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../src/assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
-		992195EB305ECF5ED58826D7 /* Pods-DummyTriLuc-DummyTriLucTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-DummyTriLucTests.release.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-DummyTriLucTests/Pods-DummyTriLuc-DummyTriLucTests.release.xcconfig"; sourceTree = "<group>"; };
 		9A76ED8EE70C4140B45E5B40 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../src/assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		A2114C2902D34934843FD1A2 /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../src/assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
+		AB5A2111282B90430073E3AB /* DummyTriLuc-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DummyTriLuc-Bridging-Header.h"; sourceTree = "<group>"; };
+		AB5A2112282B90440073E3AB /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		AB7F1CF4282A41310084E2D0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "DummyTriLuc/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		ABDD2EF625FA54730036F0AC /* LauchScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LauchScreen.xib; sourceTree = "<group>"; };
-		ABDD2EF925FB07470036F0AC /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		ABEC64BE2796A4FF0005A7CD /* DummyTriLuc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DummyTriLuc.entitlements; path = DummyTriLuc/DummyTriLuc.entitlements; sourceTree = "<group>"; };
-		B0B5137986459185B2748D81 /* Pods-DummyTriLuc-DummyTriLucTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-DummyTriLucTests.debug.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-DummyTriLucTests/Pods-DummyTriLuc-DummyTriLucTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C51C477E01501F5A94AEE045 /* Pods-DummyTriLuc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc.debug.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc/Pods-DummyTriLuc.debug.xcconfig"; sourceTree = "<group>"; };
 		CC1A448D6D0D13CBF24DCB41 /* libPods-DummyTriLuc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DummyTriLuc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D726336FAF80D0C457F81A98 /* Pods-DummyTriLuc-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-tvOS.release.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-tvOS/Pods-DummyTriLuc-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		D9EC8DFC9DF144184B68E02F /* libPods-DummyTriLuc-DummyTriLucTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DummyTriLuc-DummyTriLucTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D9B345C80F4428B80AD1AD /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
-		EC4A36C556E6FF517851FEB5 /* Pods-DummyTriLuc-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DummyTriLuc-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-DummyTriLuc-tvOSTests/Pods-DummyTriLuc-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -94,8 +87,6 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
-				ABDD2EF625FA54730036F0AC /* LauchScreen.xib */,
-				ABDD2EF925FB07470036F0AC /* Launch Screen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = DummyTriLuc;
@@ -119,12 +110,6 @@
 			children = (
 				C51C477E01501F5A94AEE045 /* Pods-DummyTriLuc.debug.xcconfig */,
 				80B19BDC0908C4F67982054D /* Pods-DummyTriLuc.release.xcconfig */,
-				B0B5137986459185B2748D81 /* Pods-DummyTriLuc-DummyTriLucTests.debug.xcconfig */,
-				992195EB305ECF5ED58826D7 /* Pods-DummyTriLuc-DummyTriLucTests.release.xcconfig */,
-				2D78E020263C520BB79905FB /* Pods-DummyTriLuc-tvOS.debug.xcconfig */,
-				D726336FAF80D0C457F81A98 /* Pods-DummyTriLuc-tvOS.release.xcconfig */,
-				EC4A36C556E6FF517851FEB5 /* Pods-DummyTriLuc-tvOSTests.debug.xcconfig */,
-				8553AF98CFB3F6AC9115D1F4 /* Pods-DummyTriLuc-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -139,6 +124,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				AB5A2112282B90440073E3AB /* File.swift */,
 				13B07FAE1A68108700A75B9A /* DummyTriLuc */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* DummyTriLucTests */,
@@ -146,6 +132,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				7302249ACF934491891F38A1 /* Pods */,
 				ABD45EC623084DAC9CBFDC0F /* Resources */,
+				AB5A2111282B90430073E3AB /* DummyTriLuc-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -208,7 +195,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = LN98PY84XY;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1330;
 					};
 				};
 			};
@@ -241,8 +228,6 @@
 				3A00E9ED42BE460895E4352D /* Roboto-Medium.ttf in Resources */,
 				B7822C8B966C4B2BB66484EB /* Roboto-Regular.ttf in Resources */,
 				AB7F1CF5282A41310084E2D0 /* GoogleService-Info.plist in Resources */,
-				ABDD2EFA25FB07470036F0AC /* Launch Screen.storyboard in Resources */,
-				ABDD2EF725FA54730036F0AC /* LauchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				AB5A2113282B90440073E3AB /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,12 +359,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DummyTriLuc/DummyTriLuc.entitlements;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = LN98PY84XY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = DummyTriLuc/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -386,6 +372,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vn.mobileplus.trilucmaster;
 				PRODUCT_NAME = DummyTriLuc;
+				SWIFT_OBJC_BRIDGING_HEADER = "DummyTriLuc-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -399,12 +386,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = DummyTriLuc/DummyTriLuc.entitlements;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = LN98PY84XY;
 				"EXCLUDED_ARCHS[sdk=*]" = armv7;
 				INFOPLIST_FILE = DummyTriLuc/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -412,6 +399,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = vn.mobileplus.trilucmaster;
 				PRODUCT_NAME = DummyTriLuc;
+				SWIFT_OBJC_BRIDGING_HEADER = "DummyTriLuc-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
