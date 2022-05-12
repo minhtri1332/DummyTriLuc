@@ -1,8 +1,5 @@
 import React, { memo, useCallback, useState } from "react";
-import {
-  DynamicHeader,
-  LeftModalHeader,
-} from "@/componens/Header/DynamicHeader";
+import { LeftModalHeader } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { InputBorder } from "@/componens/ViewBorder/InputBorder";
 import { styled, useAsyncFn } from "@/global";
@@ -10,7 +7,6 @@ import SubmitButtonColor from "@/componens/Button/ButtonSubmit";
 import { requestRegister } from "@/store/auth/function";
 import { goBack } from "@/ultils/navigation";
 import { useNavigationParams } from "@/hooks/useNavigationParams";
-import { Colors } from "@/themes/Colors";
 import { IMG_LOGIN_THEME } from "@/assets";
 import { Keyboard, KeyboardAvoidingView, Platform } from "react-native";
 
@@ -28,7 +24,7 @@ export interface RegisterAccountProps {
 export const RegisterAccountScreen = memo(function RegisterAccountScreen() {
   const { eventRegister } = useNavigationParams<RegisterAccountProps>();
   const [paramCustomer, setParamCustomer] = useState<ParamCreateAccount>({
-    full_name: "Nguyen Van Bee",
+    full_name: "",
     email: "",
     password: "Password#1",
     re_password: "Password#1",
@@ -83,7 +79,7 @@ export const RegisterAccountScreen = memo(function RegisterAccountScreen() {
             onTextChange={setParamCustom}
             keyboardType={"email-address"}
             placeHolder={"Nhập mật khẩu"}
-            secureTextEntry={true}
+            secureTextEntry={false}
             textContentType="password"
           />
           <SInputBorder
@@ -91,7 +87,7 @@ export const RegisterAccountScreen = memo(function RegisterAccountScreen() {
             keyName={"re_password"}
             onTextChange={setParamCustom}
             keyboardType={"email-address"}
-            secureTextEntry={true}
+            secureTextEntry={false}
             placeHolder={"Nhập lại mật khẩu"}
           />
 

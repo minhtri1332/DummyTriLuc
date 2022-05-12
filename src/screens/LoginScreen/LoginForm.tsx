@@ -1,7 +1,8 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Image,
+  InteractionManager,
   Keyboard,
   Platform,
   StyleSheet,
@@ -30,6 +31,7 @@ import LocalStorageHelper from "@/services/LocalServiceHelper";
 import messaging from "@react-native-firebase/messaging";
 import { ParamCreateAccount } from "@/screens/LoginScreen/RegisterAccountScreen";
 import FirebaseTokenService from "@/services/FirebaseTokenService";
+import useAutoToastError from "@/hooks/useAutoToastError";
 
 const RoundedButton = styled(BaseOpacityButton)`
   width: ${fTabletScale(FORM_WIDTH)}px;
@@ -55,9 +57,36 @@ const Container = styled.View`
 `;
 
 export const LoginForm = memo(() => {
-  const [email, setEmail] = useState("test3@gmail.com");
-  const [password, setPassword] = useState("Password#1");
+  // test3@gmail.com
+  // Password#1
+  const [email, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const onTextChange = useCallback((keyname: string, value: string) => {
+    if (keyname == "username") {
+      setUsername(value);
+    } else {
+      setPassword(value);
+    }
+  }, []);
+
+  const fillUser = useCallback(async () => {
+    const email = await LocalStorageHelper.get("username");
+    const pass = await LocalStorageHelper.get("password");
+
+    if (email) {
+      onTextChange("username", String(email));
+    }
+
+    if (pass) {
+      onTextChange("password", String(pass));
+    }
+  }, []);
+
+  useEffect(() => {
+    fillUser().then();
+  }, []);
 
   const onSubmit = useCallback(async () => {
     Keyboard.dismiss();
@@ -66,10 +95,10 @@ export const LoginForm = memo(() => {
 
   const eventRegister = useCallback(
     async (data: ParamCreateAccount) => {
-      setEmail(data.email);
+      setUsername(data.email);
       setPassword(data.password);
     },
-    [setEmail, setPassword]
+    [setUsername, setPassword]
   );
 
   const goToRegister = useCallback(async () => {
@@ -84,14 +113,15 @@ export const LoginForm = memo(() => {
     }
 
     const tokenDevice = await messaging().getToken();
+    console.log("tokenDevice", tokenDevice);
     await requestTokenDevice(tokenDevice);
     await FirebaseTokenService.change(tokenDevice);
   }, []);
 
-  const [{ loading }, startLogin] = useAsyncFn(async () => {
-    // InteractionManager.runAfterInteractions(() => {
-    //   Keyboard.dismiss();
-    // });
+  const [{ loading, error }, startLogin] = useAsyncFn(async () => {
+    InteractionManager.runAfterInteractions(() => {
+      Keyboard.dismiss();
+    });
 
     const response = await requestLogin(email, password);
 
@@ -103,6 +133,7 @@ export const LoginForm = memo(() => {
     }
   }, [email, password]);
 
+  useAutoToastError(error);
   return (
     <Container>
       <Text style={styles.textLabel}>Email</Text>
@@ -115,7 +146,7 @@ export const LoginForm = memo(() => {
           styles.emailInputContainer,
         ])}
         value={email}
-        onChangeText={setEmail}
+        onChangeText={setUsername}
         placeholder="Email"
         autoCapitalize="none"
         autoCorrect={false}
