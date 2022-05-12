@@ -1,20 +1,20 @@
-import React, { memo, useMemo } from "react";
+import React, {memo, useCallback, useEffect, useMemo} from "react";
 import { RadarChart } from "react-native-charts-wrapper";
 import { processColor, StyleSheet, View } from "react-native";
 import { Colors } from "@/themes/Colors";
+import {RawStat} from "@/store/auth/types";
 
-export const RadarChartHome = memo(function RadarChartHome() {
+export const RadarChartHome = memo(function RadarChartHome({stat}:{stat: RawStat}) {
+  const valueChart = useMemo(() => {
+    const output = Object.entries(stat || {}).map(([key, data]) => ({value:data }));
+    return output
+  }, [stat]);
+
   const data = useMemo(() => {
     return {
       dataSets: [
         {
-          values: [
-            { value: 100 },
-            { value: 110 },
-            { value: 105 },
-            { value: 115 },
-            { value: 110 },
-          ],
+          values: valueChart,
           label: "DS 1",
           config: {
             color: processColor(Colors.red1),
@@ -27,16 +27,16 @@ export const RadarChartHome = memo(function RadarChartHome() {
         },
       ],
     };
-  }, []);
+  }, [stat]);
 
   const xAxis = useMemo(() => {
     return {
       valueFormatter: [
-        "Sức mạnh",
-        "Chăm chỉ",
-        "Phản xạ",
-        "Đòn đánh",
         "Sức bền",
+        "Chăm chỉ",
+        "Đòn đánh",
+        "Phản xạ",
+        "Sức mạnh",
       ],
       textColor: processColor(Colors.colorText),
     };

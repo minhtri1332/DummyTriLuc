@@ -1,9 +1,9 @@
-import React, { memo, useMemo } from "react";
-import { PieChart } from "react-native-charts-wrapper";
-import { processColor, StyleSheet, Text, View } from "react-native";
-import { Colors } from "@/themes/Colors";
-import { styled } from "@/global";
-import { RawDataStrengthGoal } from "@/store/home/function";
+import React, {memo, useMemo} from "react";
+import {PieChart} from "react-native-charts-wrapper";
+import {processColor, StyleSheet, View} from "react-native";
+import {Colors} from "@/themes/Colors";
+import {styled} from "@/global";
+import {RawDataStrengthGoal} from "@/store/home/function";
 
 interface dataProps {
   dataStrength: RawDataStrengthGoal;
@@ -35,10 +35,11 @@ export const PieChartHome = memo(function PieChartHome(props: dataProps) {
       dataSets: [
         {
           values: valueStrength,
-          label: "",
+          label: "dfd",
           config: {
             colors: valueColor,
             valueLineColor: processColor("transparent"),
+            valueTextColor: processColor("transparent"),
             sliceSpace: 2,
           },
         },
@@ -59,7 +60,7 @@ export const PieChartHome = memo(function PieChartHome(props: dataProps) {
         style={styles.chart}
         logEnabled={false}
         data={data}
-        chartDescription={{ text: "" }}
+        chartDescription={{ text: ""}}
         legend={legend}
         drawEntryLabels={false}
         rotationEnabled={true}

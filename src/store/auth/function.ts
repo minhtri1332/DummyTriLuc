@@ -31,7 +31,7 @@ export const requestTokenDevice = async (token: string) => {
   return response;
 };
 
-export const requestGetProfile = async () => {
+export const requestEditProfile = async () => {
   const { data } = await Fetch.put(
     `${LocaleServiceUrl.getUrl()}/user/user-profile`,
     {}
@@ -39,12 +39,12 @@ export const requestGetProfile = async () => {
   return data.data;
 };
 
-export const requestEditProfile = async () => {
+export const  requestGetProfile = async () => {
   const { data } = await Fetch.get(
     `${LocaleServiceUrl.getUrl()}/user/user-profile`,
     {}
   );
-  return data.data;
+  return data;
 };
 
 export const requestRegister = async (params: ParamCreateAccount) => {
