@@ -1,4 +1,4 @@
-package com.mobileplus.dummytriluc;
+package com.mobileplus.trilucmaster;
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {

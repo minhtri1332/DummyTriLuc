@@ -29,6 +29,49 @@
             {
               "client_id": "148195066847-bk345t9qgdu57f4tg7odq0hnvfn4q1sg.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "148195066847-vj0vr9eca91hdscchmvnceg81a89326l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.mobileplus.trilucmaster"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148195066847:android:d2fad758f5df61d623fa6a",
+        "android_client_info": {
+          "package_name": "com.mobileplus.trilucmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148195066847-bk345t9qgdu57f4tg7odq0hnvfn4q1sg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLXBkab4NYLeejaYqe-tgvvByQ1Kvahvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148195066847-bk345t9qgdu57f4tg7odq0hnvfn4q1sg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "148195066847-vj0vr9eca91hdscchmvnceg81a89326l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.mobileplus.trilucmaster"
+              }
             }
           ]
         }

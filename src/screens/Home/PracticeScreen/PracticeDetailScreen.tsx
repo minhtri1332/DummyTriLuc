@@ -45,7 +45,7 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
     <ScreenWrapper>
       <DynamicHeader title={"PracticeDetailScreen"} />
 
-      <View style={{ height: 500 }}>
+      <View style={{ flex: 1 }}>
         <SImageBackground
           resizeMode={"cover"}
           source={IMG_BACKGROUND_MACHINE}

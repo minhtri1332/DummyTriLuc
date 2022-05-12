@@ -133,7 +133,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mobileplus.dummytriluc"
+        applicationId "com.mobileplus.trilucmaster"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode versionMajor * 1000000 + versionMinor * 1000 + versionPatch * 100

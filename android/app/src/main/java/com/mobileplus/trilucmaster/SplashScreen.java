@@ -1,4 +1,4 @@
-package com.mobileplus.dummytriluc;
+package com.mobileplus.trilucmaster;
 import android.content.Intent;
 import android.os.Bundle;
 
