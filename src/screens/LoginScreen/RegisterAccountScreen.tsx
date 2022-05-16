@@ -9,6 +9,7 @@ import { goBack } from "@/ultils/navigation";
 import { useNavigationParams } from "@/hooks/useNavigationParams";
 import { IMG_LOGIN_THEME } from "@/assets";
 import { Keyboard, KeyboardAvoidingView, Platform } from "react-native";
+import useAutoToastError from "@/hooks/useAutoToastError";
 
 export interface ParamCreateAccount {
   full_name: string;
@@ -40,7 +41,7 @@ export const RegisterAccountScreen = memo(function RegisterAccountScreen() {
     [paramCustomer]
   );
 
-  const [{ loading }, requestRegisterAccount] = useAsyncFn(async () => {
+  const [{ loading, error }, requestRegisterAccount] = useAsyncFn(async () => {
     const response = await requestRegister(paramCustomer);
     Keyboard.dismiss();
     if (response == "TL10002") {
@@ -48,6 +49,8 @@ export const RegisterAccountScreen = memo(function RegisterAccountScreen() {
     }
     goBack();
   }, [paramCustomer, eventRegister]);
+
+  useAutoToastError(error)
 
   return (
     <ScreenWrapper>

@@ -6,18 +6,31 @@ import { CssImage } from "@/componens/View";
 import { IC_EMAIL, IC_USER_Fill } from "@/assets";
 import { Colors } from "@/themes/Colors";
 import Avatar from "@/componens/View/Avatar";
+import { ScreenWrapper } from "@/common/CommonStyles";
+import { useProfile } from "@/store/profile";
+import {
+  navigateToHome,
+  navigateToPracticeDetailScreen,
+  navigateToProfileScreen,
+} from "@/ultils/navigation";
 
 export const CustomDrawerContent = memo(function CustomDrawerContent(props) {
+  const profile = useProfile("0");
   return (
-    <DrawerContentScrollView {...props}>
-      <SViewHeader>
-        <Avatar />
-        <SText>xcxc</SText>
+    <DrawerContentScrollView
+      style={{ backgroundColor: Colors.backgroundColor }}
+      {...props}
+    >
+      <SViewHeader onPress={navigateToProfileScreen}>
+        <Avatar uri={profile?.avatar} />
+        <SText>{profile?.name}</SText>
       </SViewHeader>
       {/*<DrawerItemList {...props} />*/}
       <DrawerItem
-        label="Help"
-        onPress={() => Linking.openURL("https://mywebsite.com/help")}
+        label="Home"
+        inactiveTintColor={Colors.colorText}
+        activeBackgroundColor={Colors.colorTab}
+        onPress={navigateToHome}
       />
     </DrawerContentScrollView>
   );
@@ -26,11 +39,13 @@ export const CustomDrawerContent = memo(function CustomDrawerContent(props) {
 const SText = styled.Text`
   align-self: center;
   font-size: 20px;
-  padding-top: 4px;
+  padding-top: 8px;
   font-family: Roboto-Medium;
+  color: ${Colors.colorText};
 `;
 
-const SViewHeader = styled.View`
+const SViewHeader = styled.TouchableOpacity`
   border-bottom-width: 1px;
   padding: 16px 0;
+  border-color: ${Colors.grey4};
 `;

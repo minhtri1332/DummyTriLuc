@@ -63,15 +63,15 @@ const PointHitComponent = memo(function PointHitComponent({
 export default PointHitComponent;
 
 const SViewHitPoint = styled.View<{ isHighLight: boolean }>`
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-radius: 25px;
   justify-content: center;
   align-items: center;
   background-color: ${(props) =>
     props.isHighLight ? Colors.orange1 : Colors.red1 + "20"};
   border-color: darkred;
-  border-width: 2px;
+  border-width: 1px;
 `;
 
 const SViewHitPointLeft = styled(SViewHitPoint)<{ isHighLight: boolean }>`
@@ -83,18 +83,18 @@ const SViewHitPointLeftRight = styled.View`
 `;
 
 const SViewContainerHitPoint = styled.View`
-  height: 200px;
+  height: 150px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  top: 165px;
-  right: 15px;
+  top: 140px;
+  right: 10px;
 `;
 
 const STextHitPoint = styled.Text`
   font-family: Roboto-Medium;
-  font-size: 17px;
+  font-size: 13px;
   color: ${Colors.red1};
 `;
 

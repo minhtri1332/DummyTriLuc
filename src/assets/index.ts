@@ -25,6 +25,8 @@ export const IC_POWER = require("./icons/ic_power.png");
 export const IC_ARROW_DOWN = require("./icons/arrow-down.png");
 export const IC_CHECK_ROUND = require("./icons/check-round.png");
 export const IC_HISTORY = require("./icons/ic_history.png");
+export const IC_PROFILE = require("./icons/ic_profile.png");
+export const IC_EDIT_PROFILE = require("./icons/ic_edit_profile.png");
 
 //image theme
 export const IMG_LOGIN_THEME = require("./images/login_theme.png");

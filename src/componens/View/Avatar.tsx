@@ -6,16 +6,25 @@ import { styled } from "@/global";
 
 interface Props {
   uri?: string;
+  size?: number;
 }
 
-const Avatar = memo(({ uri }: Props) => {
+const Avatar = memo(({ uri, size }: Props) => {
   return (
     <>
       {uri ? (
-        <CssImage source={{ uri: uri }} size={70} tintColor={Colors.grey4} />
+        <CssImage
+          source={{ uri: uri }}
+          size={size ? size : 70}
+          tintColor={Colors.grey4}
+        />
       ) : (
-        <SViewAvatar>
-          <CssImage source={IC_USER_Fill} size={40} tintColor={Colors.grey4} />
+        <SViewAvatar size={size ? size + 50 : 70}>
+          <CssImage
+            source={IC_USER_Fill}
+            size={size ? size : 40}
+            tintColor={Colors.grey4}
+          />
         </SViewAvatar>
       )}
     </>
@@ -24,11 +33,11 @@ const Avatar = memo(({ uri }: Props) => {
 
 export default Avatar;
 
-const SViewAvatar = styled.View`
+const SViewAvatar = styled.View<{ size: number }>`
   background-color: ${Colors.grey5};
-  width: 70px;
-  height: 70px;
-  border-radius: 40px;
+  width: ${(props) => (props.size ? props.size : 70)}px;
+  height: ${(props) => (props.size ? props.size : 70)}px;
+  border-radius: ${(props) => (props.size ? props.size : 40)}px;
   justify-content: center;
   align-items: center;
   align-self: center;

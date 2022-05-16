@@ -13,7 +13,6 @@ export interface SectionContainerProps extends ViewProps {
   hideLine?: boolean;
 }
 
-
 export const SectionContainerStyle = memo(function SectionContainerStyle({
   title,
   children,
@@ -49,12 +48,10 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
         </HeaderWrapper>
       )}
 
-
-
       {isExpand && (
-
-          <View  style={{ backgroundColor: Colors.colorTab, flex: 1 }}>{children}</View>
-
+        <View style={{ backgroundColor: Colors.colorTab, flex: 1 }}>
+          {children}
+        </View>
       )}
 
       {/*{!hideLine && <ViewLineSpace />}*/}
@@ -83,7 +80,7 @@ const Title = styled.Text`
 
 const SImageLeft = styled.Image`
   height: 20px;
-  width: 22px;
+  width: 20px;
   margin-right: 8px;
   align-self: center;
   tint-color: ${Colors.colorText};

@@ -22,6 +22,7 @@ import HitStatisticScreen from "@/screens/Home/HitScreen/HitStatisticScreen";
 import StrengthStatisticScreen from "@/screens/Home/StrengthScreen/StrengthStatisticScreen";
 import PracticeDetailScreen from "@/screens/Home/PracticeScreen/PracticeDetailScreen";
 import PracticingScreen from "@/screens/Home/PracticeScreen/PracticingScreen";
+import ProfileScreen from "@/screens/Profile/ProfileScreen";
 
 const RootStack = createNativeStackNavigator();
 const TabBarStack = createBottomTabNavigator();
@@ -111,6 +112,10 @@ export const Routes = memo(function Routes() {
             <RootStack.Screen
               name={"HitStatisticScreen"}
               component={HitStatisticScreen}
+            />
+            <RootStack.Screen
+              name={"ProfileScreen"}
+              component={ProfileScreen}
             />
           </RootStack.Group>
 

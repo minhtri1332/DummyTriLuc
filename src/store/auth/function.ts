@@ -45,22 +45,6 @@ export const requestTokenDevice = async (token: string) => {
   return response;
 };
 
-export const requestEditProfile = async () => {
-  const { data } = await Fetch.put(
-    `${LocaleServiceUrl.getUrl()}/user/user-profile`,
-    {}
-  );
-  return data.data;
-};
-
-export const  requestGetProfile = async () => {
-  const { data } = await Fetch.get(
-    `${LocaleServiceUrl.getUrl()}/user/user-profile`,
-    {}
-  );
-  return data;
-};
-
 export const requestRegister = async (params: ParamCreateAccount) => {
   const paramsString = JSON.stringify(params);
   const { data } = await Fetch.post(

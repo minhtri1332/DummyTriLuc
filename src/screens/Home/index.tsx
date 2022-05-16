@@ -1,32 +1,29 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { HeaderHome } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { IMG_TARGET_HOME_THEME } from "@/assets";
 import { styled, useAsyncFn, useBoolean } from "@/global";
 import RadarChartHome from "@/screens/Home/components/RadarChartHome";
 import { RefreshControl, ScrollView, View } from "react-native";
-import { requestConnectMachineHitMode } from "@/store/mechine/function";
-import MachineIdService from "@/services/MachineIdService";
 import PunchComponent from "@/screens/Home/HitScreen/PunchComponent";
 import PowerComponent from "@/screens/Home/StrengthScreen/PowerComponent";
 import {
   RawDataGoal,
   RawDataStrengthGoal,
   requestHitGoal,
-  requestHitsStatistic,
   requestStrengthGoal,
 } from "@/store/home/function";
 import { Colors } from "@/themes/Colors";
 import GradientButton from "@/componens/Gradient/ButtonGradient";
 import PracticingBottomModal from "@/screens/Home/PracticingBottomModal/PracticingScreen";
 import PracticeComponent from "@/screens/Home/PracticeScreen/PracticeComponent";
-import {requestGetProfile} from "@/store/auth/function";
 import useAutoToastError from "@/hooks/useAutoToastError";
+import { requestGetProfile } from "@/store/profile/functions";
 
 export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
   const [isModalPracticeVisible, showModalPractice, hideModalPractice] =
     useBoolean();
-  const [stat, setStat] = useState()
+  const [stat, setStat] = useState();
   const [dataHit, setDataHit] = useState<RawDataGoal>({
     goal: 0,
     total_hits: 0,
@@ -38,25 +35,24 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
   });
 
   const [{ loading }, onLoadData] = useAsyncFn(async () => {
-    getdata()
+    getdata();
     const dataHit = await requestHitGoal();
     setDataHit(dataHit);
     const dataStrength = await requestStrengthGoal();
     setDataStrength(dataStrength);
   }, []);
 
-  const [{ loading:l, error }, getdata] = useAsyncFn(async () => {
+  const [{ loading: l, error }, getdata] = useAsyncFn(async () => {
     const profile = await requestGetProfile();
-    setStat(profile.stat)
+    setStat(profile.stat);
   }, []);
 
-  useAutoToastError(error)
+  useAutoToastError(error);
 
   useEffect(() => {
     onLoadData().then();
   }, []);
 
-  console.log(stat)
   return (
     <ScreenWrapper>
       <HeaderHome title={"Home"} toggleDrawer={navigation.toggleDrawer} />
@@ -81,8 +77,7 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
           {/*  reflex: 100,*/}
           {/*  strength: 100}*/}
           <View style={{ flex: 1 }}>
-            {stat&&<RadarChartHome stat={
-              stat}/>}
+            {stat && <RadarChartHome stat={stat} />}
           </View>
           <SBaseOpacityButton>
             <GradientButton label={"Tập luyện"} onPress={showModalPractice} />

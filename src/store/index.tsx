@@ -6,6 +6,7 @@ import {authReducer, setAuthStore} from '@/store/auth';
 import {createSettingSetStore} from '@/ultils/createSetting';
 import {practiceReducer, setPracticeStore} from '@/store/home';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import {profileReducer, setProfileStore} from "@/store/profile";
 
 const middlewares: any[] = [];
 
@@ -19,6 +20,7 @@ const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
 const appReducer = combineReducers({
   auth: authReducer,
   practice: practiceReducer,
+  profile: profileReducer,
 });
 
 const rootReducer = (state: any, action: any) => {
@@ -49,3 +51,4 @@ export default store;
 setStore(store);
 setAuthStore(store);
 setPracticeStore(store);
+setProfileStore(store);
