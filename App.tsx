@@ -5,7 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import Routes from "./src/Routers";
 import { enableFreeze } from "react-native-screens";
 import { Notification } from "./src/componens/Notification";
-
+console.disableYellowBox = true;
 enableFreeze(true);
 
 const App = () => {
