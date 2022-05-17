@@ -5,10 +5,10 @@ import { fScale, screenLongDimension } from "@/ultils/scale";
 import { IC_LOGO, IC_LOGO_LOGIN } from "@/assets";
 
 const size = DeviceInfo.isTablet()
-  ? fScale(128)
-  : screenLongDimension <= 120
-  ? 128
-  : 220;
+  ? fScale(138)
+  : screenLongDimension <= 130
+  ? 138
+  : 230;
 
 const SImage = styled.Image`
   width: ${size}px;

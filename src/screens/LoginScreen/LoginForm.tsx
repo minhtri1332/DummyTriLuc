@@ -45,6 +45,7 @@ const LoginButton = styled(RoundedButton)`
   margin-top: ${fScale(16)}px;
   background-color: ${Colors.red1};
 `;
+
 const LoginText = styled.Text`
   font-size: ${fontTabletScale(15)}px;
   color: #fff;
@@ -55,6 +56,18 @@ const Container = styled.View`
   width: ${fTabletScale(FORM_WIDTH)}px;
   padding: 16px 0px;
 `;
+
+export const updateToken = async () => {
+  await messaging().registerDeviceForRemoteMessages();
+
+  if (!messaging().isDeviceRegisteredForRemoteMessages) {
+    await messaging().registerDeviceForRemoteMessages();
+  }
+
+  const tokenDevice = await messaging().getToken();
+  await requestTokenDevice(tokenDevice);
+  await FirebaseTokenService.change(tokenDevice);
+};
 
 export const LoginForm = memo(() => {
   // test3@gmail.com
@@ -104,19 +117,6 @@ export const LoginForm = memo(() => {
   const goToRegister = useCallback(async () => {
     navigateToRegisterAccountScreen({ eventRegister });
   }, [eventRegister]);
-
-  const [{}, updateToken] = useAsyncFn(async () => {
-    await messaging().registerDeviceForRemoteMessages();
-
-    if (!messaging().isDeviceRegisteredForRemoteMessages) {
-      await messaging().registerDeviceForRemoteMessages();
-    }
-
-    const tokenDevice = await messaging().getToken();
-    console.log("tokenDevice", tokenDevice);
-    await requestTokenDevice(tokenDevice);
-    await FirebaseTokenService.change(tokenDevice);
-  }, []);
 
   const [{ loading, error }, startLogin] = useAsyncFn(async () => {
     InteractionManager.runAfterInteractions(() => {

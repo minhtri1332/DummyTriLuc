@@ -16,13 +16,16 @@ import {
 
 export const CustomDrawerContent = memo(function CustomDrawerContent(props) {
   const profile = useProfile("0");
-  console.log(profile);
+  console.log("profile", profile);
   return (
     <DrawerContentScrollView
       style={{ backgroundColor: Colors.backgroundColor }}
       {...props}
     >
-      <SViewHeader onPress={navigateToProfileScreen}>
+      <SViewHeader
+        disabled={profile?.name === "Guest"}
+        onPress={navigateToProfileScreen}
+      >
         <Avatar uri={profile?.avatar} />
         <SText>{profile?.name}</SText>
       </SViewHeader>

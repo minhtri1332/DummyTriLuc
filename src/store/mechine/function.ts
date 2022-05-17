@@ -30,7 +30,6 @@ export const requestConnectMachineHitMode = async (
     firebase_token: FirebaseTokenService.getFirebaseToken(),
   });
 
-  console.log("params", params);
   const { data } = await Fetch.post(
     `${LocaleServiceUrl.getUrl()}/machine/hit-mode`,
     params
