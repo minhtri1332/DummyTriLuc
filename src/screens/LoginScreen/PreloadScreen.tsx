@@ -31,8 +31,7 @@ import { IMG_LOGIN_THEME } from "@/assets";
 import { Logo } from "@/screens/LoginScreen/components/Logo";
 import { Colors } from "@/themes/Colors";
 import { BaseOpacityButton } from "@/componens/Button/ButtonCustom";
-import { requestLogin, requestLoginGuest } from "@/store/auth/function";
-import LocalStorageHelper from "@/services/LocalServiceHelper";
+import { requestLoginGuest } from "@/store/auth/function";
 import { navigateToHome } from "@/ultils/navigation";
 import useAutoToastError from "@/hooks/useAutoToastError";
 

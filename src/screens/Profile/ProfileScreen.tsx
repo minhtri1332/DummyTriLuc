@@ -1,5 +1,13 @@
 import React, { memo, useCallback, useState } from "react";
-import { RefreshControl, ScrollView, Text, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { navigateToProfileScreen } from "@/ultils/navigation";
@@ -11,6 +19,7 @@ import { ProfileComponent } from "@/screens/Profile/components/ProfileComponent"
 import PickImageModalComponent from "@/screens/Profile/components/PickImageModalComponent";
 import { requestEditProfile } from "@/store/profile/functions";
 import useAutoToastError from "@/hooks/useAutoToastError";
+import { screenShortDimension } from "@/ultils/scale";
 
 export const ProfileScreen = memo(function ProfileScreen() {
   const profile = useProfile("0");
@@ -33,16 +42,21 @@ export const ProfileScreen = memo(function ProfileScreen() {
   return (
     <ScreenWrapper>
       <DynamicHeader title={"Hồ sơ"} />
-      <ScrollView>
-        <PickImageModalComponent
-          imageDefault={profile?.avatar}
-          onImageCallback={onEditAvatar}
-          keyName={"avatar"}
-        />
-        <SText>{profile?.name}</SText>
+      <KeyboardAvoidingView
+        style={styles.search}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        <ScrollView style={styles.maxHeightScroll}>
+          <PickImageModalComponent
+            imageDefault={profile?.avatar}
+            onImageCallback={onEditAvatar}
+            keyName={"avatar"}
+          />
+          <SText>{profile?.name}</SText>
 
-        <ProfileComponent profile={profile} />
-      </ScrollView>
+          <ProfileComponent profile={profile} />
+        </ScrollView>
+      </KeyboardAvoidingView>
     </ScreenWrapper>
   );
 });
@@ -53,5 +67,14 @@ const SText = styled.Text`
   font-family: Roboto-Medium;
   color: ${Colors.colorText};
 `;
+
+const styles = StyleSheet.create({
+  maxHeightScroll: {
+    maxHeight: "100%",
+  },
+  search: {
+    flex: 1,
+  },
+});
 
 export default ProfileScreen;
