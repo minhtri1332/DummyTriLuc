@@ -2,12 +2,13 @@ import LinearGradient from "react-native-linear-gradient";
 import React, { memo, useCallback } from "react";
 import { Colors } from "@/themes/Colors";
 import { styled } from "@/global";
-import { ActivityIndicator, ViewStyle } from "react-native";
+import { ActivityIndicator, TextStyle, ViewStyle } from "react-native";
 
 interface GradientButtonProps {
   onPress: (keyName: string, value: string) => void;
   style?: ViewStyle;
   styleGradient?: ViewStyle;
+  textStyle?: TextStyle;
   keyName?: string;
   value?: string;
   label: string;
@@ -31,7 +32,7 @@ const GradientButton = memo((props: GradientButtonProps) => {
             style={props.styleGradient}
           >
             {!props.loading ? (
-              <SText>{props.label}</SText>
+              <SText style={props.textStyle}>{props.label}</SText>
             ) : (
               <ActivityIndicator color={Colors.grey5} />
             )}

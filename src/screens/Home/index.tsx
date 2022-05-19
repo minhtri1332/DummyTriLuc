@@ -71,11 +71,6 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
             resizeMode={"contain"}
             source={IMG_TARGET_HOME_THEME}
           />
-          {/*{endurance: 100,*/}
-          {/*  hard: 100,*/}
-          {/*  hits: 100,*/}
-          {/*  reflex: 100,*/}
-          {/*  strength: 100}*/}
           <View style={{ flex: 1 }}>
             {stat && <RadarChartHome stat={stat} />}
           </View>

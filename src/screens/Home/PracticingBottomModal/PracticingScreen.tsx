@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useMemo } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { styled, useAsyncFn } from "@/global";
 import {
@@ -40,6 +40,14 @@ export const PracticingBottomModal = memo(function PracticingBottomModal({
     ToastService.show("Coming soon");
   }, []);
 
+  const onConnectMachine = useMemo(() => {
+    const machineId = MachineIdService.getMachineId();
+    if (machineId == "") {
+      return "Chưa kết nối máy tập";
+    }
+    return " Đang kết nối máy tập: " + machineId;
+  }, []);
+
   return (
     <ScreenWrapper>
       <BottomMenuModal
@@ -55,6 +63,7 @@ export const PracticingBottomModal = memo(function PracticingBottomModal({
             onPressRight={hideMenu}
           />
           <ScrollView style={styles.maxHeightScroll}>
+            <STextName>{onConnectMachine}</STextName>
             <SViewItemStyleFight onPress={onPressFreeFight}>
               <SViewBackgroundItem source={IMG_BACKGROUND_FREE_FIGHT} />
               <SViewContainerText>
@@ -88,6 +97,10 @@ const SViewContainerText = styled.View`
   flex: 1;
   justify-content: center;
   align-self: center;
+`;
+const STextName = styled.Text`
+  color: ${Colors.white};
+  padding: 16px;
 `;
 
 const SViewBackgroundItem = styled.Image`

@@ -2,7 +2,13 @@ import React, { memo, useCallback, useState } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import QRCodeScanner from "react-native-qrcode-scanner";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import * as Animatable from "react-native-animatable";
 import { styled, useAsyncFn } from "@/global";
 import { IC_BG_QR_SCAN } from "@/assets";
@@ -11,32 +17,42 @@ import { InputBorder } from "@/componens/ViewBorder/InputBorder";
 import { requestConnectMachine } from "@/store/mechine/function";
 import MachineIdService from "@/services/MachineIdService";
 import { goBack } from "@/ultils/navigation";
+import { BaseOpacityButton } from "@/componens/Button/ButtonCustom";
+import ButtonGradient from "@/componens/Gradient/ButtonGradient";
+import BottomMenuAddQrCode from "@/screens/QRCodeScan/BottomMenuAddQrCode";
+import useBoolean from "../../hooks/useBoolean";
+import LocalStorageHelper from "@/services/LocalServiceHelper";
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
-  const [code, setCode] = useState("nodeesp32");
+  const [isVisible, setVisibleTrue, setVisibleFalse] = useBoolean(false);
 
   const [{}, onSuccess] = useAsyncFn(async (e: any) => {
     await requestConnectMachine(e.data).then();
     await MachineIdService.change(e.data);
+    // const listMachine = await LocalStorageHelper.get("machine");
+    // const data = listMachine?.split(",");
+    // await LocalStorageHelper.set("machine");
     setTimeout(() => {
       goBack();
     }, 1000);
-    goBack();
   }, []);
 
-  const makeSlideOutTranslation = useCallback((translationType, fromValue) => {
-    return {
-      from: {
-        [translationType]: SCREEN_WIDTH * -0.18,
-      },
-      to: {
-        [translationType]: fromValue,
-      },
-    };
-  }, []);
+  const makeSlideOutTranslation = useCallback(
+    (translationType: any, fromValue: any) => {
+      return {
+        from: {
+          [translationType]: SCREEN_WIDTH * -0.18,
+        },
+        to: {
+          [translationType]: fromValue,
+        },
+      };
+    },
+    []
+  );
 
   // const sendData = useCallback(() => {
   //   requestConnectMachine(code).then();
@@ -59,7 +75,9 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
         customMarker={
           <View style={styles.rectangleContainer}>
             <View style={styles.topOverlay}>
-              <Text style={{ fontSize: 30, color: "white" }}></Text>
+              <Text style={{ fontSize: 30, color: "white" }}>
+                Quét mã QR máy tập
+              </Text>
             </View>
 
             <View style={{ flexDirection: "row" }}>
@@ -91,29 +109,20 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
             <View style={styles.bottomOverlay} />
           </View>
         }
-        // bottomContent={
-        //   <TouchableOpacity style={styles.buttonTouchable}>
-        //     <Text style={styles.buttonText}>OK. Got it!</Text>
-        //   </TouchableOpacity>
-        // }
       />
 
-      {/*<BaseOpacityButton*/}
-      {/*  onPress={() => {*/}
-      {/*    console.log("ok");*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <Text>asdsa</Text>*/}
-      {/*</BaseOpacityButton>*/}
+      <ButtonGradient
+        style={{ height: 80 }}
+        styleGradient={{ height: 80 }}
+        textStyle={{ fontSize: 24 }}
+        onPress={setVisibleTrue}
+        label={"Mã của tôi"}
+      />
+
+      <BottomMenuAddQrCode isVisible={isVisible} hideMenu={setVisibleFalse} />
     </ScreenWrapper>
   );
 });
-
-const STextHeader = styled.Text`
-  flex: 1;
-  margin-top: 24px;
-  font-size: 18px;
-`;
 
 const SImage = styled.Image`
   width: ${SCREEN_WIDTH * 0.6};
@@ -130,15 +139,6 @@ const rectBorderColor = "red";
 const scanBarWidth = SCREEN_WIDTH * 0.46; // this is equivalent to 180 from a 393 device width
 const scanBarHeight = SCREEN_WIDTH * 0.0025; //this is equivalent to 1 from a 393 device width
 const scanBarColor = Colors.red1;
-
-const SInputBorder = styled(InputBorder).attrs({
-  containerStyle: {
-    flex: 1,
-    marginTop: 12,
-    marginRight: 16,
-    marginLeft: 16,
-  },
-})``;
 
 const styles = StyleSheet.create({
   centerText: {
