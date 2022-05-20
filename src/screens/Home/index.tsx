@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { HeaderHome } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { IMG_TARGET_HOME_THEME } from "@/assets";
@@ -15,12 +15,16 @@ import {
 } from "@/store/home/function";
 import { Colors } from "@/themes/Colors";
 import GradientButton from "@/componens/Gradient/ButtonGradient";
-import PracticingBottomModal from "@/screens/Home/PracticingBottomModal/PracticingScreen";
+import PracticingBottomModal from "@/screens/Home/PracticingBottomModal/PracticingBottomModal";
 import PracticeComponent from "@/screens/Home/PracticeScreen/PracticeComponent";
 import useAutoToastError from "@/hooks/useAutoToastError";
 import { requestGetProfile } from "@/store/profile/functions";
+import LocalStorageHelper from "@/services/LocalServiceHelper";
+import MachineIdService from "@/services/MachineIdService";
+import RatingsComponent from "@/screens/Home/RatingsScreen/RatingsComponent";
 
 export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
+  const [listMachineId, setListMachineId] = useState("");
   const [isModalPracticeVisible, showModalPractice, hideModalPractice] =
     useBoolean();
   const [stat, setStat] = useState();
@@ -47,10 +51,19 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
     setStat(profile.stat);
   }, []);
 
+  const getDataMachine = useCallback(async () => {
+    LocalStorageHelper.get("machine").then((item) => {
+      // const dataLocal = (item || "").split(",");
+      // setListMachineId(dataLocal || []);
+      MachineIdService.change(item || "");
+    });
+  }, []);
+
   useAutoToastError(error);
 
   useEffect(() => {
     onLoadData().then();
+    getDataMachine().then();
   }, []);
 
   return (
@@ -81,11 +94,14 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
 
         <PunchComponent dataHit={dataHit} />
         <PowerComponent dataStrength={dataStrength} />
+        <RatingsComponent />
+
         <PracticeComponent />
       </ScrollView>
       <PracticingBottomModal
         isVisible={isModalPracticeVisible}
         hideMenu={hideModalPractice}
+        listMachineId={listMachineId}
       />
     </ScreenWrapper>
   );

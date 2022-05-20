@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from "react";
 import {
   Platform,
   TouchableNativeFeedback,
@@ -6,29 +6,29 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
   View,
-} from 'react-native';
+} from "react-native";
 
 export type BaseButtonOpacityProps = TouchableOpacityProps &
   TouchableNativeFeedbackProps;
 
 interface IBaseButtonOpacityProps extends BaseButtonOpacityProps {
   onPress?:
-    | TouchableOpacityProps['onPress']
-    | TouchableNativeFeedbackProps['onPress'];
+    | TouchableOpacityProps["onPress"]
+    | TouchableNativeFeedbackProps["onPress"];
   children: any;
 }
 
 export function BaseOpacityButton(props: IBaseButtonOpacityProps) {
-  const {style, onPress, children, ...restProps} = props;
+  const { style, onPress, children, ...restProps } = props;
   const onPressWithFrame = useCallback(
-    event => {
+    (event: any) => {
       requestAnimationFrame(() => {
         onPress && onPress(event);
       });
     },
-    [onPress],
+    [onPress]
   );
-  if (Platform.OS === 'android') {
+  if (Platform.OS === "android") {
     return (
       <TouchableNativeFeedback {...restProps} onPress={onPressWithFrame}>
         <View style={style}>{children}</View>

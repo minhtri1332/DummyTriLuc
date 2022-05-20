@@ -27,9 +27,9 @@ export const IC_CHECK_ROUND = require("./icons/check-round.png");
 export const IC_HISTORY = require("./icons/ic_history.png");
 export const IC_PROFILE = require("./icons/ic_profile.png");
 export const IC_EDIT_PROFILE = require("./icons/ic_edit_profile.png");
-export const IC_CAMERA_PICK = require('./icons/ic_camera_pick.png');
-export const IC_GALLERY = require('./icons/ic_gallery.png');
-
+export const IC_CAMERA_PICK = require("./icons/ic_camera_pick.png");
+export const IC_GALLERY = require("./icons/ic_gallery.png");
+export const IC_RANK = require("./icons/ic_rank.png");
 
 //image theme
 export const IMG_LOGIN_THEME = require("./images/login_theme.png");

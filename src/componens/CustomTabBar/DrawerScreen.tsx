@@ -16,7 +16,6 @@ import {
 
 export const CustomDrawerContent = memo(function CustomDrawerContent(props) {
   const profile = useProfile("0");
-  console.log("profile", profile);
   return (
     <DrawerContentScrollView
       style={{ backgroundColor: Colors.backgroundColor }}

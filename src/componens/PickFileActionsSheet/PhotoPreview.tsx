@@ -4,6 +4,7 @@ import Modal from 'react-native-modal';
 import {styled} from '@/global';
 import {FileType} from "@/componens/PickFileActionsSheet/types";
 
+// @ts-ignore
 const SWrapper = styled(Modal)`
   margin: 0;
 `;

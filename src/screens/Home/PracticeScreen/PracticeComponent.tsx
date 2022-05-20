@@ -17,7 +17,7 @@ export const PracticeComponent = memo(function PracticeComponent() {
   }, []);
 
   useEffect(() => {
-    getData();
+    getData().then();
   }, []);
 
   return (

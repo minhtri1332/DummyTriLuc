@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
 

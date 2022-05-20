@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { styled } from "@/global";
 import { Colors } from "@/themes/Colors";
 

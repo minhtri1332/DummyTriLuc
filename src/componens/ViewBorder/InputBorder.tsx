@@ -96,7 +96,7 @@ export const InputBorder = memo(function InputBorder(props: Props) {
   }, [inputRef]);
 
   const onChange = useCallback(
-    (_value) => {
+    (_value: any) => {
       onTextChange(keyName, _value);
     },
     [onTextChange, keyName]

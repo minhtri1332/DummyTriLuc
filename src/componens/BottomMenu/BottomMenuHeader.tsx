@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Image, TouchableOpacity, ViewStyle } from "react-native";
+import { TouchableOpacity, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 import { Colors } from "@/themes/Colors";
 import { IC_CLOSE } from "@/assets";
@@ -33,7 +33,7 @@ const SImage = styled.Image`
 const SDivider = styled.View`
   width: 100%;
   height: 1px;
-  background-color: ${Colors.grey1}1A;
+  background-color: ${Colors.grey5}1A;
 `;
 
 interface OwnProps {

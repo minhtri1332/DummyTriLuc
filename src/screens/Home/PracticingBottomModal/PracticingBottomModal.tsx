@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { styled, useAsyncFn } from "@/global";
 import {
@@ -17,36 +17,51 @@ import ToastService from "@/services/ToastService";
 import MachineIdService from "@/services/MachineIdService";
 import { requestConnectMachineHitMode } from "@/store/mechine/function";
 import { navigateToPracticingScreen } from "@/ultils/navigation";
+import { SelectModalBottom } from "@/componens/ViewBorder/SelectModalBottom";
+import { FilterBoxOption } from "@/componens/types";
+import LocalStorageHelper from "@/services/LocalServiceHelper";
 
 interface PracticingBottomProps {
   isVisible: boolean;
   hideMenu: () => void;
+  listMachineId: string;
 }
 
 export const PracticingBottomModal = memo(function PracticingBottomModal({
   isVisible,
   hideMenu,
+  listMachineId,
 }: PracticingBottomProps) {
+  const machineId = MachineIdService.getMachineId();
   const [{ loading }, onPressFreeFight] = useAsyncFn(async () => {
-    const machineId = MachineIdService.getMachineId();
     await requestConnectMachineHitMode(machineId, "5");
     hideMenu();
     InteractionManager.runAfterInteractions(() => {
       navigateToPracticingScreen();
     });
-  }, [hideMenu]);
+  }, [hideMenu, machineId]);
 
   const onPressAccordingLed = useCallback(() => {
     ToastService.show("Coming soon");
   }, []);
 
+  // const getMachineIds = useMemo(() => {
+  //   let listFilterModel: FilterBoxOption[] = [];
+  //   (listMachineId || []).map((item) => {
+  //     listFilterModel.push({
+  //       label: `Mã máy tập : ${item}`,
+  //       value: item,
+  //     });
+  //   });
+  //   return listFilterModel;
+  // }, [listMachineId]);
+
   const onConnectMachine = useMemo(() => {
-    const machineId = MachineIdService.getMachineId();
     if (machineId == "") {
       return "Chưa kết nối máy tập";
     }
-    return " Đang kết nối máy tập: " + machineId;
-  }, []);
+    return "Sẵn sàng kết nối mã máy tập: " + machineId;
+  }, [machineId]);
 
   return (
     <ScreenWrapper>
@@ -63,6 +78,14 @@ export const PracticingBottomModal = memo(function PracticingBottomModal({
             onPressRight={hideMenu}
           />
           <ScrollView style={styles.maxHeightScroll}>
+            {/*<SSelectModalBottom*/}
+            {/*  label={"Máy tập"}*/}
+            {/*  options={getMachineIds}*/}
+            {/*  inputName={"codeId"}*/}
+            {/*  placeholder={"Lựa chọn"}*/}
+            {/*  selectedValue={machineId}*/}
+            {/*  onSelectOption={(keyName, value) => setMachineId(String(value))}*/}
+            {/*/>*/}
             <STextName>{onConnectMachine}</STextName>
             <SViewItemStyleFight onPress={onPressFreeFight}>
               <SViewBackgroundItem source={IMG_BACKGROUND_FREE_FIGHT} />
@@ -86,6 +109,14 @@ export const PracticingBottomModal = memo(function PracticingBottomModal({
 });
 
 export default PracticingBottomModal;
+
+const SSelectModalBottom = styled(SelectModalBottom).attrs({
+  containerStyle: {
+    marginTop: 16,
+    marginRight: 16,
+    marginLeft: 16,
+  },
+})``;
 
 const SViewItemStyleFight = styled.TouchableOpacity`
   margin: 16px 16px;

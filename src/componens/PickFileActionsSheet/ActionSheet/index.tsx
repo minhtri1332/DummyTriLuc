@@ -4,14 +4,13 @@ import * as React from 'react';
 import {ComponentProps, memo, PropsWithChildren, useEffect} from 'react';
 import {
   ActivityIndicatorProps,
-  Image,
-  ImageProps,
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
 import {Colors} from '@/themes/Colors';
 import {IC_CLOSE} from "@/assets";
 
+// @ts-ignore
 const SWrapper = styled(Modal)`
   margin: 0;
   justify-content: flex-end;

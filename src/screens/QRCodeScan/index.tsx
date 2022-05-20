@@ -1,23 +1,15 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import QRCodeScanner from "react-native-qrcode-scanner";
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { styled, useAsyncFn } from "@/global";
 import { IC_BG_QR_SCAN } from "@/assets";
 import { Colors } from "@/themes/Colors";
-import { InputBorder } from "@/componens/ViewBorder/InputBorder";
 import { requestConnectMachine } from "@/store/mechine/function";
 import MachineIdService from "@/services/MachineIdService";
 import { goBack } from "@/ultils/navigation";
-import { BaseOpacityButton } from "@/componens/Button/ButtonCustom";
 import ButtonGradient from "@/componens/Gradient/ButtonGradient";
 import BottomMenuAddQrCode from "@/screens/QRCodeScan/BottomMenuAddQrCode";
 import useBoolean from "../../hooks/useBoolean";
@@ -26,15 +18,27 @@ import LocalStorageHelper from "@/services/LocalServiceHelper";
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
+const onSaveDataLocal = async (value: string) => {
+  const listMachine = await LocalStorageHelper.get("machine");
+  // const dataLocal = listMachine?.split(",");
+  // const newValue = (dataLocal || []).concat(value.trim());
+  await LocalStorageHelper.set("machine", value);
+};
+
 export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
   const [isVisible, setVisibleTrue, setVisibleFalse] = useBoolean(false);
 
   const [{}, onSuccess] = useAsyncFn(async (e: any) => {
-    await requestConnectMachine(e.data).then();
-    await MachineIdService.change(e.data);
-    // const listMachine = await LocalStorageHelper.get("machine");
-    // const data = listMachine?.split(",");
-    // await LocalStorageHelper.set("machine");
+    let data = "";
+    if (typeof e === "string") {
+      data = e;
+    } else {
+      data = e.data;
+    }
+    console.log("da", data);
+    await requestConnectMachine(data).then();
+    await MachineIdService.change(data);
+    onSaveDataLocal(data).then();
     setTimeout(() => {
       goBack();
     }, 1000);
@@ -84,11 +88,6 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
               <View style={styles.leftAndRightOverlay} />
 
               <View style={styles.rectangle}>
-                {/*<Icon*/}
-                {/*    name="ios-qr-scanner"*/}
-                {/*    size={SCREEN_WIDTH * 0.73}*/}
-                {/*    color={iconScanColor}*/}
-                {/*/>*/}
                 <SImage source={IC_BG_QR_SCAN}></SImage>
                 <Animatable.View
                   style={styles.scanBar}
@@ -119,7 +118,11 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
         label={"Mã của tôi"}
       />
 
-      <BottomMenuAddQrCode isVisible={isVisible} hideMenu={setVisibleFalse} />
+      <BottomMenuAddQrCode
+        isShowModalBottom={isVisible}
+        hideModalBottom={setVisibleFalse}
+        onSave={onSuccess}
+      />
     </ScreenWrapper>
   );
 });
