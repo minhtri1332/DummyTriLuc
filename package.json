@@ -70,6 +70,7 @@
     "react-navigation-stack": "^2.10.1",
     "react-redux": "^7.2.2",
     "react-use": "^15.3.4",
+    "recyclerlistview": "^3.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "rn-fetch-blob": "^0.12.0",
@@ -106,5 +107,4 @@
   "jest": {
     "preset": "react-native"
   }
-
 }

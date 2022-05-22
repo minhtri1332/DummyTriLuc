@@ -112,24 +112,24 @@ export const CupOfTop = memo(function (props: Props) {
               year={year}
             />
           </ColTopSide>
-          {/*    <ColTopCenter>*/}
-          {/*      <CupInfo*/}
-          {/*        userId={top1}*/}
-          {/*        size={70}*/}
-          {/*        icon={require("../assets/crown_1.png")}*/}
-          {/*        iconSize={40}*/}
-          {/*        year={year}*/}
-          {/*      />*/}
-          {/*    </ColTopCenter>*/}
-          {/*    <ColTopSide>*/}
-          {/*      <CupInfo*/}
-          {/*        userId={top3}*/}
-          {/*        size={50}*/}
-          {/*        icon={require("../assets/crown_3.png")}*/}
-          {/*        iconSize={30}*/}
-          {/*        year={year}*/}
-          {/*      />*/}
-          {/*    </ColTopSide>*/}
+          <ColTopCenter>
+            <CupInfo
+              userId={top1}
+              size={70}
+              icon={require("../assets/crown_1.png")}
+              iconSize={40}
+              year={year}
+            />
+          </ColTopCenter>
+          <ColTopSide>
+            <CupInfo
+              userId={top3}
+              size={50}
+              icon={require("../assets/crown_3.png")}
+              iconSize={30}
+              year={year}
+            />
+          </ColTopSide>
         </ViewRowTopAbsolute>
         <IconTop source={require("../assets/leader_board_top.png")} />
       </ViewTop>

@@ -114,6 +114,7 @@ const Count = styled.Text`
 
 export const CupItemInfo = memo(function CupItemInfo(props: Props) {
   const { id, index, year } = props;
+  console.log("id");
   //
   // const employee = useEmployee(id);
   // const user = userUsername(employee?.user_id || "");

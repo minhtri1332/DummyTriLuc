@@ -1,27 +1,12 @@
-import React, {
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import {
-  Animated,
-  FlatList,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import { Animated, StatusBar, StyleSheet, Text, View } from "react-native";
 import { styled, useAsyncFn } from "@/global";
-import { useSelector } from "react-redux";
-import { useTheme } from "styled-components";
 import { getBottomSpace } from "react-native-iphone-x-helper";
-import { Colors } from "@/themes/Colors";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import { CupItemInfo } from "@/screens/Home/RatingsScreen/components/CupItemInfo";
 import { CupOfTop } from "@/screens/Home/RatingsScreen/components/CupOfTop";
+import { CommonRecycleList } from "@/common/CommonRecycleList";
+import { Colors } from "@/themes/Colors";
 
 const ITEM_MAX_HEIGHT = 320;
 
@@ -31,6 +16,8 @@ const Container = styled.View`
 `;
 const ContentContainer = styled.View`
   flex: 1;
+  flex-direction: column;
+  background-color: #00bcd4;
 `;
 
 const HeaderView = styled(Animated.View)`
@@ -65,7 +52,7 @@ const keyExtractor = (item: any): string => {
 };
 
 export const LeaderBoardScreen = memo(function LeaderBoardScreen() {
-  const data = ["1", "2", "3", "4"];
+  const data = ["1", "2"];
   const [top, setTop] = useState<string[]>([]);
   const animatedScrollYValue = useRef(new Animated.Value(0)).current;
   const [year, setYear] = useState("all");
@@ -75,27 +62,28 @@ export const LeaderBoardScreen = memo(function LeaderBoardScreen() {
     // await requestInitData();
   }, []);
 
-  useEffect(() => {
-    const entry = StatusBar.pushStackEntry({
-      barStyle: "light-content",
-      animated: true,
-    });
-    setTimeout(() => {
-      setInitScreen(true);
-    }, 300);
-
-    return () => {
-      StatusBar.popStackEntry(entry);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const entry = StatusBar.pushStackEntry({
+  //     barStyle: "light-content",
+  //     animated: true,
+  //   });
+  //
+  //   setTimeout(() => {
+  //     setInitScreen(true);
+  //   }, 300);
+  //
+  //   return () => {
+  //     StatusBar.popStackEntry(entry);
+  //   };
+  // }, []);
 
   // const employees: string[] = useSelector((state: any) =>
   //   // memoEmployeeAwardSelectors(state, normalizeStringForSearch(""), year)
   // );
 
-  useEffect(() => {
-    setTop(data.slice(0, 3).map((item) => item.split("__")[0]));
-  }, [data]);
+  // useEffect(() => {
+  //   setTop(data.slice(0, 3).map((item) => item.split("__")[0]));
+  // }, [data]);
 
   const onYearChange = useCallback(
     (_value: string) => {
@@ -118,26 +106,24 @@ export const LeaderBoardScreen = memo(function LeaderBoardScreen() {
     extrapolate: "clamp",
   });
 
-  const renderItem = useCallback(({ item }: any) => {
-    // return <CupItemInfo id={item} index={index} year={"all"} />;
-    return (
-      <View style={{ backgroundColor: Colors.white }}>
-        <Text style={{ height: 60 }}>asdas</Text>
-      </View>
-    );
-  }, []);
+  const _rowRenderer = useCallback(
+    (
+      type: string | number,
+      data: any,
+      index: number,
+      extendedState?: object
+    ) => {
+      return <CupItemInfo id={data} index={index} year={"all"} />;
+    },
+    []
+  );
 
   return (
     <Container>
-      {/*<SModalHeaderWithTitle*/}
-      {/*  title={"Leaderboards"}*/}
-      {/*  backgroundColor={"#007AFF"}*/}
-      {/*/>*/}
+      {/*<DynamicHeader title={"oko"} />*/}
       <View
         style={{
           flex: 1,
-          overflow: "hidden",
-          backgroundColor: "#007AFF",
         }}
       >
         <HeaderView
@@ -159,30 +145,31 @@ export const LeaderBoardScreen = memo(function LeaderBoardScreen() {
           />
         </HeaderView>
         <ContentContainer>
-          {
-            <FlatList
-              onScroll={Animated.event(
-                [
-                  {
-                    nativeEvent: { contentOffset: { y: animatedScrollYValue } },
-                  },
-                ],
-                { useNativeDriver: false }
-              )}
-              keyExtractor={keyExtractor}
-              data={data}
-              renderItem={renderItem}
-              keyboardDismissMode={"interactive"}
-              keyboardShouldPersistTaps={"always"}
-              contentContainerStyle={styles.list}
-            />
-          }
+          <CommonRecycleList
+            onScroll={Animated.event(
+              [
+                {
+                  nativeEvent: { contentOffset: { y: animatedScrollYValue } },
+                },
+              ],
+              { useNativeDriver: false }
+            )}
+            style={styles.list}
+            data={data}
+            itemHeight={120}
+            rowRenderer={_rowRenderer}
+            isLoadMore={false}
+            noMore={false}
+            error={false}
+            loadMorable={true}
+            extendedState={undefined}
+            forceNonDeterministicRendering={true}
+          />
         </ContentContainer>
-        {/*{meId ? (*/}
-        {/*  <BottomMe>*/}
-        {/*    <CupItemInfo id={meId} index={Number(meIndex)} year={year} />*/}
-        {/*  </BottomMe>*/}
-        {/*) : null}*/}
+
+        <BottomMe>
+          <CupItemInfo id={"1"} index={Number(1)} year={year} />
+        </BottomMe>
       </View>
     </Container>
   );
