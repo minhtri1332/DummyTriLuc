@@ -3,12 +3,13 @@ import styled from "styled-components/native";
 import { PickerYear } from "./PickerYear";
 import { Animated } from "react-native";
 import { CupInfo } from "@/screens/Home/RatingsScreen/components/CupInfo";
+import { Colors } from "@/themes/Colors";
 
 const Container = styled(Animated.View)`
   width: 100%;
   align-items: center;
   justify-content: flex-end;
-  background-color: #007aff;
+  background-color: ${Colors.backgroundHeader};
 `;
 
 const ViewDate = styled.View`
@@ -97,9 +98,9 @@ export const CupOfTop = memo(function (props: Props) {
         opacity: opacity,
       }}
     >
-      <ViewDate>
-        <PickerYear selectedValue={year} onValueChange={onChangeYear} />
-      </ViewDate>
+      {/*<ViewDate>*/}
+      {/*  <PickerYear selectedValue={year} onValueChange={onChangeYear} />*/}
+      {/*</ViewDate>*/}
       <ViewTop>
         <ImageBg source={require("../assets/leader_board_bg.png")} />
         <ViewRowTopAbsolute>

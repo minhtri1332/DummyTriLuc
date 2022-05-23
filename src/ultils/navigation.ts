@@ -14,6 +14,7 @@ import PracticeDetailScreen, {
 } from "@/screens/Home/PracticeScreen/PracticeDetailScreen";
 import { PracticingScreenProps } from "@/screens/Home/PracticeScreen/PracticingScreen";
 import ProfileScreen from "@/screens/Profile/ProfileScreen";
+import { LeaderBoardScreen } from "@/screens/Home/RatingsScreen/LeaderBroadScreen";
 
 export const navigationRef = React.createRef<NavigationContainerRef<any>>();
 
@@ -63,3 +64,5 @@ export const navigateToPracticeDetailScreen =
   createNavigate<PracticeDetailProps>("PracticeDetailScreen");
 
 export const navigateToProfileScreen = createNavigate("ProfileScreen");
+
+export const navigateToLeaderBoardScreen = createNavigate("LeaderBoardScreen");

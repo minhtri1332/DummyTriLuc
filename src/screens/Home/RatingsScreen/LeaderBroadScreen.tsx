@@ -1,43 +1,31 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import { Animated, StatusBar, StyleSheet, Text, View } from "react-native";
+import { Animated, StatusBar, StyleSheet } from "react-native";
 import { styled, useAsyncFn } from "@/global";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import { CupItemInfo } from "@/screens/Home/RatingsScreen/components/CupItemInfo";
-import { CupOfTop } from "@/screens/Home/RatingsScreen/components/CupOfTop";
 import { CommonRecycleList } from "@/common/CommonRecycleList";
 import { Colors } from "@/themes/Colors";
-
-const ITEM_MAX_HEIGHT = 320;
+import { requestListAllRatings } from "@/store/ratings/functions";
+import { myRating, useRatingsByQuery } from "@/store/ratings";
 
 const Container = styled.View`
   flex: 1;
-  background-color: #007aff;
+  background-color: ${Colors.backgroundColor};
 `;
 const ContentContainer = styled.View`
   flex: 1;
-  flex-direction: column;
-  background-color: #00bcd4;
-`;
-
-const HeaderView = styled(Animated.View)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 320px;
-  z-index: 1;
-  background-color: #007aff;
+  background-color: ${Colors.backgroundColor};
 `;
 
 const BottomMe = styled.View`
   border-top-width: 0.8px;
   border-top-color: #cecece;
-  background-color: #007aff;
+  background-color: ${Colors.colorTab};
   padding-bottom: ${getBottomSpace() / 2}px;
 `;
 const SModalHeaderWithTitle = styled(DynamicHeader).attrs((p) => ({
-  backgroundColor: "#007AFF",
+  backgroundColor: Colors.backgroundColor,
   hideSeparator: true,
   iconCloseStyle: {
     tintColor: p.theme.backgroundColor,
@@ -47,64 +35,34 @@ const SModalHeaderWithTitle = styled(DynamicHeader).attrs((p) => ({
   },
 }))``;
 
-const keyExtractor = (item: any): string => {
-  return item;
-};
-
 export const LeaderBoardScreen = memo(function LeaderBoardScreen() {
-  const data = ["1", "2"];
-  const [top, setTop] = useState<string[]>([]);
+  const data = useRatingsByQuery("all");
+  const myRate = myRating();
   const animatedScrollYValue = useRef(new Animated.Value(0)).current;
   const [year, setYear] = useState("all");
   const [initScreen, setInitScreen] = useState(false);
-  const me = { name: "1" };
   const [{ loading }, loadData] = useAsyncFn(async () => {
-    // await requestInitData();
+    await requestListAllRatings();
   }, []);
 
-  // useEffect(() => {
-  //   const entry = StatusBar.pushStackEntry({
-  //     barStyle: "light-content",
-  //     animated: true,
-  //   });
-  //
-  //   setTimeout(() => {
-  //     setInitScreen(true);
-  //   }, 300);
-  //
-  //   return () => {
-  //     StatusBar.popStackEntry(entry);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const entry = StatusBar.pushStackEntry({
+      barStyle: "light-content",
+      animated: true,
+    });
 
-  // const employees: string[] = useSelector((state: any) =>
-  //   // memoEmployeeAwardSelectors(state, normalizeStringForSearch(""), year)
-  // );
+    setTimeout(() => {
+      setInitScreen(true);
+    }, 300);
 
-  // useEffect(() => {
-  //   setTop(data.slice(0, 3).map((item) => item.split("__")[0]));
-  // }, [data]);
+    return () => {
+      StatusBar.popStackEntry(entry);
+    };
+  }, []);
 
-  const onYearChange = useCallback(
-    (_value: string) => {
-      setYear(_value);
-    },
-    [year]
-  );
-
-  // const [meId, meIndex] = useMemo(() => {
-  //   const _e = employees.find((item) => item.split("__")[0] === myEmployee);
-  //   if (!_e) {
-  //     return [undefined, undefined];
-  //   }
-  //   return _e.split("__");
-  // }, [myEmployee, employees]);
-
-  const itemHeight = animatedScrollYValue.interpolate({
-    inputRange: [0, 320],
-    outputRange: [0, -320],
-    extrapolate: "clamp",
-  });
+  useEffect(() => {
+    loadData().then();
+  }, []);
 
   const _rowRenderer = useCallback(
     (
@@ -120,31 +78,13 @@ export const LeaderBoardScreen = memo(function LeaderBoardScreen() {
 
   return (
     <Container>
-      {/*<DynamicHeader title={"oko"} />*/}
-      <View
-        style={{
-          flex: 1,
-        }}
-      >
-        <HeaderView
-          style={{
-            transform: [
-              {
-                translateY: itemHeight,
-              },
-            ],
-          }}
-        >
-          <CupOfTop
-            top1={top[0]}
-            top2={top[1]}
-            top3={top[2]}
-            year={year}
-            onChangeYear={onYearChange}
-            animatedScroll={animatedScrollYValue}
-          />
-        </HeaderView>
-        <ContentContainer>
+      <SModalHeaderWithTitle
+        title={"Bảng xếp hạng"}
+        backgroundColor={Colors.backgroundColor}
+      />
+
+      <ContentContainer>
+        {initScreen && (
           <CommonRecycleList
             onScroll={Animated.event(
               [
@@ -156,21 +96,23 @@ export const LeaderBoardScreen = memo(function LeaderBoardScreen() {
             )}
             style={styles.list}
             data={data}
-            itemHeight={120}
+            itemHeight={76}
             rowRenderer={_rowRenderer}
+            loading={loading}
+            isRefreshing={loading}
             isLoadMore={false}
             noMore={false}
             error={false}
-            loadMorable={true}
-            extendedState={undefined}
-            forceNonDeterministicRendering={true}
+            loadMorable={false}
           />
-        </ContentContainer>
+        )}
+      </ContentContainer>
 
+      {myRate && (
         <BottomMe>
-          <CupItemInfo id={"1"} index={Number(1)} year={year} />
+          <CupItemInfo id={myRate?.user_id} index={myRate?.point} year={year} />
         </BottomMe>
-      </View>
+      )}
     </Container>
   );
 });
@@ -182,8 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   list: {
-    flex: 1,
     paddingBottom: 120,
-    paddingTop: ITEM_MAX_HEIGHT,
+    backgroundColor: Colors.colorTab,
   },
 });

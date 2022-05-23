@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
+  Animated,
 } from "react-native";
 import { LoadingView } from "./LoadingView";
 import { ScrollEvent } from "recyclerlistview/dist/reactnative/core/scrollcomponent/BaseScrollView";
@@ -24,7 +25,6 @@ import {
   screenShortDimension,
 } from "@/ultils/scale";
 import { Colors } from "@/themes/Colors";
-
 export const ViewTypes = {
   SECTION: "section",
   ITEM: "item",
@@ -36,6 +36,8 @@ export const canChangeSize = true;
 export const itemAnimator = new CustomItemAnimator();
 
 export interface RecycleScrollEvent extends ScrollEvent {}
+
+const AnimatedRecyclerList = Animated.createAnimatedComponent(RecyclerListView);
 
 interface OwnProps {
   data: any[];
@@ -67,7 +69,6 @@ interface OwnProps {
   loadingViewStyle?: ViewStyle;
   emptyMessage?: string;
   externalScrollView?: any;
-  forceNonDeterministicRendering?: boolean;
 }
 
 type Props = OwnProps;
@@ -86,7 +87,6 @@ export class CommonRecycleList extends PureComponent<Props, State> {
     isLoadMore: false,
     noMore: false,
     error: false,
-    forceNonDeterministicRendering: false,
   };
 
   _dataProvider: DataProvider;
@@ -229,12 +229,12 @@ export class CommonRecycleList extends PureComponent<Props, State> {
     if (this.props.error) {
       return (
         <TouchableOpacity style={styles.footerRetry} onPress={this._onLoadMore}>
-          <Text style={styles.footerRetryText}>Thử lại</Text>
+          <Text style={styles.footerRetryText}>Failed_press_to_retry</Text>
         </TouchableOpacity>
       );
     }
     if (this.props.noMore) {
-      return <Text style={styles.noMoreCommentText}>Hết</Text>;
+      return <Text style={styles.noMoreCommentText}>No_more</Text>;
     }
     if (this.props.loading && this.props.isLoadMore) {
       return <ActivityIndicator color="#000" />;
@@ -275,7 +275,7 @@ export class CommonRecycleList extends PureComponent<Props, State> {
     }
 
     return (
-      <RecyclerListView
+      <AnimatedRecyclerList
         style={this.props.style}
         onScroll={this.props.onScroll}
         layoutProvider={this.state.layoutProvider}
@@ -289,13 +289,10 @@ export class CommonRecycleList extends PureComponent<Props, State> {
           ...this.props.scrollProps,
         }}
         onEndReached={this._onEndReached}
-        onEndReachedThreshold={0.4}
+        onEndReachedThreshold={50}
         extendedState={this.props.extendedState}
         itemAnimator={itemAnimator}
         optimizeForInsertDeleteAnimations={true}
-        forceNonDeterministicRendering={
-          this.props.forceNonDeterministicRendering
-        }
         canChangeSize={canChangeSize}
         externalScrollView={this.props.externalScrollView}
       />

@@ -1,29 +1,34 @@
 import { Fetch } from "@/ultils/fetch";
 import LocaleServiceUrl from "@/store/types";
-import { setPracticeQueries } from "@/store/home";
+import { RawRatings } from "@/store/ratings/types";
+import { batch } from "react-redux";
+import { setRatingsQueries, syncRatings } from "@/store/ratings/index";
 
 export const requestListMyRating = async () => {
-  const { data } = await Fetch.get<{}>(
+  const { data } = await Fetch.get(
     `${LocaleServiceUrl.getUrl()}/leader-board/current-rank`,
     {}
   );
-  // console.log("data", data);
-  //
-  // setPracticeQueries({
-  //   myRank: [data]
-  // });
+
+  batch(() => {
+    syncRatings([data]);
+    setRatingsQueries({
+      me: data,
+    });
+  });
   return data;
 };
 
 export const requestListAllRatings = async () => {
-  const { data } = await Fetch.get<{}>(
-    `${LocaleServiceUrl.getUrl()}/leader-board`,
-    {}
-  );
-  console.log("data", data);
+  const { data } = await Fetch.get<{
+    list_leader_board_response: RawRatings[];
+  }>(`${LocaleServiceUrl.getUrl()}/leader-board`, {});
 
-  setPracticeQueries({
-    all: [data],
+  batch(() => {
+    syncRatings(data?.list_leader_board_response);
+    setRatingsQueries({
+      all: (data?.list_leader_board_response || []).map((item) => item.user_id),
+    });
   });
-  return data;
+  return data?.list_leader_board_response || [];
 };

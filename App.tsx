@@ -5,7 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import Routes from "./src/Routers";
 import { enableFreeze } from "react-native-screens";
 import { Notification } from "./src/componens/Notification";
-import { LeaderBoardScreen } from "./src/screens/Home/RatingsScreen/LeaderBroadScreen";
+
 console.disableYellowBox = true;
 enableFreeze(true);
 
@@ -13,9 +13,8 @@ const App = () => {
   return (
     <Provider store={require("@/store").default}>
       <PersistGate persistor={require("@/store").persistor}>
-        {/*<Notification />*/}
-        {/*<Routes />*/}
-        <LeaderBoardScreen />
+        <Notification />
+        <Routes />
       </PersistGate>
     </Provider>
   );

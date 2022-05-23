@@ -3,36 +3,33 @@ import SectionContainerStyle from "@/componens/View/SectionView";
 import { IC_CHART, IC_RANK } from "@/assets";
 import { Colors } from "@/themes/Colors";
 import { styled, useAsyncFn } from "@/global";
-import BaseProgressView from "@/componens/View/BaseProgressView";
-import {
-  requestListAllRatings,
-  requestListMyRating,
-} from "@/store/ratings/functions";
-import { RawRatings } from "@/store/ratings/types";
+import { requestListMyRating } from "@/store/ratings/functions";
 import GradientText from "@/componens/Gradient/TextGradient";
+import { navigateToLeaderBoardScreen } from "@/ultils/navigation";
 
 interface PowerProps {}
 
 export const RatingsComponent = memo(function RatingsComponent() {
   const [currentRank, setMyRank] = useState({});
-  const goToStatistic = useCallback(() => {}, []);
+  const goToRating = useCallback(() => {
+    navigateToLeaderBoardScreen();
+  }, []);
 
   const [{ loading }, getData] = useAsyncFn(async () => {
     const myRank = await requestListMyRating();
     setMyRank(myRank);
-    // await requestListAllRatings();
   }, []);
 
   useEffect(() => {
     getData().then();
   }, []);
-  console.log(currentRank);
+
   return (
     <SectionContainerStyle
       title={"Bảng xếp hạng"}
       iconLeft={IC_RANK}
       iconRight={IC_CHART}
-      rightAction={goToStatistic}
+      rightAction={goToRating}
     >
       <SViewContent>
         <SViewLeft>

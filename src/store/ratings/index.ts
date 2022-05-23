@@ -10,3 +10,8 @@ export const syncRatings = sync;
 export const useRatings = useByKey;
 export const setRatingsQueries = setQueries;
 export const useRatingsByQuery = useKeysByQuery;
+
+export const myRating = () => {
+  const me = useRatingsByQuery("me");
+  return me;
+};

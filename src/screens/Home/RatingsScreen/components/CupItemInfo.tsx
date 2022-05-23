@@ -1,10 +1,11 @@
-import React, { memo, useCallback, useMemo } from "react";
-import { InteractionManager, Keyboard } from "react-native";
+import React, { memo, useCallback } from "react";
+import { Keyboard } from "react-native";
 import styled from "styled-components/native";
 import FastImage from "react-native-fast-image";
 import * as Animatable from "react-native-animatable";
 import { Colors } from "@/themes/Colors";
 import { IC_USER_Fill } from "@/assets";
+import { useRatings } from "@/store/ratings";
 
 interface Props {
   id: string;
@@ -29,7 +30,7 @@ const ContentContainer = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
-  border-bottom-width: 1px;
+  border-bottom-width: 0.5px;
   border-bottom-color: ${Colors.grey6};
 `;
 
@@ -40,20 +41,12 @@ const Center = styled.View`
   justify-content: center;
 `;
 
-const Right = styled.View`
-  width: 110px;
-  height: 100%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 const LeftNumber = styled.Text<{ top: number }>`
   font-weight: 500;
   font-size: 15px;
   line-height: 18px;
   letter-spacing: 0.12px;
-  color: ${(p) => (p.top < 3 ? "#fff" : "#242424")};
+  color: ${(p) => (p.top < 3 ? "#fff" : Colors.colorText)};
   font-family: Roboto-Medium;
 `;
 
@@ -82,7 +75,7 @@ const Title = styled.Text`
   font-weight: 500;
   font-size: 15px;
   line-height: 21px;
-  color: ${Colors.grey1};
+  color: ${Colors.colorText};
   font-family: Roboto-Medium;
 `;
 const SubTitle = styled.Text`
@@ -92,43 +85,13 @@ const SubTitle = styled.Text`
   padding-top: 2px;
 `;
 
-const WrapIcon = styled.View`
-  width: 30px;
-  justify-content: center;
-  align-items: center;
-  margin-left: 6px;
-`;
-
-const Icon = styled.Image<{ color: string }>`
-  tint-color: ${(p) => p.color};
-  width: 16px;
-  height: 16px;
-`;
-
-const Count = styled.Text`
-  color: ${Colors.grey1};
-  font-size: 13px;
-  line-height: 15px;
-  padding-top: 6px;
-`;
-
 export const CupItemInfo = memo(function CupItemInfo(props: Props) {
   const { id, index, year } = props;
-  console.log("id");
-  //
-  // const employee = useEmployee(id);
-  // const user = userUsername(employee?.user_id || "");
+  const user = useRatings(id);
 
   const open = useCallback(() => {
     Keyboard.dismiss();
-    // InteractionManager.runAfterInteractions(() => {
-    //   openEmployeeModal({ id });
-    // });
   }, [id]);
-
-  const keyPoint = useMemo(() => {
-    return year === "all" ? "points" : `points_${year}`;
-  }, [year]);
 
   return (
     <Animatable.View animation={"slideInUp"} delay={10} duration={200}>
@@ -147,29 +110,12 @@ export const CupItemInfo = memo(function CupItemInfo(props: Props) {
         <ContentContainer>
           <LeftImage source={IC_USER_Fill} />
           <Center>
-            <Title numberOfLines={1}>No_data</Title>
-            <SubTitle numberOfLines={1}>No_description</SubTitle>
+            <Title numberOfLines={1}>{user?.user_name}</Title>
+            <SubTitle numberOfLines={1}>{user?.point}</SubTitle>
           </Center>
-          <Right>
-            <WrapIcon>
-              <Icon source={require("../assets/star.png")} color={"#E7B117"} />
-              <Count>123</Count>
-            </WrapIcon>
-            <WrapIcon>
-              <Icon
-                source={require("../assets/certificate.png")}
-                color={"#007AFF"}
-              />
-              <Count>321</Count>
-            </WrapIcon>
-            <WrapIcon>
-              <Icon
-                source={require("../assets/medal_star.png")}
-                color={"#0FAE3C"}
-              />
-              <Count>312</Count>
-            </WrapIcon>
-          </Right>
+          {/*<Right>*/}
+
+          {/*</Right>*/}
         </ContentContainer>
       </Container>
     </Animatable.View>
