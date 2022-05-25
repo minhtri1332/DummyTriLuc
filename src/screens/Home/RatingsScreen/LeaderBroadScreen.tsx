@@ -79,7 +79,7 @@ export const LeaderBoardScreen = memo(function LeaderBoardScreen() {
   return (
     <Container>
       <SModalHeaderWithTitle
-        title={"Bảng xếp hạng"}
+        title={"Xếp hạng"}
         backgroundColor={Colors.backgroundColor}
       />
 
