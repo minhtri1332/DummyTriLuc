@@ -6,7 +6,9 @@ class MachineIdClass {
   };
 
   change = async (newMachineId: string) => {
-    this.machineId = newMachineId;
+    if (newMachineId != "") {
+      this.machineId = newMachineId;
+    }
   };
 }
 
