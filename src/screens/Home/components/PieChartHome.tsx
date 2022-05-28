@@ -1,9 +1,10 @@
-import React, {memo, useMemo} from "react";
-import {PieChart} from "react-native-charts-wrapper";
-import {processColor, StyleSheet, View} from "react-native";
-import {Colors} from "@/themes/Colors";
-import {styled} from "@/global";
-import {RawDataStrengthGoal} from "@/store/home/function";
+import React, { memo, useMemo } from "react";
+import { PieChart } from "react-native-charts-wrapper";
+import { processColor, StyleSheet, View } from "react-native";
+import { Colors } from "@/themes/Colors";
+import { styled } from "@/global";
+import { RawDataStrengthGoal } from "@/store/home/function";
+import { formatNumberShortCompact } from "@/ultils/formatNumber";
 
 interface dataProps {
   dataStrength: RawDataStrengthGoal;
@@ -60,12 +61,12 @@ export const PieChartHome = memo(function PieChartHome(props: dataProps) {
         style={styles.chart}
         logEnabled={false}
         data={data}
-        chartDescription={{ text: ""}}
+        chartDescription={{ text: "" }}
         legend={legend}
         drawEntryLabels={false}
         rotationEnabled={true}
         styledCenterText={{
-          text: String(dataStrength?.strength.toFixed(0) || 0),
+          text: String(formatNumberShortCompact(dataStrength?.strength)),
           color: processColor(Colors.colorText),
           size: 30,
         }}
@@ -83,7 +84,7 @@ export const PieChartHome = memo(function PieChartHome(props: dataProps) {
               <STextNote isColor={Colors.grey4}>
                 Point {index + 1}:{" "}
                 <STextNote isColor={Colors.colorText}>
-                  {item.toFixed(0)}
+                  {formatNumberShortCompact(item)}
                 </STextNote>
               </STextNote>
             </SViewItemNote>
@@ -91,7 +92,7 @@ export const PieChartHome = memo(function PieChartHome(props: dataProps) {
         })}
 
         <STextStrengthGoal>
-          Mục tiêu: {dataStrength.strength_goal}
+          Mục tiêu: {formatNumberShortCompact(dataStrength.strength_goal)}
         </STextStrengthGoal>
       </SViewWrapperNote>
     </View>

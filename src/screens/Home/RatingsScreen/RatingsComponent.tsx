@@ -1,16 +1,17 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, {memo, useCallback, useEffect, useState} from "react";
 import SectionContainerStyle from "@/componens/View/SectionView";
-import { IC_CHART, IC_RANK } from "@/assets";
-import { Colors } from "@/themes/Colors";
-import { styled, useAsyncFn } from "@/global";
-import { requestListMyRating } from "@/store/ratings/functions";
+import {IC_CHART, IC_RANK} from "@/assets";
+import {Colors} from "@/themes/Colors";
+import {styled, useAsyncFn} from "@/global";
+import {requestListMyRating} from "@/store/ratings/functions";
 import GradientText from "@/componens/Gradient/TextGradient";
-import { navigateToLeaderBoardScreen } from "@/ultils/navigation";
+import {navigateToLeaderBoardScreen} from "@/ultils/navigation";
+import {formatNumberShortCompact,} from "@/ultils/formatNumber";
 
 interface PowerProps {}
 
 export const RatingsComponent = memo(function RatingsComponent() {
-  const [currentRank, setMyRank] = useState({});
+  const [currentRank, setMyRank] = useState<any>();
   const goToRating = useCallback(() => {
     navigateToLeaderBoardScreen();
   }, []);
@@ -34,7 +35,9 @@ export const RatingsComponent = memo(function RatingsComponent() {
       <SViewContent>
         <SViewLeft>
           <SText>Point</SText>
-          <STextGradient>{currentRank?.point}</STextGradient>
+          <STextGradient>
+            {formatNumberShortCompact(currentRank?.point)}
+          </STextGradient>
         </SViewLeft>
         <SViewRight>
           <SText>Xếp hạng</SText>
