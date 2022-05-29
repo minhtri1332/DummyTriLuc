@@ -21,7 +21,7 @@ const ContentContainer = styled.View`
 const BottomMe = styled.View`
   border-top-width: 0.8px;
   border-top-color: #cecece;
-  background-color: ${Colors.colorTab};
+  background-color: ${Colors.backgroundColor};
   padding-bottom: ${getBottomSpace() / 2}px;
 `;
 const SModalHeaderWithTitle = styled(DynamicHeader).attrs((p) => ({
@@ -35,7 +35,7 @@ const SModalHeaderWithTitle = styled(DynamicHeader).attrs((p) => ({
   },
 }))``;
 
-export const LeaderBoardScreen = memo(function LeaderBoardScreen() {
+export const RatingBroadScreen = memo(function RatingBroadScreen() {
   const data = useRatingsByQuery("all");
   const myRate = myRating();
   const animatedScrollYValue = useRef(new Animated.Value(0)).current;
@@ -110,7 +110,12 @@ export const LeaderBoardScreen = memo(function LeaderBoardScreen() {
 
       {myRate && (
         <BottomMe>
-          <CupItemInfo id={myRate?.user_id} index={myRate?.point} year={year} />
+          <CupItemInfo
+            id={myRate?.user_id}
+            index={myRate?.current_rank - 1}
+            year={year}
+            isMyRate={true}
+          />
         </BottomMe>
       )}
     </Container>
@@ -125,6 +130,5 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingBottom: 120,
-    backgroundColor: Colors.colorTab,
   },
 });

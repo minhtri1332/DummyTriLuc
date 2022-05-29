@@ -23,7 +23,7 @@ import StrengthStatisticScreen from "@/screens/Home/StrengthScreen/StrengthStati
 import PracticeDetailScreen from "@/screens/Home/PracticeScreen/PracticeDetailScreen";
 import PracticingScreen from "@/screens/Home/PracticeScreen/PracticingScreen";
 import ProfileScreen from "@/screens/Profile/ProfileScreen";
-import {LeaderBoardScreen} from "@/screens/Home/RatingsScreen/LeaderBroadScreen";
+import { RatingBroadScreen } from "@/screens/Home/RatingsScreen/RatingBroadScreen";
 
 const RootStack = createNativeStackNavigator();
 const TabBarStack = createBottomTabNavigator();
@@ -119,8 +119,8 @@ export const Routes = memo(function Routes() {
               component={ProfileScreen}
             />
             <RootStack.Screen
-              name={"LeaderBoardScreen"}
-              component={LeaderBoardScreen}
+              name={"RatingBroadScreen"}
+              component={RatingBroadScreen}
             />
           </RootStack.Group>
 

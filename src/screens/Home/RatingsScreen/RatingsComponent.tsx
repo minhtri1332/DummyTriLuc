@@ -5,7 +5,7 @@ import {Colors} from "@/themes/Colors";
 import {styled, useAsyncFn} from "@/global";
 import {requestListMyRating} from "@/store/ratings/functions";
 import GradientText from "@/componens/Gradient/TextGradient";
-import {navigateToLeaderBoardScreen} from "@/ultils/navigation";
+import {navigateToRatingBroadScreen} from "@/ultils/navigation";
 import {formatNumberShortCompact,} from "@/ultils/formatNumber";
 
 interface PowerProps {}
@@ -13,7 +13,7 @@ interface PowerProps {}
 export const RatingsComponent = memo(function RatingsComponent() {
   const [currentRank, setMyRank] = useState<any>();
   const goToRating = useCallback(() => {
-    navigateToLeaderBoardScreen();
+    navigateToRatingBroadScreen();
   }, []);
 
   const [{ loading }, getData] = useAsyncFn(async () => {
