@@ -17,6 +17,8 @@
 		AB7F1CF5282A41310084E2D0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB7F1CF4282A41310084E2D0 /* GoogleService-Info.plist */; };
 		AF7FEF2F380754ECC69C9B9E /* libPods-DummyTriLuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1A448D6D0D13CBF24DCB41 /* libPods-DummyTriLuc.a */; };
 		B7822C8B966C4B2BB66484EB /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7D9B345C80F4428B80AD1AD /* Roboto-Regular.ttf */; };
+		9E313E259D364D78B43DF905 /* anton_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0273E190ADDA415DAAFE8A5A /* anton_regular.ttf */; };
+		66B5AB53D8414E15BC4907D3 /* metrophobic_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE4595000B054BE89CAD0944 /* metrophobic_regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		E7D9B345C80F4428B80AD1AD /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		0273E190ADDA415DAAFE8A5A /* anton_regular.ttf */ = {isa = PBXFileReference; name = "anton_regular.ttf"; path = "../src/assets/fonts/anton_regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AE4595000B054BE89CAD0944 /* metrophobic_regular.ttf */ = {isa = PBXFileReference; name = "metrophobic_regular.ttf"; path = "../src/assets/fonts/metrophobic_regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,8 @@
 				A2114C2902D34934843FD1A2 /* Roboto-Light.ttf */,
 				9A76ED8EE70C4140B45E5B40 /* Roboto-Medium.ttf */,
 				E7D9B345C80F4428B80AD1AD /* Roboto-Regular.ttf */,
+				0273E190ADDA415DAAFE8A5A /* anton_regular.ttf */,
+				AE4595000B054BE89CAD0944 /* metrophobic_regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -228,6 +234,8 @@
 				3A00E9ED42BE460895E4352D /* Roboto-Medium.ttf in Resources */,
 				B7822C8B966C4B2BB66484EB /* Roboto-Regular.ttf in Resources */,
 				AB7F1CF5282A41310084E2D0 /* GoogleService-Info.plist in Resources */,
+				9E313E259D364D78B43DF905 /* anton_regular.ttf in Resources */,
+				66B5AB53D8414E15BC4907D3 /* metrophobic_regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

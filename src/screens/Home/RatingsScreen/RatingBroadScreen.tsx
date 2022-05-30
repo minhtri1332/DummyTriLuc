@@ -18,12 +18,7 @@ const ContentContainer = styled.View`
   background-color: ${Colors.backgroundColor};
 `;
 
-const BottomMe = styled.View`
-  border-top-width: 0.8px;
-  border-top-color: #cecece;
-  background-color: ${Colors.backgroundColor};
-  padding-bottom: ${getBottomSpace() / 2}px;
-`;
+const BottomMe = styled.View``;
 const SModalHeaderWithTitle = styled(DynamicHeader).attrs((p) => ({
   backgroundColor: Colors.backgroundColor,
   hideSeparator: true,
@@ -86,14 +81,6 @@ export const RatingBroadScreen = memo(function RatingBroadScreen() {
       <ContentContainer>
         {initScreen && (
           <CommonRecycleList
-            onScroll={Animated.event(
-              [
-                {
-                  nativeEvent: { contentOffset: { y: animatedScrollYValue } },
-                },
-              ],
-              { useNativeDriver: false }
-            )}
             style={styles.list}
             data={data}
             itemHeight={76}

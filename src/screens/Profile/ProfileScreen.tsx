@@ -1,25 +1,14 @@
-import React, { memo, useCallback, useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  RefreshControl,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { DynamicHeader } from "@/componens/Header/DynamicHeader";
-import { ScreenWrapper } from "@/common/CommonStyles";
-import { navigateToProfileScreen } from "@/ultils/navigation";
-import Avatar from "@/componens/View/Avatar";
-import { styled, useAsyncFn } from "@/global";
-import { Colors } from "@/themes/Colors";
-import { useProfile } from "@/store/profile";
-import { ProfileComponent } from "@/screens/Profile/components/ProfileComponent";
+import React, {memo} from "react";
+import {KeyboardAvoidingView, Platform, ScrollView, StyleSheet,} from "react-native";
+import {DynamicHeader} from "@/componens/Header/DynamicHeader";
+import {ScreenWrapper} from "@/common/CommonStyles";
+import {styled, useAsyncFn} from "@/global";
+import {Colors} from "@/themes/Colors";
+import {useProfile} from "@/store/profile";
+import {ProfileComponent} from "@/screens/Profile/components/ProfileComponent";
 import PickImageModalComponent from "@/screens/Profile/components/PickImageModalComponent";
-import { requestEditProfile } from "@/store/profile/functions";
+import {requestEditProfile} from "@/store/profile/functions";
 import useAutoToastError from "@/hooks/useAutoToastError";
-import { screenShortDimension } from "@/ultils/scale";
 
 export const ProfileScreen = memo(function ProfileScreen() {
   const profile = useProfile("0");

@@ -30,6 +30,7 @@ export const IC_EDIT_PROFILE = require("./icons/ic_edit_profile.png");
 export const IC_CAMERA_PICK = require("./icons/ic_camera_pick.png");
 export const IC_GALLERY = require("./icons/ic_gallery.png");
 export const IC_RANK = require("./icons/ic_rank.png");
+export const IC_RATING_NUMBER_1 = require("./icons/rating_number_1.png");
 
 //image theme
 export const IMG_LOGIN_THEME = require("./images/login_theme.png");

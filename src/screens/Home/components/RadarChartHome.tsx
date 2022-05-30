@@ -1,13 +1,22 @@
-import React, {memo, useCallback, useEffect, useMemo} from "react";
+import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { RadarChart } from "react-native-charts-wrapper";
-import { processColor, StyleSheet, View } from "react-native";
+import { processColor, StyleSheet, Text, View } from "react-native";
 import { Colors } from "@/themes/Colors";
-import {RawStat} from "@/store/auth/types";
+import { RawStat } from "@/store/auth/types";
+import { styled } from "@/global";
+import { Fonts } from "@/assets/fonts";
+import moment from "moment";
 
-export const RadarChartHome = memo(function RadarChartHome({stat}:{stat: RawStat}) {
+export const RadarChartHome = memo(function RadarChartHome({
+  stat,
+}: {
+  stat: RawStat;
+}) {
   const valueChart = useMemo(() => {
-    const output = Object.entries(stat || {}).map(([key, data]) => ({value:data }));
-    return output
+    const output = Object.entries(stat || {}).map(([key, data]) => ({
+      value: data,
+    }));
+    return output;
   }, [stat]);
 
   const data = useMemo(() => {
@@ -69,6 +78,7 @@ export const RadarChartHome = memo(function RadarChartHome({stat}:{stat: RawStat
         skipWebLineCount={1}
         onChange={(event) => console.log(event.nativeEvent)}
       />
+      <SText>{moment().format("DD/MM/YYYY")}</SText>
     </View>
   );
 });
@@ -82,5 +92,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+const SText = styled.Text`
+  color: ${Colors.grey5};
+  font-family: ${Fonts.metrophobic};
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  position: absolute;
+  bottom: 4px;
+  left: 50px;
+`;
 
 export default RadarChartHome;

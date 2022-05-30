@@ -29,5 +29,6 @@ export const Colors = {
   purple2: "#5668CB",
   yellow1: "#ECD92D",
   hint: "#A8A8A8",
+  greyItem: "#F0F0F0",
   transparent: "transparent",
 };
