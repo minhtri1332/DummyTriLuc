@@ -32,6 +32,8 @@ export const IC_GALLERY = require("./icons/ic_gallery.png");
 export const IC_RANK = require("./icons/ic_rank.png");
 export const IC_RATING_NUMBER_1 = require("./icons/rating_number_1.png");
 
+export const VIDEO = require("./demo.mp4");
+
 //image theme
 export const IMG_LOGIN_THEME = require("./images/login_theme.png");
 export const IMG_TARGET_HOME_THEME = require("./images/background_target_home.png");

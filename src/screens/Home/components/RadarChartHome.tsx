@@ -2,10 +2,10 @@ import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { RadarChart } from "react-native-charts-wrapper";
 import { processColor, StyleSheet, Text, View } from "react-native";
 import { Colors } from "@/themes/Colors";
-import { RawStat } from "@/store/auth/types";
 import { styled } from "@/global";
 import { Fonts } from "@/assets/fonts";
 import moment from "moment";
+import { RawStat } from "@/store/profile/types";
 
 export const RadarChartHome = memo(function RadarChartHome({
   stat,

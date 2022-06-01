@@ -1,35 +1,37 @@
 import React, { memo, useEffect, useState } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { useAsyncFn } from "@/hooks";
 import { requestPracticeDetail } from "@/store/home/function";
 import { useNavigationParams } from "@/hooks/useNavigationParams";
 import { styled } from "@/global";
-import { IMG_BACKGROUND_MACHINE } from "@/assets";
+import { IMG_BACKGROUND_MACHINE, VIDEO } from "@/assets";
 import PointHitComponent from "@/screens/Practice/PointHitComponent";
 import _ from "lodash";
 import moment from "moment";
 import TimeStartPractice from "@/screens/Home/PracticeScreen/TimeStartPractice";
 import { Colors } from "@/themes/Colors";
 import ButtonGradient from "@/componens/Gradient/ButtonGradient";
+import VideoPlayer from "react-native-video-player";
 
 export interface PracticeDetailProps {
   practiceId: string;
   data?: any;
 }
 
-const dataMap = (dataHit: any) => {
-  return _.keyBy(dataHit || [], function (o) {
-    return String(moment(o.t).format("HH:mm:ss"));
+const dataMap = (dataHit: any, start: number) => {
+  return _.keyBy(dataHit, function (o) {
+    return moment(start + o.t).format("HH:mm:ss");
   });
 };
 
 export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
   const { practiceId, data } = useNavigationParams<PracticeDetailProps>();
+  const start = data.start_time1 * 1000 + data.start_time2;
   const [practice, setPractice] = useState(data);
   const [replay, setReplay] = useState(false);
-  const dataMapTime = dataMap(data?.data || practice?.practice?.data);
+  const dataMapTime = dataMap(data.data || practice?.practice?.data, start);
   const [{ loading }, getData] = useAsyncFn(async () => {
     const value = await requestPracticeDetail(practiceId);
     setPractice(value);
@@ -43,9 +45,25 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
 
   return (
     <ScreenWrapper>
-      <DynamicHeader title={"PracticeDetailScreen"} />
+      <DynamicHeader title={"Bài tập"} />
 
-      <View >
+      <View>
+        <VideoPlayer
+          autoplay={true}
+          video={VIDEO}
+          videoWidth={1600}
+          videoHeight={1000}
+          showDuration={true}
+          disableSeek={true}
+          onPlayPress={() => setReplay(!replay)}
+          thumbnail={{ uri: "https://i.picsum.photos/id/866/1600/900.jpg" }}
+        />
+        {/*<Video*/}
+        {/*  source={VIDEO} // Can be a URL or a local file.*/}
+        {/*  style={styles.backgroundVideo}*/}
+        {/*/>*/}
+      </View>
+      <View>
         <SImageBackground
           resizeMode={"cover"}
           source={IMG_BACKGROUND_MACHINE}
@@ -56,17 +74,17 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
           replay={replay}
         />
       </View>
-      <SText>
-        <TimeStartPractice
-          stopTime={data?.end_time || practice?.practice?.end_time}
-          replay={replay}
-          onReplay={setReplay}
-        />
-      </SText>
+      {/*<SText>*/}
+      {/*  <TimeStartPractice*/}
+      {/*    stopTime={data?.end_time || practice?.practice?.end_time}*/}
+      {/*    replay={replay}*/}
+      {/*    onReplay={setReplay}*/}
+      {/*  />*/}
+      {/*</SText>*/}
 
-      <SViewButton>
-        <ButtonGradient onPress={() => setReplay(!replay)} label={"Xem lại"} />
-      </SViewButton>
+      {/*<SViewButton>*/}
+      {/*  <ButtonGradient onPress={() => setReplay(!replay)} label={"Xem lại"} />*/}
+      {/*</SViewButton>*/}
     </ScreenWrapper>
   );
 });
