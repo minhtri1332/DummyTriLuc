@@ -14,33 +14,27 @@ const PointHitComponent = memo(function PointHitComponent({
   dataMapTime,
   replay,
 }: practiceProps) {
-  const [dt, setDt] = useState(
-    practice.start_time1 * 1000 + practice.start_time2 - 2000
-  );
+  const [dt, setDt] = useState(0);
   const pointObject = useMemo(() => {
     // @ts-ignore
-    const actionCurrent = dataMapTime[moment(dt).format("HH:mm:ss")];
-    console.log(actionCurrent, moment(dt).format("HH:mm:ss"), dataMapTime);
+    const actionCurrent = dataMapTime[moment(1000).format("HH:mm:ss.SSS")];
+    console.log(actionCurrent);
     return { point: actionCurrent?.f, position: actionCurrent?.p };
   }, [dt, dataMapTime]);
+  console.log("actionCurrent", moment(10).format("hh:mm:ss.SSS"));
 
   useEffect(() => {
     // if (practice?.end_time / 10000 > dt) {
-    let secTimer = setInterval(async () => {
-      setDt(dt + 1000);
-    }, 1000);
-
-    return () => clearInterval(secTimer);
+    // let secTimer = setInterval(async () => {
+    //   setDt(dt + 10);
+    // }, 10);
+    //
+    // return () => clearInterval(secTimer);
     // }
   }, [dt, practice?.end_time]);
 
   useEffect(() => {
-    setDt(
-      practice.start_time1 * 1000 +
-        practice.start_time2 +
-        practice.data[0].t -
-        2000
-    );
+    setDt(0);
   }, [replay, setDt, practice]);
 
   return (

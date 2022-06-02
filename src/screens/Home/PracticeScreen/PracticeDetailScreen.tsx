@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { useAsyncFn } from "@/hooks";
@@ -9,10 +9,7 @@ import { styled } from "@/global";
 import { IMG_BACKGROUND_MACHINE, VIDEO } from "@/assets";
 import PointHitComponent from "@/screens/Practice/PointHitComponent";
 import _ from "lodash";
-import moment from "moment";
-import TimeStartPractice from "@/screens/Home/PracticeScreen/TimeStartPractice";
 import { Colors } from "@/themes/Colors";
-import ButtonGradient from "@/componens/Gradient/ButtonGradient";
 import VideoPlayer from "react-native-video-player";
 
 export interface PracticeDetailProps {
@@ -20,18 +17,17 @@ export interface PracticeDetailProps {
   data?: any;
 }
 
-const dataMap = (dataHit: any, start: number) => {
+const dataMap = (dataHit: any) => {
   return _.keyBy(dataHit, function (o) {
-    return moment(start + o.t).format("HH:mm:ss");
+    return o.t;
   });
 };
 
 export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
   const { practiceId, data } = useNavigationParams<PracticeDetailProps>();
-  const start = data.start_time1 * 1000 + data.start_time2;
   const [practice, setPractice] = useState(data);
   const [replay, setReplay] = useState(false);
-  const dataMapTime = dataMap(data.data || practice?.practice?.data, start);
+  const dataMapTime = dataMap(data.data || practice?.practice?.data);
   const [{ loading }, getData] = useAsyncFn(async () => {
     const value = await requestPracticeDetail(practiceId);
     setPractice(value);

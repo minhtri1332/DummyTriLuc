@@ -1,13 +1,12 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import { Animated, StatusBar, StyleSheet } from "react-native";
-import { styled, useAsyncFn } from "@/global";
-import { getBottomSpace } from "react-native-iphone-x-helper";
-import { DynamicHeader } from "@/componens/Header/DynamicHeader";
-import { CupItemInfo } from "@/screens/Home/RatingsScreen/components/CupItemInfo";
-import { CommonRecycleList } from "@/common/CommonRecycleList";
-import { Colors } from "@/themes/Colors";
-import { requestListAllRatings } from "@/store/ratings/functions";
-import { myRating, useRatingsByQuery } from "@/store/ratings";
+import React, {memo, useCallback, useEffect, useState} from "react";
+import {StatusBar, StyleSheet} from "react-native";
+import {styled, useAsyncFn} from "@/global";
+import {DynamicHeader} from "@/componens/Header/DynamicHeader";
+import {CupItemInfo} from "@/screens/Home/RatingsScreen/components/CupItemInfo";
+import {CommonRecycleList} from "@/common/CommonRecycleList";
+import {Colors} from "@/themes/Colors";
+import {requestListAllRatings} from "@/store/ratings/functions";
+import {myRating, useRatingsByQuery} from "@/store/ratings";
 
 const Container = styled.View`
   flex: 1;

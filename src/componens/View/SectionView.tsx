@@ -2,6 +2,7 @@ import { styled } from "@/global";
 import React, { memo, ReactElement, useCallback, useState } from "react";
 import { Colors } from "@/themes/Colors";
 import { ImageSourcePropType, View, ViewProps } from "react-native";
+import { TransitionViewController } from "@/ultils/transitions";
 
 export interface SectionContainerProps extends ViewProps {
   title: string;
@@ -10,13 +11,11 @@ export interface SectionContainerProps extends ViewProps {
   children?: ReactElement | ReactElement[];
   rightTitleAction?: string;
   rightAction?: () => void;
-  hideLine?: boolean;
 }
 
 export const SectionContainerStyle = memo(function SectionContainerStyle({
   title,
   children,
-  hideLine,
   iconRight,
   iconLeft,
   rightAction,
@@ -33,6 +32,8 @@ export const SectionContainerStyle = memo(function SectionContainerStyle({
 
   return (
     <SectionContainer>
+      <TransitionViewController isExpand={isExpand} />
+
       {title !== "" && (
         <HeaderWrapper onPress={onPress}>
           <SViewTitle>

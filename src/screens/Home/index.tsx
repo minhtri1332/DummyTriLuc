@@ -24,6 +24,7 @@ import MachineIdService from "@/services/MachineIdService";
 import RatingsComponent from "@/screens/Home/RatingsScreen/RatingsComponent";
 import { Fonts } from "@/assets/fonts";
 import { useProfile } from "@/store/profile";
+import { commonStyles, TransitionContextView } from "@/ultils/transitions";
 
 export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
   const profile = useProfile("0");
@@ -74,6 +75,7 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
     <ScreenWrapper>
       <HeaderHome title={"Home"} toggleDrawer={navigation.toggleDrawer} />
       <ScrollView
+        contentContainerStyle={{ paddingBottom: 20 }}
         refreshControl={
           <RefreshControl
             progressBackgroundColor={Colors.colorText}
@@ -83,25 +85,30 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
           />
         }
       >
-        <View style={{ flexDirection: "row" }}>
-          <SImageBackground
-            resizeMode={"contain"}
-            source={IMG_TARGET_HOME_THEME}
-          />
-          <View style={{ flex: 1 }}>
-            {stat && <RadarChartHome stat={stat} />}
+        <TransitionContextView
+          style={commonStyles.expand}
+          transitionKey={"RequestDetail"}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <SImageBackground
+              resizeMode={"contain"}
+              source={IMG_TARGET_HOME_THEME}
+            />
+            <View style={{ flex: 1 }}>
+              {stat && <RadarChartHome stat={stat} />}
+            </View>
+            <SBaseViewPractice>
+              <STextName>{profile?.name}</STextName>
+              <GradientButton label={"Tập luyện"} onPress={showModalPractice} />
+            </SBaseViewPractice>
           </View>
-          <SBaseViewPractice>
-            <STextName>{profile?.name}</STextName>
-            <GradientButton label={"Tập luyện"} onPress={showModalPractice} />
-          </SBaseViewPractice>
-        </View>
 
-        <PunchComponent dataHit={dataHit} />
-        <PowerComponent dataStrength={dataStrength} />
-        <RatingsComponent />
+          <PunchComponent dataHit={dataHit} />
+          <PowerComponent dataStrength={dataStrength} />
+          <RatingsComponent />
 
-        <PracticeComponent />
+          <PracticeComponent />
+        </TransitionContextView>
       </ScrollView>
       <PracticingBottomModal
         isVisible={isModalPracticeVisible}
