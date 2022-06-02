@@ -1,10 +1,16 @@
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useMemo } from "react";
 import { Image, Keyboard, View } from "react-native";
 import styled from "styled-components/native";
 import FastImage from "react-native-fast-image";
 import * as Animatable from "react-native-animatable";
 import { Colors } from "@/themes/Colors";
-import { IC_RATING_NUMBER_1, IC_USER_Fill } from "@/assets";
+import {
+  IC_RATING_DOWN,
+  IC_RATING_NORMAL,
+  IC_RATING_NUMBER_1,
+  IC_RATING_UP,
+  IC_USER_Fill,
+} from "@/assets";
 import { useRatings } from "@/store/ratings";
 import { formatNumberShortCompact } from "@/ultils/formatNumber";
 import { Fonts } from "@/assets/fonts";
@@ -23,6 +29,12 @@ export const CupItemInfo = memo(function CupItemInfo(props: Props) {
   const open = useCallback(() => {
     Keyboard.dismiss();
   }, [id]);
+
+  const isStatusRank = useMemo(() => {
+    if (!user) return 0;
+
+    return user?.current_rank - user?.previous_rank;
+  }, [user]);
 
   return (
     <Animatable.View animation={"slideInUp"} delay={10} duration={200}>
@@ -44,6 +56,26 @@ export const CupItemInfo = memo(function CupItemInfo(props: Props) {
         </Left>
         <ContentContainer>
           <Center>
+            <SImage
+              source={
+                isStatusRank == 0
+                  ? IC_RATING_NORMAL
+                  : isStatusRank > 0
+                  ? IC_RATING_UP
+                  : IC_RATING_DOWN
+              }
+            />
+            <SText
+              isColor={
+                isStatusRank == 0
+                  ? Colors.grey3
+                  : isStatusRank > 0
+                  ? Colors.green1
+                  : Colors.red1
+              }
+            >
+              {isStatusRank}
+            </SText>
             <STextGradient>
               {formatNumberShortCompact(user?.point)}
             </STextGradient>
@@ -66,11 +98,23 @@ const Container = styled.TouchableOpacity<{ isMyRate?: boolean }>`
   height: 76px;
 `;
 
+const SImage = styled.Image`
+  margin-top: 4px;
+  margin-right: 4px;
+`;
+
 const STextGradient = styled.Text`
   font-family: ${Fonts.anton};
   color: ${Colors.orange1};
   padding-right: 8px;
-  font-size: 22px;
+  font-size: 18px;
+`;
+const SText = styled.Text<{ isColor: string }>`
+  font-family: ${Fonts.anton};
+  color: ${(props) => props.isColor || Colors.grey1};
+  padding-right: 10px;
+  font-size: 12px;
+  margin-top: 4px;
 `;
 
 const Left = styled.View<{ isTopRating: number }>`

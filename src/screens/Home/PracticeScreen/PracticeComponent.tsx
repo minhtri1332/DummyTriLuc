@@ -92,7 +92,7 @@ export const ItemPractice = memo(function ItemPractice({
   }, []);
 
   return (
-    <SViewItem onPress={onPressItem} onLongPress={onLongPressItem}>
+    <SViewItem onPress={onLongPressItem} onLongPress={onLongPressItem}>
       <SText>Bài tập: {index + 1}</SText>
     </SViewItem>
   );

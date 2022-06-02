@@ -33,7 +33,6 @@ const SModalHeaderWithTitle = styled(DynamicHeader).attrs((p) => ({
 export const RatingBroadScreen = memo(function RatingBroadScreen() {
   const data = useRatingsByQuery("all");
   const myRate = myRating();
-  const animatedScrollYValue = useRef(new Animated.Value(0)).current;
   const [year, setYear] = useState("all");
   const [initScreen, setInitScreen] = useState(false);
   const [{ loading }, loadData] = useAsyncFn(async () => {
@@ -99,7 +98,7 @@ export const RatingBroadScreen = memo(function RatingBroadScreen() {
         <BottomMe>
           <CupItemInfo
             id={myRate?.user_id}
-            index={myRate?.current_rank - 1}
+            index={myRate?.current_rank}
             year={year}
             isMyRate={true}
           />
