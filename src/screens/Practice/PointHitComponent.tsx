@@ -2,6 +2,7 @@ import React, { memo, useEffect, useMemo, useState } from "react";
 import moment from "moment";
 import { styled } from "@/global";
 import { Colors } from "@/themes/Colors";
+import { Stopwatch } from "react-native-stopwatch-timer";
 
 export interface practiceProps {
   practice: any;
@@ -17,11 +18,9 @@ const PointHitComponent = memo(function PointHitComponent({
   const [dt, setDt] = useState(0);
   const pointObject = useMemo(() => {
     // @ts-ignore
-    const actionCurrent = dataMapTime[moment(1000).format("HH:mm:ss.SSS")];
-    console.log(actionCurrent);
+    const actionCurrent = dataMapTime[dt];
     return { point: actionCurrent?.f, position: actionCurrent?.p };
   }, [dt, dataMapTime]);
-  console.log("actionCurrent", moment(10).format("hh:mm:ss.SSS"));
 
   useEffect(() => {
     // if (practice?.end_time / 10000 > dt) {
@@ -57,6 +56,14 @@ const PointHitComponent = memo(function PointHitComponent({
       <ItemHitPoint
         point={pointObject.point}
         position={pointObject.position == 4}
+      />
+      <Stopwatch
+        laps
+        msecs
+        start={true}
+        reset={false}
+        options={{}}
+        getTime={setDt}
       />
     </SViewContainerHitPoint>
   );
