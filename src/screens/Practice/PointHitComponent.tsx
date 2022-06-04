@@ -17,23 +17,25 @@ const PointHitComponent = memo(function PointHitComponent({
   const [dt, setDt] = useState(0);
   const pointObject = useMemo(() => {
     // @ts-ignore
-    const actionCurrent = dataMapTime[moment(dt).format("HH:mm:ss")];
+    const actionCurrent = dataMapTime[moment(1000).format("HH:mm:ss.SSS")];
+    console.log(actionCurrent);
     return { point: actionCurrent?.f, position: actionCurrent?.p };
   }, [dt, dataMapTime]);
+  console.log("actionCurrent", moment(10).format("hh:mm:ss.SSS"));
 
   useEffect(() => {
-    if (practice?.end_time / 10000 > dt) {
-      let secTimer = setInterval(async () => {
-        setDt(dt + 1000);
-      }, 1000);
-
-      return () => clearInterval(secTimer);
-    }
+    // if (practice?.end_time / 10000 > dt) {
+    // let secTimer = setInterval(async () => {
+    //   setDt(dt + 10);
+    // }, 10);
+    //
+    // return () => clearInterval(secTimer);
+    // }
   }, [dt, practice?.end_time]);
 
   useEffect(() => {
     setDt(0);
-  }, [replay, setDt]);
+  }, [replay, setDt, practice]);
 
   return (
     <SViewContainerHitPoint>

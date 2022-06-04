@@ -4,7 +4,7 @@ import { ScreenWrapper } from "@/common/CommonStyles";
 import { IMG_TARGET_HOME_THEME } from "@/assets";
 import { styled, useAsyncFn, useBoolean } from "@/global";
 import RadarChartHome from "@/screens/Home/components/RadarChartHome";
-import { RefreshControl, ScrollView, View } from "react-native";
+import { RefreshControl, ScrollView, Text, View } from "react-native";
 import PunchComponent from "@/screens/Home/HitScreen/PunchComponent";
 import PowerComponent from "@/screens/Home/StrengthScreen/PowerComponent";
 import {
@@ -22,8 +22,13 @@ import { requestGetProfile } from "@/store/profile/functions";
 import LocalStorageHelper from "@/services/LocalServiceHelper";
 import MachineIdService from "@/services/MachineIdService";
 import RatingsComponent from "@/screens/Home/RatingsScreen/RatingsComponent";
+import { Fonts } from "@/assets/fonts";
+import { useProfile } from "@/store/profile";
+import { commonStyles, TransitionContextView } from "@/ultils/transitions";
 
 export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
+  const profile = useProfile("0");
+
   const [listMachineId, setListMachineId] = useState("");
   const [isModalPracticeVisible, showModalPractice, hideModalPractice] =
     useBoolean();
@@ -70,6 +75,7 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
     <ScreenWrapper>
       <HeaderHome title={"Home"} toggleDrawer={navigation.toggleDrawer} />
       <ScrollView
+        contentContainerStyle={{ paddingBottom: 20 }}
         refreshControl={
           <RefreshControl
             progressBackgroundColor={Colors.colorText}
@@ -79,24 +85,30 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
           />
         }
       >
-        <View style={{ flexDirection: "row" }}>
-          <SImageBackground
-            resizeMode={"contain"}
-            source={IMG_TARGET_HOME_THEME}
-          />
-          <View style={{ flex: 1 }}>
-            {stat && <RadarChartHome stat={stat} />}
+        <TransitionContextView
+          style={commonStyles.expand}
+          transitionKey={"RequestDetail"}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <SImageBackground
+              resizeMode={"contain"}
+              source={IMG_TARGET_HOME_THEME}
+            />
+            <View style={{ flex: 1 }}>
+              {stat && <RadarChartHome stat={stat} />}
+            </View>
+            <SBaseViewPractice>
+              <STextName>{profile?.name}</STextName>
+              <GradientButton label={"Tập luyện"} onPress={showModalPractice} />
+            </SBaseViewPractice>
           </View>
-          <SBaseOpacityButton>
-            <GradientButton label={"Tập luyện"} onPress={showModalPractice} />
-          </SBaseOpacityButton>
-        </View>
 
-        <PunchComponent dataHit={dataHit} />
-        <PowerComponent dataStrength={dataStrength} />
-        <RatingsComponent />
+          <PunchComponent dataHit={dataHit} />
+          <PowerComponent dataStrength={dataStrength} />
+          <RatingsComponent />
 
-        <PracticeComponent />
+          <PracticeComponent />
+        </TransitionContextView>
       </ScrollView>
       <PracticingBottomModal
         isVisible={isModalPracticeVisible}
@@ -115,7 +127,14 @@ const SImageBackground = styled.Image`
   position: absolute;
 `;
 
-const SBaseOpacityButton = styled.View`
-  padding: 0 16px;
+const SBaseViewPractice = styled.View`
+  padding: 0 56px;
   align-self: center;
+`;
+
+const STextName = styled.Text`
+  color: ${Colors.colorText};
+  font-size: 18px;
+  font-family: ${Fonts.anton};
+  margin-bottom: 16px;
 `;

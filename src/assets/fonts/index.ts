@@ -1,5 +1,5 @@
 export const Fonts = {
-  anton: "anton_regular",
-  metrophobic: "metrophobic_regular",
+  anton: "anton-regular",
+  metrophobic: "metrophobic-regular",
   roboto_old: "Roboto-Bold",
 };

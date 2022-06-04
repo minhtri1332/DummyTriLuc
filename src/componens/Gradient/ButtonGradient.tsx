@@ -3,6 +3,7 @@ import React, { memo, useCallback } from "react";
 import { Colors } from "@/themes/Colors";
 import { styled } from "@/global";
 import { ActivityIndicator, TextStyle, ViewStyle } from "react-native";
+import { Fonts } from "@/assets/fonts";
 
 interface GradientButtonProps {
   onPress: (keyName: string, value: string) => void;
@@ -70,7 +71,11 @@ const SBaseOpacityButton = styled.TouchableOpacity`
 
 const SText = styled.Text`
   color: ${Colors.grey5};
-  font-family: Roboto-Medium;
+  font-family: ${Fonts.anton};
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
 `;
 
 export default GradientButton;

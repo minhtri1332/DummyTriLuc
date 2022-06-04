@@ -1,12 +1,19 @@
-import React, { memo, useCallback } from "react";
-import { Keyboard } from "react-native";
+import React, { memo, useCallback, useMemo } from "react";
+import { Image, Keyboard, View } from "react-native";
 import styled from "styled-components/native";
 import FastImage from "react-native-fast-image";
 import * as Animatable from "react-native-animatable";
 import { Colors } from "@/themes/Colors";
-import { IC_USER_Fill } from "@/assets";
+import {
+  IC_RATING_DOWN,
+  IC_RATING_NORMAL,
+  IC_RATING_NUMBER_1,
+  IC_RATING_UP,
+  IC_USER_Fill,
+} from "@/assets";
 import { useRatings } from "@/store/ratings";
 import { formatNumberShortCompact } from "@/ultils/formatNumber";
+import { Fonts } from "@/assets/fonts";
 
 interface Props {
   id: string;
@@ -23,23 +30,52 @@ export const CupItemInfo = memo(function CupItemInfo(props: Props) {
     Keyboard.dismiss();
   }, [id]);
 
+  const isStatusRank = useMemo(() => {
+    if (!user) return 0;
+
+    return user?.current_rank - user?.previous_rank;
+  }, [user]);
+
   return (
     <Animatable.View animation={"slideInUp"} delay={10} duration={200}>
       <Container onPress={open} isMyRate={props.isMyRate}>
-        <Left>
+        <Left isTopRating={index + 1}>
           {index < 3 ? (
             <ViewNumberTop top={index + 1}>
-              <LeftNumber top={index}>{index + 1}</LeftNumber>
+              {index + 1 === 1 ? (
+                <Image source={IC_RATING_NUMBER_1} />
+              ) : (
+                <LeftNumber top={index}># {index + 1}</LeftNumber>
+              )}
             </ViewNumberTop>
           ) : (
             <ViewNumberTop top={0}>
-              <LeftNumber top={index}>{index + 1}</LeftNumber>
+              <LeftNumber top={index}># {index + 1}</LeftNumber>
             </ViewNumberTop>
           )}
         </Left>
-
         <ContentContainer>
           <Center>
+            <SImage
+              source={
+                isStatusRank == 0
+                  ? IC_RATING_NORMAL
+                  : isStatusRank > 0
+                  ? IC_RATING_UP
+                  : IC_RATING_DOWN
+              }
+            />
+            <SText
+              isColor={
+                isStatusRank == 0
+                  ? Colors.grey3
+                  : isStatusRank > 0
+                  ? Colors.green1
+                  : Colors.red1
+              }
+            >
+              {isStatusRank}
+            </SText>
             <STextGradient>
               {formatNumberShortCompact(user?.point)}
             </STextGradient>
@@ -56,25 +92,39 @@ export const CupItemInfo = memo(function CupItemInfo(props: Props) {
 });
 
 const Container = styled.TouchableOpacity<{ isMyRate?: boolean }>`
-  background-color: ${Colors.backgroundColor};
+  background-color: ${Colors.greyItem};
   border-bottom-width: ${(props) => (props.isMyRate ? 0 : 8)}px;
   flex-direction: row;
   height: 76px;
 `;
 
-const STextGradient = styled.Text`
-  font-family: Roboto Medium;
-  color: ${Colors.orange1};
-  padding-right: 8px;
-  font-size: 22px;
+const SImage = styled.Image`
+  margin-top: 4px;
+  margin-right: 4px;
 `;
 
-const Left = styled.View`
+const STextGradient = styled.Text`
+  font-family: ${Fonts.anton};
+  color: ${Colors.orange1};
+  padding-right: 8px;
+  font-size: 18px;
+`;
+const SText = styled.Text<{ isColor: string }>`
+  font-family: ${Fonts.anton};
+  color: ${(props) => props.isColor || Colors.grey1};
+  padding-right: 10px;
+  font-size: 12px;
+  margin-top: 4px;
+`;
+
+const Left = styled.View<{ isTopRating: number }>`
   flex-direction: row;
   align-items: center;
   height: 100%;
   padding-left: 16px;
   padding-right: 16px;
+  background-color: ${(p) =>
+    p.isTopRating < 4 ? Colors.red1 : Colors.colorBgTitle};
 `;
 
 const Right = styled.View`
@@ -98,12 +148,9 @@ const Center = styled.View`
 `;
 
 const LeftNumber = styled.Text<{ top: number }>`
-  color: ${(p) => (p.top < 3 ? "#fff" : Colors.colorText)};
-  font-family: Roboto-Medium;
-  letter-spacing: 0.12px;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 18px;
+  color: ${Colors.white};
+  font-family: ${Fonts.anton};
+  font-size: 24px;
 `;
 
 const ViewNumberTop = styled.View<{ top: number }>`
@@ -112,29 +159,20 @@ const ViewNumberTop = styled.View<{ top: number }>`
   border-radius: 4px;
   align-items: center;
   justify-content: center;
-  background-color: ${(p) =>
-    p.top == 0
-      ? Colors.colorTab
-      : p.top === 1
-      ? "#FFD140"
-      : p.top === 2
-      ? "#C4C4C4"
-      : p.top === 3
-      ? "#DE7C14"
-      : "#fff"};
 `;
 
 const LeftImage = styled(FastImage)`
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
+  border-width: 1px;
+  border-color: ${Colors.grey4};
   border-radius: 25px;
   background-color: ${Colors.grey6};
 `;
 
 const Title = styled.Text`
-  font-weight: 500;
   font-size: 18px;
-  line-height: 21px;
-  color: ${Colors.colorText};
-  font-family: Roboto-Medium;
+  color: ${Colors.grey1};
+  font-family: ${Fonts.anton};
+  align-self: center;
 `;

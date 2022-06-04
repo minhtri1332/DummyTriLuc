@@ -1,13 +1,12 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import { Animated, StatusBar, StyleSheet } from "react-native";
-import { styled, useAsyncFn } from "@/global";
-import { getBottomSpace } from "react-native-iphone-x-helper";
-import { DynamicHeader } from "@/componens/Header/DynamicHeader";
-import { CupItemInfo } from "@/screens/Home/RatingsScreen/components/CupItemInfo";
-import { CommonRecycleList } from "@/common/CommonRecycleList";
-import { Colors } from "@/themes/Colors";
-import { requestListAllRatings } from "@/store/ratings/functions";
-import { myRating, useRatingsByQuery } from "@/store/ratings";
+import React, {memo, useCallback, useEffect, useState} from "react";
+import {StatusBar, StyleSheet} from "react-native";
+import {styled, useAsyncFn} from "@/global";
+import {DynamicHeader} from "@/componens/Header/DynamicHeader";
+import {CupItemInfo} from "@/screens/Home/RatingsScreen/components/CupItemInfo";
+import {CommonRecycleList} from "@/common/CommonRecycleList";
+import {Colors} from "@/themes/Colors";
+import {requestListAllRatings} from "@/store/ratings/functions";
+import {myRating, useRatingsByQuery} from "@/store/ratings";
 
 const Container = styled.View`
   flex: 1;
@@ -18,12 +17,7 @@ const ContentContainer = styled.View`
   background-color: ${Colors.backgroundColor};
 `;
 
-const BottomMe = styled.View`
-  border-top-width: 0.8px;
-  border-top-color: #cecece;
-  background-color: ${Colors.backgroundColor};
-  padding-bottom: ${getBottomSpace() / 2}px;
-`;
+const BottomMe = styled.View``;
 const SModalHeaderWithTitle = styled(DynamicHeader).attrs((p) => ({
   backgroundColor: Colors.backgroundColor,
   hideSeparator: true,
@@ -38,7 +32,6 @@ const SModalHeaderWithTitle = styled(DynamicHeader).attrs((p) => ({
 export const RatingBroadScreen = memo(function RatingBroadScreen() {
   const data = useRatingsByQuery("all");
   const myRate = myRating();
-  const animatedScrollYValue = useRef(new Animated.Value(0)).current;
   const [year, setYear] = useState("all");
   const [initScreen, setInitScreen] = useState(false);
   const [{ loading }, loadData] = useAsyncFn(async () => {
@@ -86,14 +79,6 @@ export const RatingBroadScreen = memo(function RatingBroadScreen() {
       <ContentContainer>
         {initScreen && (
           <CommonRecycleList
-            onScroll={Animated.event(
-              [
-                {
-                  nativeEvent: { contentOffset: { y: animatedScrollYValue } },
-                },
-              ],
-              { useNativeDriver: false }
-            )}
             style={styles.list}
             data={data}
             itemHeight={76}
@@ -112,7 +97,7 @@ export const RatingBroadScreen = memo(function RatingBroadScreen() {
         <BottomMe>
           <CupItemInfo
             id={myRate?.user_id}
-            index={myRate?.current_rank - 1}
+            index={myRate?.current_rank}
             year={year}
             isMyRate={true}
           />
