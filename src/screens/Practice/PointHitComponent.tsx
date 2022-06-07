@@ -1,8 +1,8 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
-import moment from "moment";
 import { styled } from "@/global";
 import { Colors } from "@/themes/Colors";
 import { Stopwatch } from "react-native-stopwatch-timer";
+import _ from "lodash";
 
 export interface practiceProps {
   practice: any;
@@ -15,10 +15,14 @@ const PointHitComponent = memo(function PointHitComponent({
   dataMapTime,
   replay,
 }: practiceProps) {
-  const [dt, setDt] = useState(0);
+  const [dt, setDt] = useState(0.0);
   const pointObject = useMemo(() => {
+    if (dt == 0) return { point: 0, position: 0 };
+    const key = String(dt).split(":");
+    const data = key[0] + ":" + key[1] + ":" + key[2] + "." + key[3].slice(1);
     // @ts-ignore
-    const actionCurrent = dataMapTime[dt];
+    const actionCurrent = dataMapTime[data];
+
     return { point: actionCurrent?.f, position: actionCurrent?.p };
   }, [dt, dataMapTime]);
 
@@ -35,6 +39,15 @@ const PointHitComponent = memo(function PointHitComponent({
   useEffect(() => {
     setDt(0);
   }, [replay, setDt, practice]);
+
+  const position1 = useMemo(() => {
+    return (
+      <ItemHitPoint
+        point={pointObject.point}
+        position={pointObject.position == 1}
+      />
+    );
+  }, [pointObject?.position]);
 
   return (
     <SViewContainerHitPoint>
@@ -83,7 +96,7 @@ const SViewHitPoint = styled.View<{ isHighLight: boolean }>`
   border-width: 1px;
 `;
 
-const SViewHitPointLeft = styled(SViewHitPoint)<{ isHighLight: boolean }>`
+const SViewHitPointLeft = styled(SViewHitPoint)`
   margin-right: 100px;
 `;
 
@@ -118,17 +131,20 @@ export const ItemHitPoint = memo(function ItemHitPoint({
 }) {
   const [currentPoint, setCurrentPoint] = useState(0);
 
+  const showToast = useMemo(
+    () =>
+      _.debounce(() => {
+        setCurrentPoint(0);
+      }, 1000),
+    [point, position]
+  );
+
   useEffect(() => {
     if (position) {
       setCurrentPoint(point);
     }
 
-    setTimeout(() => {
-      setCurrentPoint(0);
-    }, 1000);
-    return () => {
-      setCurrentPoint(0);
-    };
+    showToast();
   }, [point, position]);
 
   if (isPaddingLeft !== "left") {
@@ -139,8 +155,10 @@ export const ItemHitPoint = memo(function ItemHitPoint({
     );
   }
   return (
-    <SViewHitPointLeft isHighLight={currentPoint != 0}>
-      <STextHitPoint>{currentPoint || ""}</STextHitPoint>
-    </SViewHitPointLeft>
+    <>
+      <SViewHitPointLeft isHighLight={currentPoint != 0}>
+        <STextHitPoint>{currentPoint || ""}</STextHitPoint>
+      </SViewHitPointLeft>
+    </>
   );
 });

@@ -11,6 +11,7 @@ import PointHitComponent from "@/screens/Practice/PointHitComponent";
 import _ from "lodash";
 import { Colors } from "@/themes/Colors";
 import VideoPlayer from "react-native-video-player";
+import moment from "moment";
 
 export interface PracticeDetailProps {
   practiceId: string;
@@ -19,7 +20,8 @@ export interface PracticeDetailProps {
 
 const dataMap = (dataHit: any) => {
   return _.keyBy(dataHit, function (o) {
-    return o.t;
+    const key = o.t.split(".");
+    return key[0] + "." + key[1].slice(1);
   });
 };
 
@@ -28,6 +30,8 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
   const [practice, setPractice] = useState(data);
   const [replay, setReplay] = useState(false);
   const dataMapTime = dataMap(data.data || practice?.practice?.data);
+  console.log("da", dataMapTime);
+
   const [{ loading }, getData] = useAsyncFn(async () => {
     const value = await requestPracticeDetail(practiceId);
     setPractice(value);
