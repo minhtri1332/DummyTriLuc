@@ -9,9 +9,7 @@ import { styled } from "@/global";
 import { IMG_BACKGROUND_MACHINE, VIDEO } from "@/assets";
 import PointHitComponent from "@/screens/Practice/PointHitComponent";
 import _ from "lodash";
-import { Colors } from "@/themes/Colors";
 import VideoPlayer from "react-native-video-player";
-import moment from "moment";
 
 export interface PracticeDetailProps {
   practiceId: string;
@@ -21,7 +19,8 @@ export interface PracticeDetailProps {
 const dataMap = (dataHit: any) => {
   return _.keyBy(dataHit, function (o) {
     const key = o.t.split(".");
-    return key[0] + "." + key[1].slice(1);
+    // return key[0] + "." + key[1].slice(0, 1);
+    return key[0];
   });
 };
 
@@ -29,8 +28,8 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
   const { practiceId, data } = useNavigationParams<PracticeDetailProps>();
   const [practice, setPractice] = useState(data);
   const [replay, setReplay] = useState(false);
+  const [restart, setRestart] = useState(false);
   const dataMapTime = dataMap(data.data || practice?.practice?.data);
-  console.log("da", dataMapTime);
 
   const [{ loading }, getData] = useAsyncFn(async () => {
     const value = await requestPracticeDetail(practiceId);
@@ -55,13 +54,19 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
           videoHeight={1000}
           showDuration={true}
           disableSeek={true}
-          onPlayPress={() => setReplay(!replay)}
+          onPlayPress={() => {
+            setReplay(!replay);
+            setRestart(false);
+          }}
+          onEnd={() => {
+            setReplay(true);
+            setRestart(true);
+          }}
+          onLoadStart={() => {
+            console.log("ok1");
+          }}
           thumbnail={{ uri: "https://i.picsum.photos/id/866/1600/900.jpg" }}
         />
-        {/*<Video*/}
-        {/*  source={VIDEO} // Can be a URL or a local file.*/}
-        {/*  style={styles.backgroundVideo}*/}
-        {/*/>*/}
       </View>
       <View>
         <SImageBackground
@@ -72,6 +77,7 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
           practice={data || practice?.practice}
           dataMapTime={dataMapTime}
           replay={replay}
+          restart={restart}
         />
       </View>
       {/*<SText>*/}
@@ -90,18 +96,6 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
 });
 
 export default PracticeDetailScreen;
-
-const SText = styled.Text`
-  justify-content: center;
-  align-self: center;
-  color: ${Colors.colorText};
-  font-size: 30px;
-  margin-top: 20px;
-`;
-
-const SViewButton = styled.View`
-  margin: 16px;
-`;
 
 const SImageBackground = styled.Image`
   height: 400px;

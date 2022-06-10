@@ -35,7 +35,7 @@ export const IC_RATING_UP = require("./icons/ic_rating_up.png");
 export const IC_RATING_NORMAL = require("./icons/ic_rating_normal.png");
 export const IC_RATING_DOWN = require("./icons/ic_rating_down.png");
 
-export const VIDEO = require("./demo.mp4");
+export const VIDEO = require("./demo1.mp4");
 
 //image theme
 export const IMG_LOGIN_THEME = require("./images/login_theme.png");
