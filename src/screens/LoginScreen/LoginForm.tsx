@@ -72,8 +72,8 @@ export const updateToken = async () => {
 export const LoginForm = memo(() => {
   // test3@gmail.com
   // Password#1
-  const [email, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setUsername] = useState("test4@gmail.com");
+  const [password, setPassword] = useState("Password#1");
   const [showPassword, setShowPassword] = useState(false);
 
   const onTextChange = useCallback((keyname: string, value: string) => {

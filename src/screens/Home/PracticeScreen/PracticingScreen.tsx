@@ -5,13 +5,15 @@ import TimeStartPractice from "@/screens/Home/PracticeScreen/TimeStartPractice";
 import { styled, useAsyncFn } from "@/global";
 import { Colors } from "@/themes/Colors";
 import GradientButton from "@/componens/Gradient/ButtonGradient";
-import { goBack } from "@/ultils/navigation";
+import { goBack, navigateToPracticeDisplayView } from "@/ultils/navigation";
 import MachineIdService from "@/services/MachineIdService";
 import { requestConnectMachineHitMode } from "@/store/mechine/function";
 import { RNCamera } from "react-native-camera";
+// @ts-ignore
 import RNVideoHelper from "react-native-video-helper";
 import RNFS from "react-native-fs";
 import { createThumbnail } from "react-native-create-thumbnail";
+// @ts-ignore
 import { Stopwatch, Timer } from "react-native-stopwatch-timer";
 
 import {
@@ -26,7 +28,10 @@ import {
 } from "react-native";
 import ImageResizer from "react-native-image-resizer";
 import { requestStoragePermission } from "@/services/PermissionService";
+// @ts-ignore
 import Icon from "react-native-vector-icons/Ionicons";
+import moment from "moment";
+import ToastService from "@/services/ToastService";
 
 export interface PracticingScreenProps {}
 
@@ -52,6 +57,8 @@ export const PracticingScreen = memo(function PracticingScreen() {
   });
 
   const onCameraAction = async () => {
+    if (!cameraRef?.current) return;
+
     let options = {
       quality: 1,
       fixOrientation: true,
@@ -63,12 +70,14 @@ export const PracticingScreen = memo(function PracticingScreen() {
       setLoader(true);
       try {
         setIsStopwatchStart(true);
+        // @ts-ignore
         const { uri, codec = "mp4" } = await cameraRef.current.recordAsync(
           options
         );
+        console.log("uri", uri);
         setPictureURI(uri);
         setFilterView(true);
-        // SaveToStorage(uri, cameraType);
+        SaveToStorage(uri, cameraType, "1");
         setLoader(false);
       } catch (err) {
         setLoader(false);
@@ -76,6 +85,7 @@ export const PracticingScreen = memo(function PracticingScreen() {
       }
     }
     if (toggleCameraAction && cameraType === "Video") {
+      // @ts-ignore
       cameraRef.current.stopRecording();
       setWatchMin("00");
       setWatchSec("00");
@@ -85,10 +95,11 @@ export const PracticingScreen = memo(function PracticingScreen() {
     if (cameraType === "Photo") {
       try {
         setLoader(true);
+        // @ts-ignore
         const data = await cameraRef.current.takePictureAsync(options);
         setFilterView(true);
         setPictureURI(data);
-        // SaveToStorage(data.uri, cameraType);
+        SaveToStorage(data.uri, cameraType);
         setLoader(false);
       } catch (err) {
         setLoader(false);
@@ -97,18 +108,19 @@ export const PracticingScreen = memo(function PracticingScreen() {
     }
   };
 
-  const SaveToStorage = async (uri, camType, fileName) => {
+  const SaveToStorage = async (
+    uri: string,
+    camType: string,
+    fileName: string
+  ) => {
     const result = await requestStoragePermission();
     if (result == "granted") {
       let uriPicture = uri.replace("file://", "");
       //RNFS.copyFile(data.uri, RNFS.PicturesDirectoryPath + '/Videos/' + fileName).then(() => {
-      RNFS.copyFile(
-        uriPicture,
-        "/storage/emulated/0/Download/" + fileName
-      ).then(
+      RNFS.copyFile(uriPicture, RNFS.CachesDirectoryPath + fileName).then(
         () => {
           // RNFS.copyFile(uriPicture, '/sdcard/DCIM/' + fileName).then(() => {
-          ToastAndroid.show(camType + " Saved to Download", ToastAndroid.SHORT);
+          ToastService.show(camType + " Saved to Download");
           if (camType === "Video") {
             createThumbnail({
               url: uri,
@@ -116,10 +128,10 @@ export const PracticingScreen = memo(function PracticingScreen() {
             })
               .then((response) => {
                 console.warn({ response });
-                // navigation.navigate("mediaScreen", {
-                //   thumbnail: response.path,
-                //   uri: uriPicture,
-                // });
+                navigateToPracticeDisplayView({
+                  thumbnail: response.path,
+                  uri: uriPicture,
+                });
               })
               .catch((err) => console.warn({ err }));
           }
@@ -142,7 +154,7 @@ export const PracticingScreen = memo(function PracticingScreen() {
       let fileName;
       if (cameraType === "Photo") {
         fileName = `${cameraType}_${moment().format("YYYYMMDDHHMMSS")}.jpg`;
-        SaveToStorage(uriPicture.uri, cameraType, fileName);
+        SaveToStorage(uriPicture?.uri, cameraType, fileName);
       } else {
         fileName = `${cameraType}_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
         // const thumbnail =  await ProcessingManager.getPreviewForSecond(uriPicture);
@@ -150,7 +162,7 @@ export const PracticingScreen = memo(function PracticingScreen() {
       }
     } else {
       if (cameraType === "Photo") {
-        imageResize(uriPicture.uri, cameraType);
+        imageResize(uriPicture?.uri, cameraType);
       } else {
         compressVideo(uriPicture, cameraType);
       }
@@ -168,12 +180,12 @@ export const PracticingScreen = memo(function PracticingScreen() {
       quality: "low", // default low, can be medium or high
       defaultOrientation: 0, // By default is 0, some devices not save this property in metadata. Can be between 0 - 360
     })
-      .progress((value) => {
+      .progress((value: any) => {
         setVideoCompressedLoader(true);
         let compressTime = parseInt(value * 100);
         setVideoCompressProgress(compressTime);
       })
-      .then((compressedUri) => {
+      .then((compressedUri: any) => {
         const compressed = `file://${compressedUri}`;
         setVideoCompressedLoader(false);
         SaveToStorage(compressed, cameraType, fileName);
@@ -233,20 +245,6 @@ export const PracticingScreen = memo(function PracticingScreen() {
               // hours={watchMin === "59" && watchSec === "59" ? true : false}
               start={isStopwatchStart}
               options={options}
-              getTime={(time) => {
-                // let min = time.split(':')[0]                // logic to enable hrs
-                // let sec = time.split(':')[1]
-                // console.log(min, sec)
-                // console.log(watchMin, watchSec)
-                // if(watchMin !== min){
-                //     console.warn("CONDITION TRUE MIN")
-                //     setWatchMin(min);
-                // }
-                // if(sec === "59" && watchSec !== sec){
-                //     console.warn("CONDITION TRUE SEC")
-                //     setWatchSec(sec);
-                // }
-              }}
             />
           ) : (
             <>

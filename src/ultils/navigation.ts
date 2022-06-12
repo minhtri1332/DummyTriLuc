@@ -14,7 +14,10 @@ import PracticeDetailScreen, {
 } from "@/screens/Home/PracticeScreen/PracticeDetailScreen";
 import { PracticingScreenProps } from "@/screens/Home/PracticeScreen/PracticingScreen";
 import ProfileScreen from "@/screens/Profile/ProfileScreen";
-import {LeaderBoardScreen, RatingBroadScreen} from "@/screens/Home/RatingsScreen/RatingBroadScreen";
+import {
+  LeaderBoardScreen,
+  RatingBroadScreen,
+} from "@/screens/Home/RatingsScreen/RatingBroadScreen";
 
 export const navigationRef = React.createRef<NavigationContainerRef<any>>();
 
@@ -65,4 +68,7 @@ export const navigateToPracticeDetailScreen =
 
 export const navigateToProfileScreen = createNavigate("ProfileScreen");
 
+export const navigateToPracticeDisplayView = createNavigate(
+  "PracticeDisplayView"
+);
 export const navigateToRatingBroadScreen = createNavigate("RatingBroadScreen");

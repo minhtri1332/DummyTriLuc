@@ -24,6 +24,7 @@ import PracticeDetailScreen from "@/screens/Home/PracticeScreen/PracticeDetailSc
 import PracticingScreen from "@/screens/Home/PracticeScreen/PracticingScreen";
 import ProfileScreen from "@/screens/Profile/ProfileScreen";
 import { RatingBroadScreen } from "@/screens/Home/RatingsScreen/RatingBroadScreen";
+import PracticeDisplayView from "@/screens/Home/PracticeScreen/PracticeDisplayView";
 
 const RootStack = createNativeStackNavigator();
 const TabBarStack = createBottomTabNavigator();
@@ -121,6 +122,10 @@ export const Routes = memo(function Routes() {
             <RootStack.Screen
               name={"RatingBroadScreen"}
               component={RatingBroadScreen}
+            />
+            <RootStack.Screen
+              name={"PracticeDisplayView"}
+              component={PracticeDisplayView}
             />
           </RootStack.Group>
 
