@@ -10,6 +10,7 @@ import {
   navigateToHitStatisticScreen,
   navigateToStrengthStatisticScreen,
 } from "@/ultils/navigation";
+import VideoUrlServiceClass from "@/services/VideoUrlClass";
 
 interface PunchProps {
   dataHit: RawDataGoal;

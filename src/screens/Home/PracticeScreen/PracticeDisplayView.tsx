@@ -3,6 +3,8 @@ import { View, StyleSheet, ActivityIndicator } from "react-native";
 import Video from "react-native-video";
 import { goBack } from "@/ultils/navigation";
 import { useNavigationParams } from "@/hooks/useNavigationParams";
+import VideoPlayer from "react-native-video-player";
+import { VIDEO } from "@/assets";
 
 const PracticeDisplayView = () => {
   const { uri } = useNavigationParams();
@@ -27,20 +29,35 @@ const PracticeDisplayView = () => {
           <ActivityIndicator style={{ flex: 1 }} size={75} color="#ffffff" />
         </View>
       )}
-      <Video
-        onLoad={onLoad}
-        onLoadStart={onLoadStart}
-        onEnd={onEnd}
-        controls={true}
-        style={{ flex: 1 }}
-        resizeMode={"cover"}
-        source={{ uri: uri }}
-        // source={{
-        // uri:
-        //     'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-        // }}
-        volume={10}
+
+      <VideoPlayer
+        autoplay={true}
+        video={{ uri: uri }}
+        videoWidth={1600}
+        videoHeight={1000}
+        showDuration={true}
+        disableSeek={true}
+        onPlayPress={() => {}}
+        onEnd={() => {}}
+        onLoadStart={() => {
+          console.log("ok1");
+        }}
+        thumbnail={{ uri: "https://i.picsum.photos/id/866/1600/900.jpg" }}
       />
+      {/*<Video*/}
+      {/*  onLoad={onLoad}*/}
+      {/*  onLoadStart={onLoadStart}*/}
+      {/*  onEnd={onEnd}*/}
+      {/*  controls={true}*/}
+      {/*  style={{ flex: 1 }}*/}
+      {/*  resizeMode={"cover"}*/}
+      {/*  source={{ uri: uri }}*/}
+      {/*  // source={{*/}
+      {/*  // uri:*/}
+      {/*  //     'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',*/}
+      {/*  // }}*/}
+      {/*  volume={10}*/}
+      {/*/>*/}
     </View>
   );
 };

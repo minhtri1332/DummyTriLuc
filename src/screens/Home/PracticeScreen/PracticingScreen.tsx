@@ -1,11 +1,10 @@
-import React, { memo, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
-import TimeStartPractice from "@/screens/Home/PracticeScreen/TimeStartPractice";
 import { styled, useAsyncFn } from "@/global";
 import { Colors } from "@/themes/Colors";
 import GradientButton from "@/componens/Gradient/ButtonGradient";
-import { goBack, navigateToPracticeDisplayView } from "@/ultils/navigation";
+import { goBack } from "@/ultils/navigation";
 import MachineIdService from "@/services/MachineIdService";
 import { requestConnectMachineHitMode } from "@/store/mechine/function";
 import { RNCamera } from "react-native-camera";
@@ -22,69 +21,54 @@ import {
   Linking,
   StyleSheet,
   Text,
-  ToastAndroid,
   TouchableOpacity,
   View,
 } from "react-native";
-import ImageResizer from "react-native-image-resizer";
 import { requestStoragePermission } from "@/services/PermissionService";
 // @ts-ignore
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 import ToastService from "@/services/ToastService";
+import VideoUrlServiceClass from "@/services/VideoUrlClass";
 
 export interface PracticingScreenProps {}
 
+const option = {
+  quality: "720p",
+};
+
 export const PracticingScreen = memo(function PracticingScreen() {
-  const cameraRef = useRef();
+  const cameraRef = useRef<RNCamera>(null);
   const [loader, setLoader] = useState(false);
-  const [videoCompressedLoader, setVideoCompressedLoader] = useState(false);
-  const [videoCompressProgress, setVideoCompressProgress] = useState(0);
-  const [cameraType, setCameraType] = useState("Photo");
   const [captureType, setCaptureType] = useState("back");
   const [mirrorMode, setMirrorMode] = useState(false);
   const [toggleCameraAction, setToggleCameraAction] = useState(false);
-  const [filter, setFilter] = useState(["Unchanged", "Compressed"]);
   const [isStopwatchStart, setIsStopwatchStart] = useState(false);
-  const [uriPicture, setPictureURI] = useState("");
   const [watchMin, setWatchMin] = useState("00");
   const [watchSec, setWatchSec] = useState("00");
-  const [filterView, setFilterView] = useState(false);
-  const [picture_compressed, setState] = useState({
-    fileName: "",
-    uri: "",
-    type: "",
-  });
 
-  const onCameraAction = async () => {
+  const onCameraAction = useCallback(async () => {
     if (!cameraRef?.current) return;
 
-    let options = {
-      quality: 1,
-      fixOrientation: true,
-      forceUpOrientation: true,
-      // base64: true
-    };
-    if (cameraRef && cameraType === "Video" && !toggleCameraAction) {
+    if (cameraRef && !toggleCameraAction) {
       setToggleCameraAction(true);
       setLoader(true);
       try {
         setIsStopwatchStart(true);
         // @ts-ignore
         const { uri, codec = "mp4" } = await cameraRef.current.recordAsync(
-          options
+          option
         );
-        console.log("uri", uri);
-        setPictureURI(uri);
-        setFilterView(true);
-        SaveToStorage(uri, cameraType, "1");
+        let fileName = `video_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
+
+        SaveToStorage(uri, fileName);
         setLoader(false);
       } catch (err) {
         setLoader(false);
         Alert.alert("Error", "Failed to record video: " + (err.message || err));
       }
     }
-    if (toggleCameraAction && cameraType === "Video") {
+    if (toggleCameraAction) {
       // @ts-ignore
       cameraRef.current.stopRecording();
       setWatchMin("00");
@@ -92,52 +76,26 @@ export const PracticingScreen = memo(function PracticingScreen() {
       setIsStopwatchStart(false);
       setToggleCameraAction(false);
     }
-    if (cameraType === "Photo") {
-      try {
-        setLoader(true);
-        // @ts-ignore
-        const data = await cameraRef.current.takePictureAsync(options);
-        setFilterView(true);
-        setPictureURI(data);
-        SaveToStorage(data.uri, cameraType);
-        setLoader(false);
-      } catch (err) {
-        setLoader(false);
-        Alert.alert("Error", "Failed to take picture: " + (err.message || err));
-      }
-    }
-  };
+  }, [cameraRef?.current]);
 
-  const SaveToStorage = async (
-    uri: string,
-    camType: string,
-    fileName: string
-  ) => {
+  const SaveToStorage = useCallback(async (uri: string, fileName: string) => {
     const result = await requestStoragePermission();
     if (result == "granted") {
       let uriPicture = uri.replace("file://", "");
-      //RNFS.copyFile(data.uri, RNFS.PicturesDirectoryPath + '/Videos/' + fileName).then(() => {
       RNFS.copyFile(uriPicture, RNFS.CachesDirectoryPath + fileName).then(
         () => {
-          // RNFS.copyFile(uriPicture, '/sdcard/DCIM/' + fileName).then(() => {
-          ToastService.show(camType + " Saved to Download");
-          if (camType === "Video") {
-            createThumbnail({
-              url: uri,
-              timeStamp: 10000,
+          ToastService.show("Video Saved to Download");
+          createThumbnail({
+            url: uri,
+            timeStamp: 10000,
+          })
+            .then((response) => {
+              VideoUrlServiceClass.changeURL(uriPicture, response.path);
             })
-              .then((response) => {
-                console.warn({ response });
-                navigateToPracticeDisplayView({
-                  thumbnail: response.path,
-                  uri: uriPicture,
-                });
-              })
-              .catch((err) => console.warn({ err }));
-          }
+            .catch((err) => console.warn({ err }));
         },
         (error) => {
-          Alert.alert("CopyFile fail for " + camType + ": " + error);
+          Alert.alert("CopyFile fail for video" + ": " + error);
         }
       );
     } else {
@@ -147,72 +105,42 @@ export const PracticingScreen = memo(function PracticingScreen() {
         [{ text: "Open Settings", onPress: () => Linking.openSettings() }]
       );
     }
-  };
+  }, []);
 
-  const selectSizeToSave = async (i) => {
-    if (i === "Unchanged") {
-      let fileName;
-      if (cameraType === "Photo") {
-        fileName = `${cameraType}_${moment().format("YYYYMMDDHHMMSS")}.jpg`;
-        SaveToStorage(uriPicture?.uri, cameraType, fileName);
-      } else {
-        fileName = `${cameraType}_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
-        // const thumbnail =  await ProcessingManager.getPreviewForSecond(uriPicture);
-        SaveToStorage(uriPicture, cameraType, fileName);
-      }
-    } else {
-      if (cameraType === "Photo") {
-        imageResize(uriPicture?.uri, cameraType);
-      } else {
-        compressVideo(uriPicture, cameraType);
-      }
-    }
-    setFilterView(false);
-  };
-
-  const imageResize = (uri, camType) => {};
-
-  const compressVideo = async (uri, camType) => {
-    let fileName = `${camType}_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
-    RNVideoHelper.compress(uri, {
-      startTime: 0, // optional, in seconds, defaults to 0
-      endTime: 100, //  optional, in seconds, defaults to video duration
-      quality: "low", // default low, can be medium or high
-      defaultOrientation: 0, // By default is 0, some devices not save this property in metadata. Can be between 0 - 360
-    })
-      .progress((value: any) => {
-        setVideoCompressedLoader(true);
-        let compressTime = parseInt(value * 100);
-        setVideoCompressProgress(compressTime);
-      })
-      .then((compressedUri: any) => {
-        const compressed = `file://${compressedUri}`;
-        setVideoCompressedLoader(false);
-        SaveToStorage(compressed, cameraType, fileName);
-      })
-      .catch((err) => {
-        Alert.alert("Compress Video Error", err);
-      });
-  };
-
-  const cameraReverse = () => {
+  const cameraReverse = useCallback(() => {
     if (captureType === "back") setCaptureType("front");
     else setCaptureType("back");
     setMirrorMode(!mirrorMode);
-  };
+  }, [captureType]);
+
   const [{ loading }, endPracticing] = useAsyncFn(async () => {
     const machineId = MachineIdService.getMachineId();
     await requestConnectMachineHitMode(machineId, "-1");
     goBack();
   }, []);
 
+  useEffect(() => {
+    if (cameraRef?.current) {
+      onCameraAction().then();
+    }
+  }, [cameraRef?.current]);
+
   return (
     <ScreenWrapper>
       <DynamicHeader title={"Tập luyện"} />
 
-      <SText>
-        <TimeStartPractice stopTime={450000000} />
-      </SText>
+      {/*<SText>*/}
+      {/*  <TimeStartPractice stopTime={450000000} />*/}
+      {/*</SText>*/}
+
+      {isStopwatchStart && (
+        <Stopwatch
+          laps
+          // hours={watchMin === "59" && watchSec === "59" ? true : false}
+          start={isStopwatchStart}
+          options={options}
+        />
+      )}
 
       <RNCamera
         ref={cameraRef}
@@ -223,7 +151,6 @@ export const PracticingScreen = memo(function PracticingScreen() {
             ? RNCamera.Constants.Type.back
             : RNCamera.Constants.Type.front
         }
-        mirrorImage={mirrorMode}
         playSoundOnCapture={true}
         androidCameraPermissionOptions={{
           title: "Permission to use camera",
@@ -239,54 +166,12 @@ export const PracticingScreen = memo(function PracticingScreen() {
         }}
       >
         <View style={styles.bottomView}>
-          {isStopwatchStart && cameraType === "Video" ? (
-            <Stopwatch
-              laps
-              // hours={watchMin === "59" && watchSec === "59" ? true : false}
-              start={isStopwatchStart}
-              options={options}
-            />
-          ) : (
+          {isStopwatchStart && (
             <>
-              <TouchableOpacity
-                style={{
-                  borderBottomColor:
-                    cameraType === "Photo" ? "yellow" : "white",
-                  borderBottomWidth: cameraType === "Photo" ? 1 : 0,
-                }}
-                onPress={() => setCameraType("Photo")}
-              >
-                <Text
-                  style={[
-                    styles.textStyle,
-                    { color: cameraType === "Photo" ? "yellow" : "white" },
-                  ]}
-                >
-                  Photo
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  borderBottomColor:
-                    cameraType === "Video" ? "yellow" : "white",
-                  borderBottomWidth: cameraType === "Video" ? 1 : 0,
-                  marginLeft: 30,
-                }}
-                onPress={() => setCameraType("Video")}
-              >
-                <Text
-                  style={[
-                    styles.textStyle,
-                    { color: cameraType === "Video" ? "yellow" : "white" },
-                  ]}
-                >
-                  Video
-                </Text>
-              </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles.touchableCamera}
-                onPress={() => cameraReverse()}
+                onPress={cameraReverse}
               >
                 <View style={styles.cameraView}>
                   <Icon name="camera-reverse" size={30} color="white" />
@@ -296,40 +181,26 @@ export const PracticingScreen = memo(function PracticingScreen() {
           )}
         </View>
         <View style={styles.onPictureView}>
-          {loader &&
-          (cameraType === "Photo" ||
-            (cameraType === "Video" && !toggleCameraAction)) ? (
+          {loader && !toggleCameraAction ? (
             <View style={styles.onPictureClick}>
               <ActivityIndicator size={75} color="#ffffff" />
             </View>
           ) : (
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.6}
               style={styles.onPictureClick}
-              onPress={() => onCameraAction()}
+              onPress={onCameraAction}
             >
-              {cameraType === "Video" ? (
-                <View
-                  style={[
-                    styles.onPictureCircleView,
-                    { backgroundColor: toggleCameraAction ? "red" : "white" },
-                  ]}
-                ></View>
-              ) : (
-                <View style={styles.onPictureCircleView}></View>
-              )}
+              <View
+                style={[
+                  styles.onPictureCircleView,
+                  { backgroundColor: toggleCameraAction ? "red" : "white" },
+                ]}
+              />
             </TouchableOpacity>
           )}
         </View>
       </RNCamera>
-
-      <SButtonPractice>
-        <GradientButton
-          loading={loading}
-          label={"Kết thức tập luyện"}
-          onPress={() => {}}
-        />
-      </SButtonPractice>
 
       <SButtonPractice>
         <GradientButton
@@ -342,30 +213,9 @@ export const PracticingScreen = memo(function PracticingScreen() {
   );
 });
 
-const PendingView = () => (
-  <View
-    style={{
-      flex: 1,
-      backgroundColor: "lightgreen",
-      justifyContent: "center",
-      alignItems: "center",
-    }}
-  >
-    <Text>Waiting</Text>
-  </View>
-);
-
 const SButtonPractice = styled.View`
   flex: 1;
   margin: 16px;
-`;
-
-const SText = styled.Text`
-  justify-content: center;
-  align-self: center;
-  color: ${Colors.colorText};
-  font-size: 30px;
-  margin-top: 20px;
 `;
 
 export default PracticingScreen;
@@ -375,6 +225,7 @@ const options = {
     padding: 5,
     borderRadius: 5,
     width: 200,
+    height: 30,
     alignItems: "center",
   },
   text: {
@@ -386,36 +237,18 @@ const options = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
-  loading: {
-    backgroundColor: "rgba(0,0,0,0.6)",
     width: "100%",
-    height: "100%",
-    zIndex: 1,
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
+    height: 400,
+    backgroundColor: "red",
   },
-  modalStyle: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: 5,
-  },
+
   bottomView: {
     flexDirection: "row",
     width: "100%",
-    height: "10%",
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
     bottom: 100,
-  },
-  textStyle: {
-    color: "#fff",
-    fontSize: 20,
   },
   onPictureView: {
     width: "100%",
@@ -423,12 +256,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    bottom: 0,
+    bottom: 30,
   },
   onPictureClick: {
-    width: 80,
-    height: 80,
-    borderRadius: 80 / 2,
+    width: 60,
+    height: 60,
+    borderRadius: 60 / 2,
     borderColor: "white",
     borderWidth: 3,
   },
@@ -436,9 +269,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 4.5,
     alignSelf: "center",
-    width: 65,
-    height: 65,
-    borderRadius: 65 / 2,
+    width: 45,
+    height: 45,
+    borderRadius: 45 / 2,
     borderColor: "white",
   },
   touchableCamera: {
