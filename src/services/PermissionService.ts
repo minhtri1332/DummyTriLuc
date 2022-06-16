@@ -5,9 +5,11 @@ export const requestStoragePermission = () => {
   let permissionToRequest = "";
   let permissionRequestResult = "";
 
-  if (Platform.OS === "ios")
+  if (Platform.OS === "ios") {
     permissionToRequest = PERMISSIONS.IOS.PHOTO_LIBRARY_ADD_ONLY;
-  else permissionToRequest = PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE;
+  } else {
+    permissionToRequest = PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE;
+  }
 
   return request(permissionToRequest)
     .then((result) => {

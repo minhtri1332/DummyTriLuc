@@ -14,6 +14,7 @@ import VideoPlayer from "react-native-video-player";
 export interface PracticeDetailProps {
   practiceId: string;
   data?: any;
+  currentVideoLocal?: { videoUrl: string; thumbnail: string };
 }
 
 const dataMap = (dataHit: any) => {
@@ -25,7 +26,8 @@ const dataMap = (dataHit: any) => {
 };
 
 export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
-  const { practiceId, data } = useNavigationParams<PracticeDetailProps>();
+  const { practiceId, data, currentVideoLocal } =
+    useNavigationParams<PracticeDetailProps>();
   const [practice, setPractice] = useState(data);
   const [replay, setReplay] = useState(false);
   const [restart, setRestart] = useState(false);
@@ -42,6 +44,8 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
     getData().then();
   }, [practiceId]);
 
+  console.log("currentVideoLocal", currentVideoLocal);
+
   return (
     <ScreenWrapper>
       <DynamicHeader title={"Bài tập"} />
@@ -49,7 +53,9 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
       <View>
         <VideoPlayer
           autoplay={true}
-          video={VIDEO}
+          video={
+            currentVideoLocal ? { uri: currentVideoLocal.videoUrl } : VIDEO
+          }
           videoWidth={1600}
           videoHeight={1000}
           showDuration={true}

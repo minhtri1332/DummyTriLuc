@@ -7,6 +7,7 @@ import {
   navigateToPracticeDetailScreen,
   navigateToPracticingScreen,
 } from "@/ultils/navigation";
+import VideoUrlServiceClass from "@/services/VideoUrlClass";
 
 export const Notification = memo(() => {
   useEffect(() => {
@@ -55,9 +56,11 @@ export const Notification = memo(() => {
         );
       } else {
         if (remoteMessage?.data) {
+          const currentVideoLocal = VideoUrlServiceClass.getVideoUrl();
           navigateToPracticeDetailScreen({
             practiceId: "",
             data: JSON.parse(remoteMessage?.data?.practice_data || ""),
+            currentVideoLocal: currentVideoLocal,
           });
         }
       }

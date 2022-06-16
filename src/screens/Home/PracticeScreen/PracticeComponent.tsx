@@ -7,6 +7,7 @@ import BaseProgressView from "@/componens/View/BaseProgressView";
 import { requestListPractice } from "@/store/home/function";
 import { navigateToPracticeDetailScreen } from "@/ultils/navigation";
 import { usePracticeByQuery } from "@/store/home";
+import VideoUrlServiceClass from "@/services/VideoUrlClass";
 
 const data = {
   practice: {
@@ -119,9 +120,12 @@ export const ItemPractice = memo(function ItemPractice({
   }, [practiceId]);
 
   const onLongPressItem = useCallback(() => {
+    const currentVideoLocal = VideoUrlServiceClass.getVideoUrl();
+
     navigateToPracticeDetailScreen({
       practiceId: "",
       data: data,
+      currentVideoLocal: currentVideoLocal,
     });
   }, []);
 

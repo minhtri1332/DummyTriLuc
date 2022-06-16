@@ -35,9 +35,9 @@ export const requestConnectMachineHitMode = async (
     params
   );
 
-  if (data) {
-    ToastService.show(data.message);
-  }
+  // if (data) {
+  //   ToastService.show(data.message);
+  // }
 
   return data;
 };

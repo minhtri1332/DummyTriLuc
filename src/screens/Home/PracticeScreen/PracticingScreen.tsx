@@ -30,11 +30,14 @@ import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 import ToastService from "@/services/ToastService";
 import VideoUrlServiceClass from "@/services/VideoUrlClass";
+import { requestListMyRating } from "@/store/ratings/functions";
 
 export interface PracticingScreenProps {}
 
 const option = {
-  quality: "720p",
+  quality: 1,
+  fixOrientation: true,
+  forceUpOrientation: true,
 };
 
 export const PracticingScreen = memo(function PracticingScreen() {
@@ -46,22 +49,43 @@ export const PracticingScreen = memo(function PracticingScreen() {
   const [isStopwatchStart, setIsStopwatchStart] = useState(false);
   const [watchMin, setWatchMin] = useState("00");
   const [watchSec, setWatchSec] = useState("00");
+  console.log("toggleCameraAction", toggleCameraAction);
+
+  const [{ loading: loadConnect }, getData] = useAsyncFn(async () => {
+    const machineId = MachineIdService.getMachineId();
+    await requestConnectMachineHitMode(machineId, "5");
+  }, []);
+
+  useEffect(() => {
+    getData().then();
+  }, []);
+
+  useEffect(() => {
+    if (cameraRef?.current && !loadConnect && !toggleCameraAction) {
+      onCameraAction().then();
+    }
+  }, [cameraRef?.current, loadConnect, toggleCameraAction]);
 
   const onCameraAction = useCallback(async () => {
-    if (!cameraRef?.current) return;
+    if (cameraRef?.current && !toggleCameraAction) {
+      console.log("as", cameraRef?.current.isRecording());
 
-    if (cameraRef && !toggleCameraAction) {
       setToggleCameraAction(true);
       setLoader(true);
+      console.log("1");
       try {
         setIsStopwatchStart(true);
+        console.log("2");
         // @ts-ignore
-        const { uri, codec = "mp4" } = await cameraRef.current.recordAsync(
-          option
+        const { uri, codec = "mp4" } = await cameraRef?.current?.recordAsync(
+          {}
         );
-        let fileName = `video_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
+        console.log("3");
 
-        SaveToStorage(uri, fileName);
+        let fileName = `video_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
+        console.log("4");
+
+        await SaveToStorage(uri, fileName);
         setLoader(false);
       } catch (err) {
         setLoader(false);
@@ -70,15 +94,16 @@ export const PracticingScreen = memo(function PracticingScreen() {
     }
     if (toggleCameraAction) {
       // @ts-ignore
-      cameraRef.current.stopRecording();
+      cameraRef?.current?.stopRecording();
       setWatchMin("00");
       setWatchSec("00");
       setIsStopwatchStart(false);
       setToggleCameraAction(false);
     }
-  }, [cameraRef?.current]);
+  }, [cameraRef?.current, toggleCameraAction]);
 
   const SaveToStorage = useCallback(async (uri: string, fileName: string) => {
+    console.log("ủi", uri);
     const result = await requestStoragePermission();
     if (result == "granted") {
       let uriPicture = uri.replace("file://", "");
@@ -115,15 +140,12 @@ export const PracticingScreen = memo(function PracticingScreen() {
 
   const [{ loading }, endPracticing] = useAsyncFn(async () => {
     const machineId = MachineIdService.getMachineId();
+    const aa = VideoUrlServiceClass.getVideoUrl();
     await requestConnectMachineHitMode(machineId, "-1");
-    goBack();
-  }, []);
-
-  useEffect(() => {
-    if (cameraRef?.current) {
-      onCameraAction().then();
-    }
-  }, [cameraRef?.current]);
+    await onCameraAction();
+    console.log("aa", aa);
+    // goBack();
+  }, [cameraRef?.current, toggleCameraAction]);
 
   return (
     <ScreenWrapper>
@@ -146,12 +168,12 @@ export const PracticingScreen = memo(function PracticingScreen() {
         ref={cameraRef}
         style={styles.container}
         captureAudio={true}
+        playSoundOnCapture={true}
         type={
           captureType === "back"
             ? RNCamera.Constants.Type.back
             : RNCamera.Constants.Type.front
         }
-        playSoundOnCapture={true}
         androidCameraPermissionOptions={{
           title: "Permission to use camera",
           message: "We need your permission to use your camera",
@@ -223,10 +245,10 @@ export default PracticingScreen;
 const options = {
   container: {
     padding: 5,
-    borderRadius: 5,
-    width: 200,
-    height: 30,
+    marginTop: 16,
+    maxHeight: 50,
     alignItems: "center",
+    flex: 1,
   },
   text: {
     fontSize: 25,

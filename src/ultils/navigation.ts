@@ -57,6 +57,7 @@ export const navigateToHitStatisticScreen =
 export const navigateToStrengthStatisticScreen = createNavigate(
   "StrengthStatisticScreen"
 );
+
 export const navigateToRegisterAccountScreen =
   createNavigate<RegisterAccountProps>("RegisterAccountScreen");
 
