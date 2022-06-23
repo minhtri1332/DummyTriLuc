@@ -9,10 +9,14 @@ export const requestEditProfile = async (paramProfile: any) => {
   form.append("weight", paramProfile.weight);
   form.append("sex", paramProfile.sex);
   form.append("date_of_birth", paramProfile.date_of_birth);
+
   const { data } = await Fetch.put(
     `${LocaleServiceUrl.getUrl()}/user/user-profile`,
     form
   );
+
+  await requestGetProfile();
+
   return data.data;
 };
 

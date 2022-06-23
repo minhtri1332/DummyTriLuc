@@ -15,7 +15,6 @@ import PracticeDetailScreen, {
 import { PracticingScreenProps } from "@/screens/Home/PracticeScreen/PracticingScreen";
 import ProfileScreen from "@/screens/Profile/ProfileScreen";
 import {
-  LeaderBoardScreen,
   RatingBroadScreen,
 } from "@/screens/Home/RatingsScreen/RatingBroadScreen";
 
@@ -48,6 +47,8 @@ export const mainNavigation = createNavigation();
 export const goBack = () => navigation().goBack();
 
 export const navigateToHome = createReplace("Main");
+
+export const navigateToLogin = createReplace("Preload");
 
 export const navigateToQRCodeScanScreen = createNavigate("QRCodeScanScreen");
 

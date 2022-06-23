@@ -57,7 +57,7 @@ const PointHitComponent = memo(function PointHitComponent({
         laps
         start={!replay}
         reset={restart}
-        options={{ container: { width: 100 } }}
+        options={{ container: { width: 0 } }}
         getTime={setDt}
       />
     </SViewContainerHitPoint>

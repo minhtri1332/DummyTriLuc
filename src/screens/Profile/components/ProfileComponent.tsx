@@ -10,6 +10,7 @@ import {
   requestEditProfile,
   requestGetProfile,
 } from "@/store/profile/functions";
+import ToastService from "@/services/ToastService";
 
 export const ProfileComponent = memo(function ProfileComponent({
   profile,
@@ -36,7 +37,8 @@ export const ProfileComponent = memo(function ProfileComponent({
   );
 
   const [{ loading: l, error }, onEditProfile] = useAsyncFn(async () => {
-    const profile = await requestEditProfile(paramProfile);
+    await requestEditProfile(paramProfile);
+    ToastService.show("Sửa thành công");
   }, [paramProfile]);
 
   const goToEdit = useCallback(() => {

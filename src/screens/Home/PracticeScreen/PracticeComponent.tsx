@@ -116,7 +116,11 @@ export const ItemPractice = memo(function ItemPractice({
   index: number;
 }) {
   const onPressItem = useCallback(() => {
-    navigateToPracticeDetailScreen({ practiceId });
+    // navigateToPracticeDetailScreen({ practiceId });
+    navigateToPracticeDetailScreen({
+      practiceId: "",
+      data: data,
+    });
   }, [practiceId]);
 
   const onLongPressItem = useCallback(() => {
@@ -130,7 +134,7 @@ export const ItemPractice = memo(function ItemPractice({
   }, []);
 
   return (
-    <SViewItem onPress={onLongPressItem} onLongPress={onLongPressItem}>
+    <SViewItem onPress={onPressItem} onLongPress={onLongPressItem}>
       <SText>Bài tập: {index + 1}</SText>
     </SViewItem>
   );

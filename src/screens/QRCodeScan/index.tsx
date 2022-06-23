@@ -113,7 +113,7 @@ export const QRCodeScanScreen = memo(function QRCodeScanScreen() {
       <ButtonGradient
         style={{ height: 80 }}
         styleGradient={{ height: 80 }}
-        textStyle={{ fontSize: 24 }}
+        textStyle={{ fontSize: 24, lineHeight: 40 }}
         onPress={setVisibleTrue}
         label={"Mã của tôi"}
       />

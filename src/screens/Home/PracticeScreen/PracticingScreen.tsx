@@ -1,10 +1,8 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useRef, useState } from "react";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import { styled, useAsyncFn } from "@/global";
-import { Colors } from "@/themes/Colors";
 import GradientButton from "@/componens/Gradient/ButtonGradient";
-import { goBack } from "@/ultils/navigation";
 import MachineIdService from "@/services/MachineIdService";
 import { requestConnectMachineHitMode } from "@/store/mechine/function";
 import { RNCamera } from "react-native-camera";
@@ -19,8 +17,8 @@ import {
   ActivityIndicator,
   Alert,
   Linking,
+  Platform,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -30,7 +28,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 import ToastService from "@/services/ToastService";
 import VideoUrlServiceClass from "@/services/VideoUrlClass";
-import { requestListMyRating } from "@/store/ratings/functions";
+import { goBack } from "@/ultils/navigation";
 
 export interface PracticingScreenProps {}
 
@@ -47,44 +45,28 @@ export const PracticingScreen = memo(function PracticingScreen() {
   const [mirrorMode, setMirrorMode] = useState(false);
   const [toggleCameraAction, setToggleCameraAction] = useState(false);
   const [isStopwatchStart, setIsStopwatchStart] = useState(false);
+  const [isPracticing, setPracticing] = useState(false);
   const [watchMin, setWatchMin] = useState("00");
   const [watchSec, setWatchSec] = useState("00");
-  console.log("toggleCameraAction", toggleCameraAction);
 
-  const [{ loading: loadConnect }, getData] = useAsyncFn(async () => {
+  const [{ loading: loadConnect }, startConnect] = useAsyncFn(async () => {
     const machineId = MachineIdService.getMachineId();
     await requestConnectMachineHitMode(machineId, "5");
+    onCameraAction().then();
+    setPracticing(true);
   }, []);
-
-  useEffect(() => {
-    getData().then();
-  }, []);
-
-  useEffect(() => {
-    if (cameraRef?.current && !loadConnect && !toggleCameraAction) {
-      onCameraAction().then();
-    }
-  }, [cameraRef?.current, loadConnect, toggleCameraAction]);
 
   const onCameraAction = useCallback(async () => {
     if (cameraRef?.current && !toggleCameraAction) {
-      console.log("as", cameraRef?.current.isRecording());
-
       setToggleCameraAction(true);
       setLoader(true);
-      console.log("1");
       try {
         setIsStopwatchStart(true);
-        console.log("2");
         // @ts-ignore
         const { uri, codec = "mp4" } = await cameraRef?.current?.recordAsync(
           {}
         );
-        console.log("3");
-
         let fileName = `video_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
-        console.log("4");
-
         await SaveToStorage(uri, fileName);
         setLoader(false);
       } catch (err) {
@@ -103,26 +85,29 @@ export const PracticingScreen = memo(function PracticingScreen() {
   }, [cameraRef?.current, toggleCameraAction]);
 
   const SaveToStorage = useCallback(async (uri: string, fileName: string) => {
-    console.log("ủi", uri);
     const result = await requestStoragePermission();
     if (result == "granted") {
       let uriPicture = uri.replace("file://", "");
-      RNFS.copyFile(uriPicture, RNFS.CachesDirectoryPath + fileName).then(
-        () => {
-          ToastService.show("Video Saved to Download");
-          createThumbnail({
-            url: uri,
-            timeStamp: 10000,
-          })
-            .then((response) => {
-              VideoUrlServiceClass.changeURL(uriPicture, response.path);
+
+      if (Platform.OS === "ios") {
+        RNFS.copyFile(uriPicture, RNFS.CachesDirectoryPath + fileName).then(
+          () => {
+            ToastService.show("Hoàn thành bài tập");
+            createThumbnail({
+              url: uri,
+              timeStamp: 10000,
             })
-            .catch((err) => console.warn({ err }));
-        },
-        (error) => {
-          Alert.alert("CopyFile fail for video" + ": " + error);
-        }
-      );
+              .then((response) => {
+                VideoUrlServiceClass.changeURL(uriPicture, response.path);
+              })
+              .catch((err) => console.warn({ err }));
+          },
+          (error) => {}
+        );
+      } else {
+        await VideoUrlServiceClass.changeURL(uri, "null");
+        ToastService.show("Hoàn thành bài tập");
+      }
     } else {
       Alert.alert(
         "Permission Request",
@@ -132,19 +117,17 @@ export const PracticingScreen = memo(function PracticingScreen() {
     }
   }, []);
 
-  const cameraReverse = useCallback(() => {
-    if (captureType === "back") setCaptureType("front");
-    else setCaptureType("back");
-    setMirrorMode(!mirrorMode);
-  }, [captureType]);
+  // const cameraReverse = useCallback(() => {
+  //   if (captureType === "back") setCaptureType("front");
+  //   else setCaptureType("back");
+  //   setMirrorMode(!mirrorMode);
+  // }, [captureType]);
 
   const [{ loading }, endPracticing] = useAsyncFn(async () => {
     const machineId = MachineIdService.getMachineId();
-    const aa = VideoUrlServiceClass.getVideoUrl();
     await requestConnectMachineHitMode(machineId, "-1");
     await onCameraAction();
-    console.log("aa", aa);
-    // goBack();
+    goBack();
   }, [cameraRef?.current, toggleCameraAction]);
 
   return (
@@ -155,6 +138,62 @@ export const PracticingScreen = memo(function PracticingScreen() {
       {/*  <TimeStartPractice stopTime={450000000} />*/}
       {/*</SText>*/}
 
+      <View
+        style={Platform.OS == "ios" ? {} : { paddingTop: 40, marginBottom: 40 }}
+      >
+        <RNCamera
+          ref={cameraRef}
+          style={styles.container}
+          captureAudio={true}
+          playSoundOnCapture={true}
+          type={
+            captureType === "back"
+              ? RNCamera.Constants.Type.back
+              : RNCamera.Constants.Type.front
+          }
+          androidCameraPermissionOptions={{
+            title: "Permission to use camera",
+            message: "We need your permission to use your camera",
+            buttonPositive: "Ok",
+            buttonNegative: "Cancel",
+          }}
+          androidRecordAudioPermissionOptions={{
+            title: "Permission to use audio recording",
+            message: "We need your permission to use your audio",
+            buttonPositive: "Ok",
+            buttonNegative: "Cancel",
+          }}
+        >
+          <View style={styles.bottomView}>
+            {isStopwatchStart && (
+              <>
+                <View style={styles.touchableCamera}>
+                  <View style={styles.cameraView}>
+                    <Icon name="camera-reverse" size={30} color="white" />
+                  </View>
+                </View>
+              </>
+            )}
+          </View>
+          <View style={styles.onPictureView}>
+            {loader && !toggleCameraAction ? (
+              <View style={styles.onPictureClick}>
+                <ActivityIndicator size={75} color="#ffffff" />
+              </View>
+            ) : (
+              <View style={styles.onPictureClick}>
+                <View
+                  style={[
+                    styles.onPictureCircleView,
+                    { backgroundColor: toggleCameraAction ? "red" : "white" },
+                  ]}
+                />
+              </View>
+            )}
+          </View>
+        </RNCamera>
+      </View>
+
       {isStopwatchStart && (
         <Stopwatch
           laps
@@ -163,73 +202,20 @@ export const PracticingScreen = memo(function PracticingScreen() {
           options={options}
         />
       )}
-
-      <RNCamera
-        ref={cameraRef}
-        style={styles.container}
-        captureAudio={true}
-        playSoundOnCapture={true}
-        type={
-          captureType === "back"
-            ? RNCamera.Constants.Type.back
-            : RNCamera.Constants.Type.front
-        }
-        androidCameraPermissionOptions={{
-          title: "Permission to use camera",
-          message: "We need your permission to use your camera",
-          buttonPositive: "Ok",
-          buttonNegative: "Cancel",
-        }}
-        androidRecordAudioPermissionOptions={{
-          title: "Permission to use audio recording",
-          message: "We need your permission to use your audio",
-          buttonPositive: "Ok",
-          buttonNegative: "Cancel",
-        }}
-      >
-        <View style={styles.bottomView}>
-          {isStopwatchStart && (
-            <>
-              <TouchableOpacity
-                activeOpacity={0.7}
-                style={styles.touchableCamera}
-                onPress={cameraReverse}
-              >
-                <View style={styles.cameraView}>
-                  <Icon name="camera-reverse" size={30} color="white" />
-                </View>
-              </TouchableOpacity>
-            </>
-          )}
-        </View>
-        <View style={styles.onPictureView}>
-          {loader && !toggleCameraAction ? (
-            <View style={styles.onPictureClick}>
-              <ActivityIndicator size={75} color="#ffffff" />
-            </View>
-          ) : (
-            <TouchableOpacity
-              activeOpacity={0.6}
-              style={styles.onPictureClick}
-              onPress={onCameraAction}
-            >
-              <View
-                style={[
-                  styles.onPictureCircleView,
-                  { backgroundColor: toggleCameraAction ? "red" : "white" },
-                ]}
-              />
-            </TouchableOpacity>
-          )}
-        </View>
-      </RNCamera>
-
       <SButtonPractice>
-        <GradientButton
-          loading={loading}
-          label={"Kết thức tập luyện"}
-          onPress={endPracticing}
-        />
+        {!isPracticing ? (
+          <GradientButton
+            loading={loading}
+            label={"Bắt đầu tập luyện"}
+            onPress={startConnect}
+          />
+        ) : (
+          <GradientButton
+            loading={loading}
+            label={"Kết thức tập luyện"}
+            onPress={endPracticing}
+          />
+        )}
       </SButtonPractice>
     </ScreenWrapper>
   );

@@ -9,6 +9,7 @@ import { FileType } from "@/screens/Profile/types";
 import { IC_USER_Fill } from "@/assets";
 import PickFileActionsSheet from "@/componens/PickFileActionsSheet";
 import { TakeCameraOptions } from "@/componens/PickFileActionsSheet/file";
+import { InteractionManager } from "react-native";
 
 interface ImageParams {
   onImageCallback: (keyName: string, value: any) => void;
@@ -34,6 +35,9 @@ export const PickImageModalComponent = memo(function PickImageModalComponent({
 
   const fileCallback = useCallback(
     (files: FileType[]) => {
+      hideFilePicker();
+      setAvatar(files[0].uri);
+
       ImageResizer.createResizedImage(files[0].uri, 1000, 1000, "JPEG", 10, 0)
         .then((response) => {
           const image = {
@@ -41,15 +45,14 @@ export const PickImageModalComponent = memo(function PickImageModalComponent({
             path: response.uri,
             uri: response.uri,
           };
-          onImageCallback(keyName, image);
+          setTimeout(() => {
+            onImageCallback(keyName, image);
+          }, 200);
         })
         .catch((err) => {
           // Oops, something went wrong. Check that the filename is correct and
           // inspect err to get more details.
         });
-
-      setAvatar(files[0].uri);
-      hideFilePicker();
     },
     [onImageCallback, keyName]
   );

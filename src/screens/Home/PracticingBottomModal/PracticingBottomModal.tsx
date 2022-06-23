@@ -34,7 +34,7 @@ export const PracticingBottomModal = memo(function PracticingBottomModal({
 }: PracticingBottomProps) {
   const machineId = MachineIdService.getMachineId();
   const [{ loading }, onPressFreeFight] = useAsyncFn(async () => {
-    await requestConnectMachineHitMode(machineId, "5");
+    // await requestConnectMachineHitMode(machineId, "5");
     hideMenu();
     InteractionManager.runAfterInteractions(() => {
       navigateToPracticingScreen();
