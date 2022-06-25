@@ -18,8 +18,8 @@ import {
   Alert,
   Linking,
   Platform,
+  ScrollView,
   StyleSheet,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { requestStoragePermission } from "@/services/PermissionService";
@@ -29,6 +29,7 @@ import moment from "moment";
 import ToastService from "@/services/ToastService";
 import VideoUrlServiceClass from "@/services/VideoUrlClass";
 import { goBack } from "@/ultils/navigation";
+import { useInteractionManager } from "@react-native-community/hooks";
 
 export interface PracticingScreenProps {}
 
@@ -40,14 +41,12 @@ const option = {
 
 export const PracticingScreen = memo(function PracticingScreen() {
   const cameraRef = useRef<RNCamera>(null);
+  const interactionManager = useInteractionManager();
   const [loader, setLoader] = useState(false);
   const [captureType, setCaptureType] = useState("back");
-  const [mirrorMode, setMirrorMode] = useState(false);
   const [toggleCameraAction, setToggleCameraAction] = useState(false);
   const [isStopwatchStart, setIsStopwatchStart] = useState(false);
   const [isPracticing, setPracticing] = useState(false);
-  const [watchMin, setWatchMin] = useState("00");
-  const [watchSec, setWatchSec] = useState("00");
 
   const [{ loading: loadConnect }, startConnect] = useAsyncFn(async () => {
     const machineId = MachineIdService.getMachineId();
@@ -57,6 +56,7 @@ export const PracticingScreen = memo(function PracticingScreen() {
   }, []);
 
   const onCameraAction = useCallback(async () => {
+    await requestStoragePermission().then();
     if (cameraRef?.current && !toggleCameraAction) {
       setToggleCameraAction(true);
       setLoader(true);
@@ -77,8 +77,6 @@ export const PracticingScreen = memo(function PracticingScreen() {
     if (toggleCameraAction) {
       // @ts-ignore
       cameraRef?.current?.stopRecording();
-      setWatchMin("00");
-      setWatchSec("00");
       setIsStopwatchStart(false);
       setToggleCameraAction(false);
     }
@@ -134,66 +132,58 @@ export const PracticingScreen = memo(function PracticingScreen() {
     <ScreenWrapper>
       <DynamicHeader title={"Tập luyện"} />
 
-      {/*<SText>*/}
-      {/*  <TimeStartPractice stopTime={450000000} />*/}
-      {/*</SText>*/}
-
-      <View
-        style={Platform.OS == "ios" ? {} : { paddingTop: 40, marginBottom: 40 }}
-      >
-        <RNCamera
-          ref={cameraRef}
-          style={styles.container}
-          captureAudio={true}
-          playSoundOnCapture={true}
-          type={
-            captureType === "back"
-              ? RNCamera.Constants.Type.back
-              : RNCamera.Constants.Type.front
-          }
-          androidCameraPermissionOptions={{
-            title: "Permission to use camera",
-            message: "We need your permission to use your camera",
-            buttonPositive: "Ok",
-            buttonNegative: "Cancel",
-          }}
-          androidRecordAudioPermissionOptions={{
-            title: "Permission to use audio recording",
-            message: "We need your permission to use your audio",
-            buttonPositive: "Ok",
-            buttonNegative: "Cancel",
-          }}
-        >
-          <View style={styles.bottomView}>
-            {isStopwatchStart && (
-              <>
-                <View style={styles.touchableCamera}>
-                  <View style={styles.cameraView}>
-                    <Icon name="camera-reverse" size={30} color="white" />
+      {interactionManager && (
+        <ScrollView>
+          <View
+            style={
+              Platform.OS == "ios" ? {} : { paddingTop: 40, marginBottom: 40 }
+            }
+          >
+            <RNCamera
+              ref={cameraRef}
+              style={styles.container}
+              captureAudio={true}
+              playSoundOnCapture={true}
+              type={
+                captureType === "back"
+                  ? RNCamera.Constants.Type.back
+                  : RNCamera.Constants.Type.front
+              }
+              androidCameraPermissionOptions={{
+                title: "Permission to use camera",
+                message: "We need your permission to use your camera",
+                buttonPositive: "Ok",
+                buttonNegative: "Cancel",
+              }}
+              androidRecordAudioPermissionOptions={{
+                title: "Permission to use audio recording",
+                message: "We need your permission to use your audio",
+                buttonPositive: "Ok",
+                buttonNegative: "Cancel",
+              }}
+            >
+              <View style={styles.onPictureView}>
+                {loader && !toggleCameraAction ? (
+                  <View style={styles.onPictureClick}>
+                    <ActivityIndicator size={75} color="#ffffff" />
                   </View>
-                </View>
-              </>
-            )}
-          </View>
-          <View style={styles.onPictureView}>
-            {loader && !toggleCameraAction ? (
-              <View style={styles.onPictureClick}>
-                <ActivityIndicator size={75} color="#ffffff" />
+                ) : (
+                  <View style={styles.onPictureClick}>
+                    <View
+                      style={[
+                        styles.onPictureCircleView,
+                        {
+                          backgroundColor: toggleCameraAction ? "red" : "white",
+                        },
+                      ]}
+                    />
+                  </View>
+                )}
               </View>
-            ) : (
-              <View style={styles.onPictureClick}>
-                <View
-                  style={[
-                    styles.onPictureCircleView,
-                    { backgroundColor: toggleCameraAction ? "red" : "white" },
-                  ]}
-                />
-              </View>
-            )}
+            </RNCamera>
           </View>
-        </RNCamera>
-      </View>
-
+        </ScrollView>
+      )}
       {isStopwatchStart && (
         <Stopwatch
           laps
@@ -248,6 +238,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 400,
     backgroundColor: "red",
+    position: "relative",
   },
 
   bottomView: {
@@ -260,11 +251,10 @@ const styles = StyleSheet.create({
   },
   onPictureView: {
     width: "100%",
-    height: "15%",
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    bottom: 30,
+    bottom: 20,
   },
   onPictureClick: {
     width: 60,
@@ -281,18 +271,5 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 45 / 2,
     borderColor: "white",
-  },
-  touchableCamera: {
-    position: "absolute",
-    right: 20,
-    width: 60,
-    height: 60,
-    borderRadius: 60 / 2,
-    backgroundColor: "rgba(0,0,0,0.3)",
-  },
-  cameraView: {
-    flex: 1,
-    alignSelf: "center",
-    justifyContent: "center",
   },
 });

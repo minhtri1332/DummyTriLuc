@@ -24,7 +24,6 @@ export const requestListAllRatings = async () => {
     list_leader_board_response: RawRatings[];
   }>(`${LocaleServiceUrl.getUrl()}/leader-board`, {});
 
-  console.log("ad", data);
   batch(() => {
     syncRatings(data?.list_leader_board_response);
     setRatingsQueries({

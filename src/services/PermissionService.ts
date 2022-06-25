@@ -14,7 +14,6 @@ export const requestStoragePermission = () => {
   return request(permissionToRequest)
     .then((result) => {
       permissionRequestResult = result;
-      console.log(result);
       return permissionRequestResult;
     })
     .catch((error) => {
