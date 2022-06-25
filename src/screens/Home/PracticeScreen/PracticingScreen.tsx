@@ -22,7 +22,10 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { requestStoragePermission } from "@/services/PermissionService";
+import {
+  requestRecordPermission,
+  requestStoragePermission,
+} from "@/services/PermissionService";
 // @ts-ignore
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
@@ -51,12 +54,12 @@ export const PracticingScreen = memo(function PracticingScreen() {
   const [{ loading: loadConnect }, startConnect] = useAsyncFn(async () => {
     const machineId = MachineIdService.getMachineId();
     await requestConnectMachineHitMode(machineId, "5");
+
     onCameraAction().then();
     setPracticing(true);
   }, []);
 
   const onCameraAction = useCallback(async () => {
-    await requestStoragePermission().then();
     if (cameraRef?.current && !toggleCameraAction) {
       setToggleCameraAction(true);
       setLoader(true);

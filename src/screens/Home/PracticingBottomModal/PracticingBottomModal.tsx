@@ -20,6 +20,7 @@ import { navigateToPracticingScreen } from "@/ultils/navigation";
 import { SelectModalBottom } from "@/componens/ViewBorder/SelectModalBottom";
 import { FilterBoxOption } from "@/componens/types";
 import LocalStorageHelper from "@/services/LocalServiceHelper";
+import { requestStoragePermission } from "@/services/PermissionService";
 
 interface PracticingBottomProps {
   isVisible: boolean;
@@ -34,7 +35,7 @@ export const PracticingBottomModal = memo(function PracticingBottomModal({
 }: PracticingBottomProps) {
   const machineId = MachineIdService.getMachineId();
   const [{ loading }, onPressFreeFight] = useAsyncFn(async () => {
-    // await requestConnectMachineHitMode(machineId, "5");
+    await requestStoragePermission().then();
     hideMenu();
     InteractionManager.runAfterInteractions(() => {
       navigateToPracticingScreen();
