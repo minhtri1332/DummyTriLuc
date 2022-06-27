@@ -71,6 +71,7 @@ const data = {
       },
     ],
   },
+  start_time: 1656336697,
 };
 export const PracticeComponent = memo(function PracticeComponent() {
   const data = usePracticeByQuery("all");
@@ -120,6 +121,7 @@ export const ItemPractice = memo(function ItemPractice({
     navigateToPracticeDetailScreen({
       practiceId: "",
       data: data,
+      start_time:data.start_time
     });
   }, [practiceId]);
 

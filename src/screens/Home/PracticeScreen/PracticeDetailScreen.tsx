@@ -13,11 +13,13 @@ import VideoPlayer from "react-native-video-player";
 
 export interface PracticeDetailProps {
   practiceId: string;
+  start_time: number;
   data?: any;
   currentVideoLocal?: { videoUrl: string; thumbnail: string };
 }
 
-const dataMap = (dataHit: any) => {
+const dataMap = (start_time: number, dataHit: any) => {
+  console.log("start_time", start_time);
   return _.keyBy(dataHit, function (o) {
     const key = o.t.split(".");
     // return key[0] + "." + key[1].slice(0, 1);
@@ -26,12 +28,15 @@ const dataMap = (dataHit: any) => {
 };
 
 export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
-  const { practiceId, data, currentVideoLocal } =
+  const { practiceId, start_time, data, currentVideoLocal } =
     useNavigationParams<PracticeDetailProps>();
   const [practice, setPractice] = useState(data);
   const [replay, setReplay] = useState(false);
   const [restart, setRestart] = useState(false);
-  const dataMapTime = dataMap(data.data || practice?.practice?.data);
+  const dataMapTime = dataMap(
+    start_time,
+    data.data || practice?.practice?.data
+  );
 
   const [{ loading }, getData] = useAsyncFn(async () => {
     const value = await requestPracticeDetail(practiceId);
