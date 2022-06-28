@@ -22,10 +22,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import {
-  requestRecordPermission,
-  requestStoragePermission,
-} from "@/services/PermissionService";
+import { requestStoragePermission } from "@/services/PermissionService";
 // @ts-ignore
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
@@ -33,6 +30,7 @@ import ToastService from "@/services/ToastService";
 import VideoUrlServiceClass from "@/services/VideoUrlClass";
 import { goBack } from "@/ultils/navigation";
 import { useInteractionManager } from "@react-native-community/hooks";
+import VideoUrlClass from "@/services/VideoUrlClass";
 
 export interface PracticingScreenProps {}
 
@@ -69,6 +67,7 @@ export const PracticingScreen = memo(function PracticingScreen() {
         const { uri, codec = "mp4" } = await cameraRef?.current?.recordAsync(
           {}
         );
+        VideoUrlClass.setTimeStart(moment().format("mm:ss"));
         let fileName = `video_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
         await SaveToStorage(uri, fileName);
         setLoader(false);
@@ -99,14 +98,22 @@ export const PracticingScreen = memo(function PracticingScreen() {
               timeStamp: 10000,
             })
               .then((response) => {
-                VideoUrlServiceClass.changeURL(uriPicture, response.path);
+                VideoUrlServiceClass.changeURL(
+                  uriPicture,
+                  response.path,
+                  moment().format("mm")
+                );
               })
               .catch((err) => console.warn({ err }));
           },
           (error) => {}
         );
       } else {
-        await VideoUrlServiceClass.changeURL(uri, "null");
+        await VideoUrlServiceClass.changeURL(
+          uri,
+          "null",
+          moment().format("mm")
+        );
         ToastService.show("Hoàn thành bài tập");
       }
     } else {

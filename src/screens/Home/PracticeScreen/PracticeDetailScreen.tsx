@@ -10,6 +10,8 @@ import { IMG_BACKGROUND_MACHINE, VIDEO } from "@/assets";
 import PointHitComponent from "@/screens/Practice/PointHitComponent";
 import _ from "lodash";
 import VideoPlayer from "react-native-video-player";
+import moment from "moment";
+import VideoUrlServiceClass from "@/services/VideoUrlClass";
 
 export interface PracticeDetailProps {
   practiceId: string;
@@ -19,7 +21,9 @@ export interface PracticeDetailProps {
 }
 
 const dataMap = (start_time: number, dataHit: any) => {
-  console.log("start_time", start_time);
+  const time = VideoUrlServiceClass.getTimeStart();
+
+  console.log("start_time", time);
   return _.keyBy(dataHit, function (o) {
     const key = o.t.split(".");
     // return key[0] + "." + key[1].slice(0, 1);
@@ -48,8 +52,6 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
 
     getData().then();
   }, [practiceId]);
-
-  console.log("currentVideoLocal", currentVideoLocal);
 
   return (
     <ScreenWrapper>
