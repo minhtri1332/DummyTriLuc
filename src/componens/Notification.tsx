@@ -61,6 +61,7 @@ export const Notification = memo(() => {
             practiceId: "",
             data: JSON.parse(remoteMessage?.data?.practice_data || ""),
             currentVideoLocal: currentVideoLocal,
+            start_time: JSON.parse(remoteMessage?.data?.start_time || ""),
           });
         }
       }

@@ -21,7 +21,6 @@ const PointHitComponent = memo(function PointHitComponent({
   const pointObject = useMemo(() => {
     if (dt == 0) return { point: 0, position: 0 };
     const key = String(dt).split(":");
-    //+ "." + key[3]?.slice(0, 1)
     const data = key[0] + ":" + key[1] + ":" + key[2];
     // @ts-ignore
     const actionCurrent = dataMapTime[data];

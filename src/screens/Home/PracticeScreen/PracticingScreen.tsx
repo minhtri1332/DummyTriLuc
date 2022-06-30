@@ -67,7 +67,7 @@ export const PracticingScreen = memo(function PracticingScreen() {
         const { uri, codec = "mp4" } = await cameraRef?.current?.recordAsync(
           {}
         );
-        VideoUrlClass.setTimeStart(moment().format("mm:ss"));
+        VideoUrlClass.setTimeStart(moment().utc().unix());
         let fileName = `video_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
         await SaveToStorage(uri, fileName);
         setLoader(false);

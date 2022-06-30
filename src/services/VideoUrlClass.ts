@@ -3,7 +3,7 @@ class VideoUrlClass {
   private thumbnail: string = "";
   private start_time: string = "";
 
-  setTimeStart = (time: string) => {
+  setTimeStart = (time: any) => {
     return (this.start_time = time);
   };
 
