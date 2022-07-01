@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { InteractionManager, View } from "react-native";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
@@ -14,6 +14,7 @@ import moment from "moment";
 import VideoUrlServiceClass from "@/services/VideoUrlClass";
 import { useInteractionManager } from "@react-native-community/hooks";
 import ToastService from "@/services/ToastService";
+import { sleep } from "@/ultils/sleep";
 
 export interface PracticeDetailProps {
   practiceId: string;
@@ -37,6 +38,7 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
   const [practice, setPractice] = useState(data);
   const [replay, setReplay] = useState(start_time ? true : false);
   const [restart, setRestart] = useState(false);
+  const [timeDiff, setTimeDiff] = useState(0);
   const dataMapTime = dataMap(data.data || practice?.practice?.data);
 
   const [{ loading }, getData] = useAsyncFn(async () => {
@@ -50,19 +52,30 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
     getData().then();
   }, [practiceId]);
 
-  useEffect(() => {
-    if (start_time && currentVideoLocal) {
+  const onStartHit = useCallback(async () => {
+    if (video_ref.current) {
       const time = VideoUrlServiceClass.getTimeStart();
       const timeCamera = moment(time);
       const timeMachine = moment(start_time);
       const sleep_time =
-        timeCamera?.diff(timeMachine, "milliseconds") + 300 || 300;
-      ToastService.show(`Chạy bài tập sau ${sleep_time || 0} milliseconds`);
-      setTimeout(() => {
-        setReplay(false);
-      }, sleep_time);
+        Number(timeCamera?.diff(timeMachine, "milliseconds")) + 1000 || 1000;
+      // ToastService.showDuration(`Chờ ${timeDiff || 0} milliseconds`, 150);
+      await sleep(0);
+      video_ref.current.pause();
+      await sleep(Number(sleep_time));
+      video_ref.current.resume();
+      ToastService.show(`Start`);
     }
-  }, [start_time, currentVideoLocal]);
+  }, [video_ref?.current]);
+
+  useEffect(() => {
+    if (video_ref?.current && start_time && currentVideoLocal) {
+      onStartHit().then();
+
+      setReplay(false);
+      setRestart(false);
+    }
+  }, [video_ref?.current]);
 
   return (
     <ScreenWrapper>
@@ -80,6 +93,7 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
             showDuration={true}
             disableSeek={true}
             onPlayPress={() => {
+              onStartHit().then();
               setReplay(!replay);
               setRestart(false);
             }}
@@ -104,18 +118,6 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
           />
         </View>
       </>
-
-      {/*<SText>*/}
-      {/*  <TimeStartPractice*/}
-      {/*    stopTime={data?.end_time || practice?.practice?.end_time}*/}
-      {/*    replay={replay}*/}
-      {/*    onReplay={setReplay}*/}
-      {/*  />*/}
-      {/*</SText>*/}
-
-      {/*<SViewButton>*/}
-      {/*  <ButtonGradient onPress={() => setReplay(!replay)} label={"Xem lại"} />*/}
-      {/*</SViewButton>*/}
     </ScreenWrapper>
   );
 });

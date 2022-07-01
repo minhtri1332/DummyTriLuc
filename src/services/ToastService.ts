@@ -1,6 +1,6 @@
-import Toast from 'react-native-simple-toast';
+import Toast from "react-native-simple-toast";
 
-export const UNKNOWN_ERROR = 'UNKNOWN_ERROR';
+export const UNKNOWN_ERROR = "UNKNOWN_ERROR";
 
 export class ToastServiceClass {
   _getRealMessage = (message: string): string => {
@@ -10,18 +10,27 @@ export class ToastServiceClass {
   show = (
     message: any,
     keyboardAvoid: boolean = false,
-    atRoot: boolean = true,
+    atRoot: boolean = true
   ) => {
-    if (typeof message !== 'string') return;
+    if (typeof message !== "string") return;
     return Toast.show(this._getRealMessage(message), Toast.SHORT);
+  };
+
+  showDuration = (message: any, duration: number, atRoot: boolean = true) => {
+    if (typeof message !== "string") return;
+    return Toast.showWithGravity(
+      this._getRealMessage(message),
+      duration,
+      Toast.CENTER
+    );
   };
 
   showLong = (
     message: any,
     keyboardAvoid: boolean = false,
-    atRoot: boolean = true,
+    atRoot: boolean = true
   ) => {
-    if (typeof message !== 'string') return;
+    if (typeof message !== "string") return;
     return Toast.show(this._getRealMessage(message), Toast.LONG);
   };
 
@@ -29,9 +38,9 @@ export class ToastServiceClass {
     message: any,
     keyboardAvoid: boolean = false,
     atRoot: boolean = true,
-    defaultMessage: string,
+    defaultMessage: string
   ) => {
-    if (typeof message !== 'string') return;
+    if (typeof message !== "string") return;
     const finalMessage = message !== UNKNOWN_ERROR ? message : defaultMessage;
     return Toast.show(this._getRealMessage(finalMessage), Toast.SHORT);
   };

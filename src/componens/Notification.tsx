@@ -8,6 +8,7 @@ import {
   navigateToPracticingScreen,
 } from "@/ultils/navigation";
 import VideoUrlServiceClass from "@/services/VideoUrlClass";
+import { sleep } from "@/ultils/sleep";
 
 export const Notification = memo(() => {
   useEffect(() => {
@@ -56,6 +57,7 @@ export const Notification = memo(() => {
         );
       } else {
         if (remoteMessage?.data) {
+          await sleep(3000);
           const currentVideoLocal = VideoUrlServiceClass.getVideoUrl();
           navigateToPracticeDetailScreen({
             practiceId: "",
