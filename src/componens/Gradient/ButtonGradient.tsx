@@ -24,26 +24,24 @@ const GradientButton = memo((props: GradientButtonProps) => {
 
   return (
     <SBaseOpacityButton style={props.style} onPress={onPressButton}>
-      <>
-        {!props.offGradient ? (
-          <SLinearGradient
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            colors={[Colors.red1, Colors.red3, Colors.red2]}
-            style={props.styleGradient}
-          >
-            {!props.loading ? (
-              <SText style={props.textStyle}>{props.label}</SText>
-            ) : (
-              <ActivityIndicator color={Colors.grey5} />
-            )}
-          </SLinearGradient>
-        ) : (
-          <SViewLabel>
-            <SText>{props.label}</SText>
-          </SViewLabel>
-        )}
-      </>
+      {!props.offGradient ? (
+        <SLinearGradient
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          colors={[Colors.red1, Colors.red3, Colors.red2]}
+          style={props.styleGradient}
+        >
+          {!props.loading ? (
+            <SText style={props.textStyle}>{props.label}</SText>
+          ) : (
+            <ActivityIndicator color={Colors.grey5} />
+          )}
+        </SLinearGradient>
+      ) : (
+        <SViewLabel>
+          <SText>{props.label}</SText>
+        </SViewLabel>
+      )}
     </SBaseOpacityButton>
   );
 });
@@ -59,7 +57,7 @@ const SViewLabel = styled.View`
 
 const SLinearGradient = styled(LinearGradient)`
   padding: 0 16px;
-  height: 32px;
+  min-height: 32px;
   justify-content: center;
   border-radius: 4px;
   align-items: center;

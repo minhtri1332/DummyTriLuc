@@ -89,9 +89,9 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
           style={commonStyles.expand}
           transitionKey={"RequestDetail"}
         >
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", marginBottom: 12 }}>
             <SImageBackground
-              resizeMode={"contain"}
+              resizeMode={"cover"}
               source={IMG_TARGET_HOME_THEME}
             />
             <View style={{ flex: 1 }}>
@@ -99,7 +99,11 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
             </View>
             <SBaseViewPractice>
               <STextName>{profile?.name}</STextName>
-              <GradientButton label={"Tập luyện"} onPress={showModalPractice} />
+              <GradientButton
+                style={{ flex: 1, width: "100%" }}
+                label={"Tập luyện"}
+                onPress={showModalPractice}
+              />
             </SBaseViewPractice>
           </View>
 
@@ -122,7 +126,7 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
 export default HomeScreen;
 
 const SImageBackground = styled.Image`
-  height: 180px;
+  height: 190px;
   width: 100%;
   position: absolute;
 `;

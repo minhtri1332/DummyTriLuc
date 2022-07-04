@@ -6,10 +6,7 @@ import { styled } from "@/global";
 import BaseProgressView from "@/componens/View/BaseProgressView";
 import PieChartHome from "@/screens/Home/components/PieChartHome";
 import { RawDataStrengthGoal } from "@/store/home/function";
-import {
-  navigateToHitStatisticScreen,
-  navigateToStrengthStatisticScreen,
-} from "@/ultils/navigation";
+import { navigateToStrengthStatisticScreen } from "@/ultils/navigation";
 
 interface PowerProps {
   dataStrength: RawDataStrengthGoal;
@@ -47,7 +44,6 @@ const Progress = styled(BaseProgressView)`
 
 const SViewContent = styled.View`
   flex: 1;
-
 `;
 
 export default PowerComponent;

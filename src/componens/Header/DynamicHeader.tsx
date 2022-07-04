@@ -1,6 +1,7 @@
 import React, { memo, ReactElement, useCallback, useEffect } from "react";
 import { styled, useNavigation } from "@/global";
 import {
+  Image,
   Platform,
   StatusBar,
   TouchableOpacityProps,
@@ -10,7 +11,13 @@ import {
 import { getStatusBarHeight, isIphoneX } from "react-native-iphone-x-helper";
 import { useTheme } from "styled-components/native";
 import { Colors } from "@/themes/Colors";
-import { IC_BACK, IC_CLOSE, IC_MENU, IC_QR_CODE } from "@/assets";
+import {
+  IC_BACK,
+  IC_CLOSE,
+  IC_LOGO_LOGIN,
+  IC_MENU,
+  IC_QR_CODE,
+} from "@/assets";
 import { LineSeparator } from "@/common/LineSeperator";
 import { navigateToQRCodeScanScreen } from "@/ultils/navigation";
 
@@ -178,14 +185,14 @@ export const HeaderHome = memo(function HeaderHome({
             <IconBack source={IC_MENU} />
           </HeaderIconWrapper>
         </LeftActions>
-        <Title numberOfLines={1}>{title}</Title>
+        <Image style={{ height: 60, width: 100 }} source={IC_LOGO_LOGIN} />
         <RightActions>
           <HeaderIconWrapper onPress={gotoScan}>
             <SIconRight source={IC_QR_CODE} />
           </HeaderIconWrapper>
         </RightActions>
       </Container>
-      <LineSeparator />
+      {/*<LineSeparator />*/}
     </Wrapper>
   );
 });

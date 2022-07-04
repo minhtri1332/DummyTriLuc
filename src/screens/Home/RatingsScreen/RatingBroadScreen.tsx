@@ -1,12 +1,12 @@
-import React, {memo, useCallback, useEffect, useState} from "react";
-import {StatusBar, StyleSheet} from "react-native";
-import {styled, useAsyncFn} from "@/global";
-import {DynamicHeader} from "@/componens/Header/DynamicHeader";
-import {CupItemInfo} from "@/screens/Home/RatingsScreen/components/CupItemInfo";
-import {CommonRecycleList} from "@/common/CommonRecycleList";
-import {Colors} from "@/themes/Colors";
-import {requestListAllRatings} from "@/store/ratings/functions";
-import {myRating, useRatingsByQuery} from "@/store/ratings";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { StatusBar, StyleSheet } from "react-native";
+import { styled, useAsyncFn } from "@/global";
+import { DynamicHeader } from "@/componens/Header/DynamicHeader";
+import { CupItemInfo } from "@/screens/Home/RatingsScreen/components/CupItemInfo";
+import { CommonRecycleList } from "@/common/CommonRecycleList";
+import { Colors } from "@/themes/Colors";
+import { requestListAllRatings } from "@/store/ratings/functions";
+import { myRating, useRatingsByQuery } from "@/store/ratings";
 
 const Container = styled.View`
   flex: 1;
@@ -14,6 +14,8 @@ const Container = styled.View`
 `;
 const ContentContainer = styled.View`
   flex: 1;
+  margin: 16px 16px 8px 16px;
+  border-radius: 4px;
   background-color: ${Colors.backgroundColor};
 `;
 

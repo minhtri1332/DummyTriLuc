@@ -5,6 +5,7 @@ import { Colors } from "@/themes/Colors";
 import { styled } from "@/global";
 import { RawDataStrengthGoal } from "@/store/home/function";
 import { formatNumberShortCompact } from "@/ultils/formatNumber";
+import { Fonts } from "@/assets/fonts";
 
 interface dataProps {
   dataStrength: RawDataStrengthGoal;
@@ -36,7 +37,6 @@ export const PieChartHome = memo(function PieChartHome(props: dataProps) {
       dataSets: [
         {
           values: valueStrength,
-          label: "dfd",
           config: {
             colors: valueColor,
             valueLineColor: processColor("transparent"),
@@ -101,8 +101,8 @@ export const PieChartHome = memo(function PieChartHome(props: dataProps) {
 
 const SViewNote = styled.View<{ isColor: any }>`
   background-color: ${(props) => props.isColor};
-  height: 15px;
-  width: 15px;
+  height: 3px;
+  width: 3px;
 `;
 
 const STextNote = styled.Text<{ isColor: string }>`
@@ -119,21 +119,22 @@ const STextStrengthGoal = styled.Text`
 `;
 
 const SViewItemNote = styled.View`
-  align-self: center;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-start;
   flex-direction: row;
   margin-top: 8px;
   margin-left: 4px;
-  width: 100px;
 `;
 const SViewWrapperNote = styled.View`
   margin-right: 16px;
   margin-top: 16px;
+  padding-bottom: 16px;
   padding-left: 50px;
 `;
 
 const styles = StyleSheet.create({
   container: {
-    height: 170,
     flex: 1,
     flexDirection: "row",
   },

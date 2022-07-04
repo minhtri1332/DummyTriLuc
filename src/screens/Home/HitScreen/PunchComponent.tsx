@@ -11,6 +11,7 @@ import {
   navigateToStrengthStatisticScreen,
 } from "@/ultils/navigation";
 import VideoUrlServiceClass from "@/services/VideoUrlClass";
+import { Fonts } from "@/assets/fonts";
 
 interface PunchProps {
   dataHit: RawDataGoal;
@@ -56,32 +57,35 @@ const Progress = styled(BaseProgressView)`
 
 const STextNumberPunch = styled(GradientText)`
   color: ${Colors.colorText};
-  font-size: 30px;
-  padding-bottom: 8px;
-  font-family: Roboto-Medium;
+  font-size: 36px;
+  line-height: 54px;
+  font-family: ${Fonts.anton};
 `;
 const STextTitlePunch = styled.Text`
   color: ${Colors.colorText};
-  font-family: Roboto-Medium;
-  font-size: 30px;
+  font-size: 24px;
+  line-height: 36px;
+  font-family: ${Fonts.anton};
 `;
 
 const STextNumberGoal = styled.Text`
   color: ${Colors.colorText};
-  font-size: 20px;
-  padding-bottom: 8px;
-  padding-top: 20px;
+  font-size: 18px;
+  line-height: 22px;
+  font-family: ${Fonts.metrophobic};
 `;
 const STextTitleGoal = styled.Text`
   color: ${Colors.colorText};
-  font-family: Roboto-Medium;
   font-size: 18px;
-  margin-top: 6px;
+  line-height: 22px;
+  font-family: ${Fonts.metrophobic};
 `;
 
 const SViewItem = styled.View`
   flex: 1;
+  height: 100%;
   align-items: center;
+  justify-content: center;
   padding: 16px 0;
 `;
 

@@ -3,6 +3,7 @@ import React, { memo, ReactElement, useCallback, useState } from "react";
 import { Colors } from "@/themes/Colors";
 import { ImageSourcePropType, View, ViewProps } from "react-native";
 import { TransitionViewController } from "@/ultils/transitions";
+import { Fonts } from "@/assets/fonts";
 
 export interface SectionContainerProps extends ViewProps {
   title: string;
@@ -70,18 +71,17 @@ const SectionContainer = styled.View`
 const SViewTitle = styled.View`
   flex: 1;
   flex-direction: row;
-  padding: 8px 16px;
+  padding: 8px;
 `;
 
 const Title = styled.Text`
-  font-family: Roboto-Medium;
+  font-family: ${Fonts.anton};
   color: ${Colors.colorText};
-  font-size: 18px;
+  font-size: 14px;
+  line-height: 21px;
 `;
 
 const SImageLeft = styled.Image`
-  height: 20px;
-  width: 20px;
   margin-right: 8px;
   align-self: center;
   tint-color: ${Colors.colorText};

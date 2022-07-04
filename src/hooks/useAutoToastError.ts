@@ -1,13 +1,13 @@
-import {useEffect} from 'react';
-import ToastService from '@/services/ToastService';
+import { useEffect } from "react";
+import ToastService from "@/services/ToastService";
 
 export const useAutoToastError = (
   error: Error | undefined,
-  defaultMessage?: string,
+  defaultMessage?: string
 ) => {
   useEffect(() => {
     if (!error) return;
-    ToastService.showError(error.message, true, true, defaultMessage || '');
+    ToastService.showError(error.message, true, true, defaultMessage || "");
   }, [error, defaultMessage]);
 };
 

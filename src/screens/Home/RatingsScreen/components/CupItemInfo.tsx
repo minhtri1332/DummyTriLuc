@@ -36,21 +36,23 @@ export const CupItemInfo = memo(function CupItemInfo(props: Props) {
     return user?.current_rank - user?.previous_rank;
   }, [user]);
 
+  if (!user) return null;
+
   return (
     <Animatable.View animation={"slideInUp"} delay={10} duration={200}>
       <Container onPress={open} isMyRate={props.isMyRate}>
-        <Left isTopRating={index + 1}>
-          {index < 3 ? (
-            <ViewNumberTop top={index + 1}>
-              {index + 1 === 1 ? (
+        <Left isTopRating={user?.current_rank}>
+          {user?.current_rank < 3 ? (
+            <ViewNumberTop top={user?.current_rank}>
+              {user?.current_rank === 1 ? (
                 <Image source={IC_RATING_NUMBER_1} />
               ) : (
-                <LeftNumber top={index}># {index + 1}</LeftNumber>
+                <LeftNumber top={index}># {user?.current_rank}</LeftNumber>
               )}
             </ViewNumberTop>
           ) : (
             <ViewNumberTop top={0}>
-              <LeftNumber top={index}># {index + 1}</LeftNumber>
+              <LeftNumber top={index}># {user?.current_rank}</LeftNumber>
             </ViewNumberTop>
           )}
         </Left>
@@ -130,7 +132,6 @@ const Left = styled.View<{ isTopRating: number }>`
 const Right = styled.View`
   flex-direction: row;
   align-items: center;
-  width: ${32 + 16}px;
   margin-right: 16px;
   height: 100%;
 `;
