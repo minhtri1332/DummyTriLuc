@@ -22,12 +22,14 @@ export const requestConnectMachine = async (machine_id: string) => {
 };
 export const requestConnectMachineHitMode = async (
   machine_id: string,
-  mode: string
+  mode: string,
+  timestamp: string
 ) => {
   const params = JSON.stringify({
     machine_id: machine_id,
     mode: mode,
     firebase_token: FirebaseTokenService.getFirebaseToken(),
+    timestamp: timestamp,
   });
 
   const { data } = await Fetch.post(

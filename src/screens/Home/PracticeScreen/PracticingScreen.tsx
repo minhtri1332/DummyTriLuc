@@ -28,9 +28,9 @@ import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 import ToastService from "@/services/ToastService";
 import VideoUrlServiceClass from "@/services/VideoUrlClass";
+import VideoUrlClass from "@/services/VideoUrlClass";
 import { goBack } from "@/ultils/navigation";
 import { useInteractionManager } from "@react-native-community/hooks";
-import VideoUrlClass from "@/services/VideoUrlClass";
 
 export interface PracticingScreenProps {}
 
@@ -51,38 +51,45 @@ export const PracticingScreen = memo(function PracticingScreen() {
 
   const [{ loading: loadConnect }, startConnect] = useAsyncFn(async () => {
     const machineId = MachineIdService.getMachineId();
-    await requestConnectMachineHitMode(machineId, "5");
+    const time_start = moment().utc().unix();
+    await requestConnectMachineHitMode(machineId, "5", String(time_start));
 
-    onCameraAction().then();
+    onCameraAction(time_start).then();
     setPracticing(true);
   }, []);
 
-  const onCameraAction = useCallback(async () => {
-    if (cameraRef?.current && !toggleCameraAction) {
-      setToggleCameraAction(true);
-      setLoader(true);
-      try {
-        setIsStopwatchStart(true);
-        // @ts-ignore
-        const { uri, codec = "mp4" } = await cameraRef?.current?.recordAsync(
-          {}
-        );
-        VideoUrlClass.setTimeStart(moment().utc().unix());
-        let fileName = `video_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
-        await SaveToStorage(uri, fileName);
-        setLoader(false);
-      } catch (err) {
-        setLoader(false);
-        Alert.alert("Error", "Failed to record video: " + (err.message || err));
+  const onCameraAction = useCallback(
+    async (time_start: number) => {
+      if (cameraRef?.current && !toggleCameraAction) {
+        setToggleCameraAction(true);
+        setLoader(true);
+        try {
+          setIsStopwatchStart(true);
+          // @ts-ignore
+          const { uri, codec = "mp4" } = await cameraRef?.current?.recordAsync(
+            {}
+          );
+          VideoUrlClass.setTimeStart(time_start);
+          let fileName = `video_${moment().format("YYYYMMDDHHMMSS")}.mp4`;
+          await SaveToStorage(uri, fileName);
+          setLoader(false);
+        } catch (err) {
+          setLoader(false);
+          Alert.alert(
+            "Error",
+            "Failed to record video: " + (err.message || err)
+          );
+        }
       }
-    }
-    if (toggleCameraAction) {
-      // @ts-ignore
-      cameraRef?.current?.stopRecording();
-      setIsStopwatchStart(false);
-      setToggleCameraAction(false);
-    }
-  }, [cameraRef?.current, toggleCameraAction]);
+      if (toggleCameraAction) {
+        // @ts-ignore
+        cameraRef?.current?.stopRecording();
+        setIsStopwatchStart(false);
+        setToggleCameraAction(false);
+      }
+    },
+    [cameraRef?.current, toggleCameraAction]
+  );
 
   const SaveToStorage = useCallback(async (uri: string, fileName: string) => {
     const result = await requestStoragePermission();
@@ -98,22 +105,14 @@ export const PracticingScreen = memo(function PracticingScreen() {
               timeStamp: 10000,
             })
               .then((response) => {
-                VideoUrlServiceClass.changeURL(
-                  uriPicture,
-                  response.path,
-                  moment().format("mm")
-                );
+                VideoUrlServiceClass.changeURL(uriPicture, response.path);
               })
               .catch((err) => console.warn({ err }));
           },
           (error) => {}
         );
       } else {
-        await VideoUrlServiceClass.changeURL(
-          uri,
-          "null",
-          moment().format("mm")
-        );
+        await VideoUrlServiceClass.changeURL(uri, "null");
         ToastService.show("Hoàn thành bài tập");
       }
     } else {

@@ -21,7 +21,6 @@ class VideoUrlClass {
   changeURL = async (
     newVideoUrl: string,
     thumbnail: string,
-    start_time: string
   ) => {
     if (newVideoUrl != "") {
       this.videoUrl = newVideoUrl;

@@ -18,6 +18,7 @@ const PointHitComponent = memo(function PointHitComponent({
   restart,
 }: practiceProps) {
   const [dt, setDt] = useState(0);
+
   const pointObject = useMemo(() => {
     if (dt == 0) return { point: 0, position: 0 };
     const key = String(dt).split(":");
@@ -27,6 +28,15 @@ const PointHitComponent = memo(function PointHitComponent({
 
     return { point: actionCurrent?.f, position: actionCurrent?.p };
   }, [dt, dataMapTime]);
+
+  const setTime = useCallback(
+    (t: any) => {
+      if (t != dt) {
+        setDt(t);
+      }
+    },
+    [dt]
+  );
 
   useEffect(() => {
     setDt(0);
@@ -57,7 +67,7 @@ const PointHitComponent = memo(function PointHitComponent({
         start={!replay}
         reset={restart}
         options={{ container: { width: 0 } }}
-        getTime={setDt}
+        getTime={setTime}
       />
     </SViewContainerHitPoint>
   );
@@ -111,7 +121,6 @@ const ItemHitPointTop = memo(function ItemHitPointTop({
   position,
 }: ItemHitPointProps) {
   const [currentPoint, setCurrentPoint] = useState(0);
-
   const hideActive = useCallback(
     _.debounce(() => {
       setCurrentPoint(0);

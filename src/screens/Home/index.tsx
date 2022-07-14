@@ -99,11 +99,7 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
             </View>
             <SBaseViewPractice>
               <STextName>{profile?.name}</STextName>
-              <GradientButton
-                style={{ flex: 1, width: "100%" }}
-                label={"Tập luyện"}
-                onPress={showModalPractice}
-              />
+              <GradientButton label={"Tập luyện"} onPress={showModalPractice} />
             </SBaseViewPractice>
           </View>
 
@@ -132,8 +128,11 @@ const SImageBackground = styled.Image`
 `;
 
 const SBaseViewPractice = styled.View`
-  padding: 0 56px;
+  justify-content: center;
+  align-items: center;
   align-self: center;
+  align-content: center;
+  margin-right: 40px;
 `;
 
 const STextName = styled.Text`

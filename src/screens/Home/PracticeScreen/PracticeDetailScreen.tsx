@@ -15,6 +15,7 @@ import VideoUrlServiceClass from "@/services/VideoUrlClass";
 import { useInteractionManager } from "@react-native-community/hooks";
 import ToastService from "@/services/ToastService";
 import { sleep } from "@/ultils/sleep";
+import RNFS from "react-native-fs";
 
 export interface PracticeDetailProps {
   practiceId: string;
@@ -38,7 +39,6 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
   const [practice, setPractice] = useState(data);
   const [replay, setReplay] = useState(start_time ? true : false);
   const [restart, setRestart] = useState(false);
-  const [timeDiff, setTimeDiff] = useState(0);
   const dataMapTime = dataMap(data.data || practice?.practice?.data);
 
   const [{ loading }, getData] = useAsyncFn(async () => {
@@ -47,9 +47,22 @@ export const PracticeDetailScreen = memo(function PracticeDetailScreen() {
   }, [practiceId, data]);
 
   useEffect(() => {
-    if (practiceId === "") return;
+    if (practiceId === "") {
+      setReplay(!replay);
+      return;
+    }
 
     getData().then();
+
+    return () => {
+      currentVideoLocal &&
+        currentVideoLocal.videoUrl &&
+        RNFS.unlink(currentVideoLocal?.videoUrl)
+          .then(() => {})
+          .catch((err) => {
+            console.log(err.message);
+          });
+    };
   }, [practiceId]);
 
   const onStartHit = useCallback(async () => {
