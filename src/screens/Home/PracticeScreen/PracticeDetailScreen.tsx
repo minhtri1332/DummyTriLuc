@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import { InteractionManager, View } from "react-native";
+import { View } from "react-native";
 import { DynamicHeader } from "@/componens/Header/DynamicHeader";
 import { ScreenWrapper } from "@/common/CommonStyles";
 import { useAsyncFn } from "@/hooks";
@@ -12,7 +12,6 @@ import _ from "lodash";
 import VideoPlayer from "react-native-video-player";
 import moment from "moment";
 import VideoUrlServiceClass from "@/services/VideoUrlClass";
-import { useInteractionManager } from "@react-native-community/hooks";
 import ToastService from "@/services/ToastService";
 import { sleep } from "@/ultils/sleep";
 import RNFS from "react-native-fs";

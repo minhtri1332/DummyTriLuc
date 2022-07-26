@@ -4,7 +4,13 @@ import { ScreenWrapper } from "@/common/CommonStyles";
 import { IMG_TARGET_HOME_THEME } from "@/assets";
 import { styled, useAsyncFn, useBoolean } from "@/global";
 import RadarChartHome from "@/screens/Home/components/RadarChartHome";
-import { RefreshControl, ScrollView, Text, View } from "react-native";
+import {
+  Dimensions,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import PunchComponent from "@/screens/Home/HitScreen/PunchComponent";
 import PowerComponent from "@/screens/Home/StrengthScreen/PowerComponent";
 import {
@@ -25,6 +31,7 @@ import RatingsComponent from "@/screens/Home/RatingsScreen/RatingsComponent";
 import { Fonts } from "@/assets/fonts";
 import { useProfile } from "@/store/profile";
 import { commonStyles, TransitionContextView } from "@/ultils/transitions";
+import Avatar from "@/componens/View/Avatar";
 
 export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
   const profile = useProfile("0");
@@ -44,14 +51,22 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
   });
 
   const [{ loading }, onLoadData] = useAsyncFn(async () => {
-    getdata();
+    await onLoadHit();
+    await onLoadStrength();
+    await onLoadProfile();
+  }, []);
+
+  const [{}, onLoadHit] = useAsyncFn(async () => {
     const dataHit = await requestHitGoal();
     setDataHit(dataHit);
+  }, []);
+
+  const [{}, onLoadStrength] = useAsyncFn(async () => {
     const dataStrength = await requestStrengthGoal();
     setDataStrength(dataStrength);
   }, []);
 
-  const [{ loading: l, error }, getdata] = useAsyncFn(async () => {
+  const [{ loading: l, error }, onLoadProfile] = useAsyncFn(async () => {
     const profile = await requestGetProfile();
     setStat(profile.stat);
   }, []);
@@ -98,8 +113,16 @@ export const HomeScreen = memo(function HomeScreen({ navigation }: any) {
               {stat && <RadarChartHome stat={stat} />}
             </View>
             <SBaseViewPractice>
-              <STextName>{profile?.name}</STextName>
-              <GradientButton label={"Tập luyện"} onPress={showModalPractice} />
+              <SViewAvatar>
+                <Avatar size={50} uri={profile?.avatar} />
+                <STextName ellipsizeMode={"tail"} numberOfLines={1}>
+                  {profile?.name}
+                </STextName>
+              </SViewAvatar>
+              <SGradientButton
+                label={"Tập luyện"}
+                onPress={showModalPractice}
+              />
             </SBaseViewPractice>
           </View>
 
@@ -127,17 +150,26 @@ const SImageBackground = styled.Image`
   position: absolute;
 `;
 
+const SGradientButton = styled(GradientButton)`
+  margin: 0 16px;
+`;
+
 const SBaseViewPractice = styled.View`
   justify-content: center;
-  align-items: center;
-  align-self: center;
-  align-content: center;
-  margin-right: 40px;
+  flex: 1;
+`;
+
+const SViewAvatar = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  margin: 16px 0;
 `;
 
 const STextName = styled.Text`
   color: ${Colors.colorText};
   font-size: 18px;
   font-family: ${Fonts.anton};
-  margin-bottom: 16px;
+  margin-top: 14px;
+  margin-left: 16px;
+  max-width: 120px;
 `;
